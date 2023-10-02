@@ -18,3 +18,13 @@ CREATE TABLE Inventory (
   Quantity int,
   ItemCategory varchar(255)
 );
+
+CREATE TABLE Suppliers (
+  SupplierID int,
+  Name varchar(255),
+  Item varchar(255),
+  Quantity int,
+  Cost int,
+  Date varchar(255),
+  Contact varchar(255)
+);
