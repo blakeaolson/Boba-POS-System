@@ -28,3 +28,10 @@ CREATE TABLE Suppliers (
   Date varchar(255),
   Contact varchar(255)
 );
+
+CREATE TABLE Customer (
+  ID int,
+  Name varchar(255),
+  PaymentMethod varchar(255),
+  OrderId int
+);
