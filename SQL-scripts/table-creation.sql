@@ -2,7 +2,7 @@ CREATE TABLE Employees (
   ID int,
   Name varchar(255),
   Salary int,
-  Role int,
+  Role int
 );
 
 CREATE TABLE Orders (
@@ -10,5 +10,11 @@ CREATE TABLE Orders (
   TotalAmount int,
   Date varchar(255),
   CashierName varchar(255),
-  PaymentMethod varchar(255),
+  PaymentMethod varchar(255)
+);
+
+CREATE TABLE Inventory (
+  ItemId int,
+  Quantity int,
+  ItemCategory varchar(255)
 );
