@@ -7,14 +7,14 @@ CREATE TABLE Employees (
 
 CREATE TABLE Orders (
   ID int,
-  TotalAmount int,
+  TotalAmount varchar(255),
   OrderDate varchar(255),
   CashierName varchar(255),
   PaymentMethod varchar(255)
 );
 
 CREATE TABLE Inventory (
-  ItemId int,
+  ItemId varchar(255),
   Quantity int,
   ItemCategory varchar(255)
 );
