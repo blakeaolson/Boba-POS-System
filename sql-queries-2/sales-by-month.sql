@@ -5,7 +5,7 @@ SELECT
 FROM orders
 GROUP BY
     ordYear,
-    ordMonth,
-ORDER BY,
+    ordMonth
+ORDER BY
     ordYear,
     ordMonth;
