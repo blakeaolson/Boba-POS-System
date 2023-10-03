@@ -1,0 +1,6 @@
+ paymentmethod | paymentuse 
+---------------+------------
+ card          |      10764
+ cash          |      10709
+ check         |      10575
+(3 rows)
