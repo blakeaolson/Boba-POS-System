@@ -26,5 +26,3 @@ ORDER BY
 
 -- Display the contents of the average_weekly_order_cost table
 SELECT * FROM average_weekly_order_cost;
-
-DROP TABLE average_weekly_order_cost;

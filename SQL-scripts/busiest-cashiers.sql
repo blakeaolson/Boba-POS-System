@@ -19,5 +19,3 @@ LIMIT 3; -- Store the cashier with the most orders
 
 -- Display the contents of the busiest_cashiers table
 SELECT * FROM busiest_cashiers;
-
-DROP TABLE busiest_cashiers;

@@ -20,5 +20,3 @@ ORDER BY
 
 -- Display the contents of the realistic_sales_history table
 SELECT * FROM realistic_sales_history;
-
-DROP TABLE realistic_sales_history;

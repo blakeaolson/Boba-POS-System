@@ -19,5 +19,3 @@ LIMIT 5; -- Adjust to change the number of busiest days
 
 -- Display the contents of the busiest_days table
 SELECT * FROM busiest_days;
-
-DROP TABLE busiest_days;
