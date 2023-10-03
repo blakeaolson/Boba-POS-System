@@ -32,5 +32,5 @@ CREATE TABLE Suppliers (
 CREATE TABLE Customer (
   ID int,
   CustomerName varchar(255),
-  PaymentMethod varchar(255),
+  PaymentMethod varchar(255)
 );
