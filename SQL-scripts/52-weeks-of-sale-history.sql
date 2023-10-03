@@ -29,3 +29,5 @@ ORDER BY
 
 -- Display the contents of the weekly_sales table
 SELECT * FROM weekly_sales;
+
+DROP TABLE weely_sales;
