@@ -27,5 +27,5 @@ GROUP BY
 ORDER BY
     ws.week_start_date;
 
--- Uncomment if want to display the contents of the weekly_sales table
--- SELECT * FROM weekly_sales;
+-- Display the contents of the weekly_sales table
+SELECT * FROM weekly_sales;
