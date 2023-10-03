@@ -1,8 +1,0 @@
-               itemid                | quantity | itemcategory 
--------------------------------------+----------+--------------
- Sugar box (10 lbs)                  |       15 | Ingredient
- Bubbles Box (1000 count)            |       20 | Ingredient
- Lychee Crystal Bubbles (1000 Count) |       20 | Ingredient 
- Napkin Boxes (500 count)            |       50 | Misc
- Ice Bags                            |       50 | Ingredient
-(5 rows)
