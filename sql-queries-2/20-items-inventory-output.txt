@@ -1,0 +1,23 @@
+               itemid                | quantity | itemcategory 
+-------------------------------------+----------+--------------
+ water cup                           |     1500 | Cup
+ small cup                           |     1500 | Cup
+ medium cup                          |     1500 | Cup
+ large cup                           |     1500 | Cup
+ Napkin Boxes (500 count)            |       50 | Misc
+ to-go bag                           |      400 | Misc
+ Boba straw                          |     4000 | Misc
+ drink holder                        |      500 | Misc
+ lid                                 |     6000 | Misc
+ Bubbles Box (1000 count)            |       20 | Ingredient
+ Lychee Crystal Bubbles (1000 Count) |       20 | Ingredient 
+ Sugar box (10 lbs)                  |       15 | Ingredient
+ Ice Bags                            |       50 | Ingredient
+ Milk                                |      100 | Ingredient
+ Almond Milk                         |      100 | Ingredient
+ Coconut Milk                        |      100 | Ingredient
+ Green Tea Leaves Boxes              |       50 | Ingredient
+ Honey Bottles                       |       50 | Ingredient
+ Black Tea Leaves Boxes              |       50 | Ingredient
+ Black Tea Leaves Boxes              |       50 | Ingredient
+(20 rows)
