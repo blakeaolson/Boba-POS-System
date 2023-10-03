@@ -10,7 +10,8 @@ CREATE TABLE Orders (
   TotalAmount varchar(255),
   OrderDate varchar(255),
   CashierName varchar(255),
-  PaymentMethod varchar(255)
+  PaymentMethod varchar(255),
+  OrderHour int
 );
 
 CREATE TABLE Inventory (
