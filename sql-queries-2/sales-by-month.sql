@@ -1,7 +1,7 @@
 SELECT
-    EXTRACT(YEAR FROM orderdate) AS ordYear, --Get year from date
-    EXTRACT(MONTH FROM orderdate) AS ordMonth, -- Get month from date
-    SUM(totalamount) AS salesTotal
+    EXTRACT(YEAR FROM DATE(orderdate)) AS ordYear,
+    EXTRACT(MONTH FROM DATE(orderdate)) AS ordMonth,
+    SUM(CAST(totalamount AS NUMERIC)) AS salesTotal
 FROM orders
 GROUP BY
     ordYear,
