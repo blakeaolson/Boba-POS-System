@@ -18,5 +18,3 @@ ORDER BY
 
 -- Display the contents of the average_daily_order_cost table
 SELECT * FROM average_daily_order_cost;
-
-DROP TABLE average_daily_order_cost;
