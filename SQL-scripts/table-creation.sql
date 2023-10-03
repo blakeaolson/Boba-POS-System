@@ -1,7 +1,7 @@
 CREATE TABLE Employees (
   ID int,
   EmployeeName varchar(255),
-  Salary int,
+  Salary varchar(255),
   EmployeeRole varchar(255)
 );
 
