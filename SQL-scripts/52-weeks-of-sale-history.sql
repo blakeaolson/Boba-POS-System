@@ -5,11 +5,11 @@ CREATE TABLE weekly_sales (
     items_sold_count INT
 );
 
--- Generate a series of 52 weeks starting from January 1, 2023
+-- Generate a series of 52 weeks starting from 1/1/2023
 WITH week_series AS (
     SELECT generate_series(
-        '2023-01-01'::DATE,
-        '2023-12-31'::DATE,
+        '01/01/2023'::DATE,
+        '12/31/2023'::DATE,
         interval '1 week'
     ) AS week_start_date
 )
