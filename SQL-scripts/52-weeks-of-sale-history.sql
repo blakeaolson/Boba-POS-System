@@ -8,8 +8,8 @@ CREATE TABLE weekly_sales (
 -- Generate a series of 52 weeks starting from 1/1/2023
 WITH week_series AS (
     SELECT generate_series(
-        '01/01/2023'::DATE,
-        '12/31/2023'::DATE,
+        '2023-01-01'::DATE,
+        '2023-12-31'::DATE,
         interval '1 week'
     ) AS week_start_date
 )
