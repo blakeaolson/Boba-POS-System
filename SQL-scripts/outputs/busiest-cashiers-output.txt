@@ -1,0 +1,5 @@
+ cashier_name | total_orders
+--------------+--------------
+ Suzy         |         8085
+ Bob          |         8063
+ Sally        |         7957
