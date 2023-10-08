@@ -1,95 +1,74 @@
-import java.sql.*;
-import java.awt.event.*;
-import javax.swing.*;
+import javafx.application.Application;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.stage.Stage;
 
-/*
-  TODO:
-  1) Change credentials for your own team's database
-  2) Change SQL command to a relevant query that retrieves a small amount of data
-  3) Create a JTextArea object using the queried data
-  4) Add the new object to the JPanel p
-*/
+public class LandingPage extends Application {
 
-public class GUI extends JFrame implements ActionListener {
-    static JFrame f;
+    private Stage primaryStage;
 
-    public static void main(String[] args)
-    {
-
-      //Building the connection
-      Connection conn = null;
-      //TODO STEP 1
-      try {
-        conn = DriverManager.getConnection(
-          "jdbc:postgresql://csce-315-db.engr.tamu.edu/csce315331_08b_db",
-          "csce315_971_kevtom2003",
-          "password");
-      } catch (Exception e) {
-        e.printStackTrace();
-        System.err.println(e.getClass().getName()+": "+e.getMessage());
-        System.exit(0);
-      }
-      JOptionPane.showMessageDialog(null,"Opened database successfully");
-
-      String name = "";
-      try{
-        //create a statement object
-        Statement stmt = conn.createStatement();
-        //create a SQL statement
-        //TODO Step 2
-        String sqlStatement = "SELECT * FROM orders;";
-        //send statement to DBMS
-        ResultSet result = stmt.executeQuery(sqlStatement);
-        while (result.next()) {
-          name += result.getString("name")+"\n";
-        }
-      } catch (Exception e){
-        JOptionPane.showMessageDialog(null,"Error accessing Database.");
-      }
-      // create a new frame
-      f = new JFrame("Landing Page");
-
-      // create a object
-      GUI s = new GUI();
-
-      // create a panel
-      JPanel p = new JPanel();
-
-      JButton b = new JButton("Close");
-
-      // add actionlistener to button
-      b.addActionListener(s);
-
-      //TODO Step 3 
-
-      //TODO Step 4
-
-      // add button to panel
-      p.add(b);
-
-      // add panel to frame
-      f.add(p);
-
-      // set the size of frame
-      f.setSize(400, 400);
-
-      f.setVisible(true);
-
-      //closing the connection
-      try {
-        conn.close();
-        JOptionPane.showMessageDialog(null,"Connection Closed.");
-      } catch(Exception e) {
-        JOptionPane.showMessageDialog(null,"Connection NOT Closed.");
-      }
+    public static void main(String[] args) {
+        launch(args);
     }
 
-    // if button is pressed
-    public void actionPerformed(ActionEvent e)
-    {
-        String s = e.getActionCommand();
-        if (s.equals("Close")) {
-            f.dispose();
+    @Override
+    public void start(Stage primaryStage) {
+        this.primaryStage = primaryStage;
+        primaryStage.setTitle("Landing Page");
+
+        // Load the landing page (initial GUI)
+        loadLandingPage();
+    }
+
+    // Method to load the landing page
+    private void loadLandingPage() {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("LandingPage.fxml"));
+            Parent root = loader.load();
+            LandingPage controller = loader.getController();
+            controller.setApp(this);
+            Scene scene = new Scene(root, 400, 300);
+            primaryStage.setScene(scene);
+            primaryStage.show();
+        } catch (Exception e) {
+            e.printStackTrace();
         }
+    }
+
+    // Method to load the Manager Login page
+    public void loadManagerLogin() {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("ManagerLogin.fxml"));
+            Parent root = loader.load();
+            ManagerLogin controller = loader.getController();
+            controller.setApp(this);
+            Scene scene = new Scene(root, 400, 300);
+            primaryStage.setScene(scene);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    // Method to load the Cashier View page
+    public void loadCashierView() {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("CashierView.fxml"));
+            Parent root = loader.load();
+            CashierView controller = loader.getController();
+            controller.setApp(this);
+            Scene scene = new Scene(root, 400, 300);
+            primaryStage.setScene(scene);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public Stage getPrimaryStage() {
+        return primaryStage;
+    }
+
+    public static void main(String[] args) {
+        launch(args);
     }
 }

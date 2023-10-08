@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="your.package.LandingPage" alignment="CENTER" spacing="10">
+    <Label text="Welcome to MyApp" styleClass="title-label" />
+
+    <Button text="Manager View" onAction="#handleManagerViewButtonAction" />
+    <Button text="Cashier View" onAction="#handleCashierViewButtonAction" />
+
+    <!-- Add styling for your UI elements in an external CSS file -->
+</VBox>
