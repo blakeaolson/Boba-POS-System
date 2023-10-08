@@ -47,7 +47,7 @@ public class GUI extends JFrame implements ActionListener {
         JOptionPane.showMessageDialog(null,"Error accessing Database.");
       }
       // create a new frame
-      f = new JFrame("DB GUI");
+      f = new JFrame("Landing Page");
 
       // create a object
       GUI s = new GUI();
