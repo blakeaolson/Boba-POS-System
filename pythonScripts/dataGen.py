@@ -24,12 +24,14 @@ cashier_salaries = {
     "Brandon": round(random.uniform(50000, 70000), 2)
 }
 
-# Generate 52 weeks of sales data
-for week in range(1, 53):
-    # Generate random sales data for each day in the week
-    for _ in range(7):
-        order_id = random.randint(1, 100000)
-        order_total = round(random.triangular(5, 15, 10), 2)
+# Generate sales data for the entire year 2023
+while start_date <= end_date:
+    num_orders = round(random.triangular(5, 200, (30+100)/2))  # Adjust the range as needed
+    
+    # Generate random sales data for each order on the same day
+    for _ in range(num_orders):
+        order_id = random.randint(10000, 99999)
+        order_total = round(random.triangular(5, 25, 10), 2)
         date = start_date.strftime("%Y-%m-%d")
         cashier_name = random.choice(cashier_names)
         payment_method = random.choice(payment_methods)
@@ -38,7 +40,8 @@ for week in range(1, 53):
         cashier_salary = cashier_salaries[cashier_name]
         
         sales_data.append([order_id, order_total, date, cashier_name, payment_method, customer_id, role, cashier_salary])
-        start_date += timedelta(days=1)
+    
+    start_date += timedelta(days=1)
 
 # Write the generated data to a CSV file
 with open('sales_data_2023.csv', mode='w', newline='') as file:
@@ -46,4 +49,4 @@ with open('sales_data_2023.csv', mode='w', newline='') as file:
     writer.writerow(['Order ID', 'Order Total', 'Date', 'Cashier Name', 'Payment Method', 'Customer ID', 'Role', 'Cashier Salary'])
     writer.writerows(sales_data)
 
-print("Sales data for 2023 with additional columns generated and saved to 'sales_data_2023.csv'")
+print("Sales data for 2023 with varying order counts generated and saved to 'sales_data_2023.csv'")
