@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.cell.PropertyValueFactory?>
+
+<BorderPane fx:id="borderPane" fx:controller="OrdersViewController" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1">
+    <center>
+        <TableView fx:id="tableView">
+            <columns>
+                <TableColumn text="orderId">
+                    <cellValueFactory><PropertyValueFactory property="orderId" /></cellValueFactory>
+                </TableColumn>
+                <TableColumn text="totalamount">
+                    <cellValueFactory><PropertyValueFactory property="totalamount" /></cellValueFactory>
+                </TableColumn>
+                <TableColumn text="date">
+                        <cellValueFactory><PropertyValueFactory property="date" /></cellValueFactory>
+                </TableColumn>
+                <TableColumn text="cashierName">
+                    <cellValueFactory><PropertyValueFactory property="cashierName" /></cellValueFactory>
+                </TableColumn>
+                <TableColumn text="paymentMethod">
+                    <cellValueFactory><PropertyValueFactory property="paymentMethod" /></cellValueFactory>
+                </TableColumn>
+                <TableColumn text="hour">
+                    <cellValueFactory><PropertyValueFactory property="hour" /></cellValueFactory>
+                </TableColumn>
+                <!-- Add more columns as needed -->
+            </columns>
+        </TableView>
+    </center>
+</BorderPane>

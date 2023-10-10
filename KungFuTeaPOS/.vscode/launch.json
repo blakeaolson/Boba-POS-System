@@ -14,9 +14,9 @@
             "type": "java",
             "name": "Main",
             "request": "launch",
-            "mainClass": "main.java.kungfutea.pos.Main",
-            "projectName": "KungFuTeaPOS_2fe8cd53",
-            "vmArgs": "--module-path /usr/share/openjfx/lib --add-modules javafx.controls,javafx.fxml"
+            "mainClass": "Main",
+            "projectName": "KungFuTeaPOS_b3b8e211",
+            "vmArgs": "--module-path C:/Users/kevto/javafx-sdk-20.0.1/lib --add-modules javafx.controls,javafx.fxml"
         }
     ]
 }

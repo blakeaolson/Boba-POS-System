@@ -4,18 +4,12 @@
     // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
     "version": "0.2.0",
     "configurations": [
-    {
-        "type": "java",
-        "name": "Launch Java Program",
-        "request": "launch",
-        "mainClass": ""
-    },
         {
             "type": "java",
             "name": "Main",
             "request": "launch",
-            "mainClass": "main.java.kungfutea.pos.Main",
-            "projectName": "Boba-POS-System_98d78552"
+            "mainClass": "Main",
+            "projectName": "Boba-POS-System_da0e93d4"
         },
         {
             "type": "java",
@@ -27,9 +21,9 @@
             "type": "java",
             "name": "Main",
             "request": "launch",
-            "mainClass": "main.java.kungfutea.pos.Main",
-            "projectName": "kevtom2003_fe432658",
-            "vmArgs": "--module-path /usr/share/java --add-modules javafx.controls,javafx.fxml"
+            "mainClass": "Main",
+            "projectName": "KungFuTeaPOS_b3b8e211",
+            "vmArgs": "--module-path C:/Users/kevto/javafx-sdk-20.0.1/lib --add-modules javafx.controls,javafx.fxml"
         }
     ]
 }
