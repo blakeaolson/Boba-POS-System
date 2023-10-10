@@ -1,8 +1,0 @@
-{
-    "java.project.referencedLibraries": [
-        "lib/**/*.jar",
-        "/usr/share/openjfx/lib/javafx.fxml.jar",
-        "/usr/share/openjfx/lib/javafx.graphics.jar",
-        "/usr/share/openjfx/lib/javafx.base.jar"
-    ]
-}

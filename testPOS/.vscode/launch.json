@@ -12,11 +12,11 @@
         },
         {
             "type": "java",
-            "name": "Main",
+            "name": "App",
             "request": "launch",
-            "mainClass": "main.java.kungfutea.pos.Main",
-            "projectName": "KungFuTeaPOS_2fe8cd53",
-            "vmArgs": "--module-path /usr/share/openjfx/lib --add-modules javafx.controls,javafx.fxml"
+            "vmArgs": "--module-path C:/javafx-sdk-21/lib --add-modules javafx.controls,javafx.fxml",
+            "mainClass": "App",
+            "projectName": "testPOS_df02d390"
         }
     ]
 }
