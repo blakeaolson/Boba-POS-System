@@ -1,4 +1,4 @@
-package kungfutea.pos.controller;
+package main.java.kungfutea.pos;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;

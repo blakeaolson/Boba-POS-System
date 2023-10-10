@@ -1,1 +1,1 @@
-package main.java.kungfutea.pos.controller;
+package main.java.kungfutea.pos;
