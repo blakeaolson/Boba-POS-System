@@ -1,26 +1,26 @@
-package kungfutea.pos.controller;
+package main.java.kungfutea.pos;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 
 public class ManagerDashboardController {
     @FXML
-    private void handleOtherScreen1(ActionEvent event) throws Exception {
-        Main.showOtherScreen1();
+    private void getEmployeeData(ActionEvent event) throws Exception {
+        Main.showEmployeeView();
     }
 
     @FXML
-    private void handleOtherScreen2(ActionEvent event) throws Exception {
-        Main.showOtherScreen2();
+    private void getInventoryData(ActionEvent event) throws Exception {
+        Main.showInventoryView();
     }
 
     @FXML
-    private void handleOtherScreen3(ActionEvent event) throws Exception {
-        Main.showOtherScreen3();
+    private void getRevenueData(ActionEvent event) throws Exception {
+        Main.showRevenueView();
     }
 
     @FXML
-    private void handleOtherScreen4(ActionEvent event) throws Exception {
-        Main.showOtherScreen4();
+    private void getOrderData(ActionEvent event) throws Exception {
+        Main.showOrderView();
     }
 }
