@@ -37,6 +37,16 @@
         </HBox>
     </top>
     <center>
-        
+        <HBox alignment="CENTER" spacing="10">
+            <children>
+                <Button fx:id="ordersButton" onAction="#ordersButtonClicked" mnemonicParsing="false" prefHeight="35.0" prefWidth="100.0" text="Orders" />
+                <Button fx:id="employeesButton" onAction="#employeesButtonClicked" mnemonicParsing="false" prefHeight="35.0" prefWidth="100.0" text="Employees" />
+                <Button fx:id="inventoryButton" mnemonicParsing="false" prefHeight="35.0" prefWidth="100.0" text="Inventory" />
+                <Button fx:id="revenueButton" onAction="#revenueButtonClicked" mnemonicParsing="false" prefHeight="35.0" prefWidth="100.0" text="Revenue" />
+            </children>
+         <padding>
+            <Insets top="10.0" />
+         </padding>
+        </HBox>
     </center>
 </BorderPane>
