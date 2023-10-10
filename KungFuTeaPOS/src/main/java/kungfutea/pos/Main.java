@@ -21,7 +21,7 @@ public class Main extends Application {
     }
 
     public static void showLoginPage() throws Exception {
-        FXMLLoader loader = new FXMLLoader(Main.class.getResource("/com/yourpackage/fxml/LandingPage.fxml"));
+        FXMLLoader loader = new FXMLLoader(Main.class.getResource("fxml/LandingPage.fxml"));
         Parent root = loader.load();
         Scene scene = new Scene(root);
         primaryStage.setScene(scene);
@@ -29,7 +29,7 @@ public class Main extends Application {
     }
 
     public static void showManagerDashboard() throws Exception {
-        FXMLLoader loader = new FXMLLoader(Main.class.getResource("/com/yourpackage/fxml/ManagerDashboard.fxml"));
+        FXMLLoader loader = new FXMLLoader(Main.class.getResource("fxml/ManagerDashboard.fxml"));
         Parent root = loader.load();
         Scene scene = new Scene(root);
         primaryStage.setScene(scene);
@@ -37,7 +37,7 @@ public class Main extends Application {
     }
 
     public static void showManagerLogin() throws Exception {
-        FXMLLoader loader = new FXMLLoader(Main.class.getResource("/com/yourpackage/fxml/ManagerLogin.fxml"));
+        FXMLLoader loader = new FXMLLoader(Main.class.getResource("fxml/ManagerLogin.fxml"));
         Parent root = loader.load();
         Scene scene = new Scene(root);
         primaryStage.setScene(scene);
@@ -45,7 +45,7 @@ public class Main extends Application {
     }
 
     public static void showCashierView() throws Exception {
-        FXMLLoader loader = new FXMLLoader(Main.class.getResource("/com/yourpackage/fxml/CashierView.fxml"));
+        FXMLLoader loader = new FXMLLoader(Main.class.getResource("fxml/CashierView.fxml"));
         Parent root = loader.load();
         Scene scene = new Scene(root);
         primaryStage.setScene(scene);
@@ -53,7 +53,7 @@ public class Main extends Application {
     }
 
     public static void showEmployeeView() throws Exception {
-        FXMLLoader loader = new FXMLLoader(Main.class.getResource("/com/yourpackage/fxml/EmployeeView.fxml"));
+        FXMLLoader loader = new FXMLLoader(Main.class.getResource("fxml/EmployeeView.fxml"));
         Parent root = loader.load();
         Scene scene = new Scene(root);
         primaryStage.setScene(scene);
@@ -61,7 +61,7 @@ public class Main extends Application {
     }
 
     public static void showOrderView() throws Exception {
-        FXMLLoader loader = new FXMLLoader(Main.class.getResource("/com/yourpackage/fxml/OrderView.fxml"));
+        FXMLLoader loader = new FXMLLoader(Main.class.getResource("fxml/OrderView.fxml"));
         Parent root = loader.load();
         Scene scene = new Scene(root);
         primaryStage.setScene(scene);
@@ -69,7 +69,7 @@ public class Main extends Application {
     }
 
     public static void showInventoryView() throws Exception {
-        FXMLLoader loader = new FXMLLoader(Main.class.getResource("/com/yourpackage/fxml/InventoryView.fxml"));
+        FXMLLoader loader = new FXMLLoader(Main.class.getResource("fxml/InventoryView.fxml"));
         Parent root = loader.load();
         Scene scene = new Scene(root);
         primaryStage.setScene(scene);
@@ -77,7 +77,7 @@ public class Main extends Application {
     }
 
     public static void showRevenueView() throws Exception {
-        FXMLLoader loader = new FXMLLoader(Main.class.getResource("/com/yourpackage/fxml/RevenueView.fxml"));
+        FXMLLoader loader = new FXMLLoader(Main.class.getResource("fxml/RevenueView.fxml"));
         Parent root = loader.load();
         Scene scene = new Scene(root);
         primaryStage.setScene(scene);

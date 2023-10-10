@@ -5,22 +5,22 @@ import javafx.fxml.FXML;
 
 public class ManagerDashboardController {
     @FXML
-    private void handleOtherScreen1(ActionEvent event) throws Exception {
+    private void getEmployeeData(ActionEvent event) throws Exception {
         Main.showEmployeeView();
     }
 
     @FXML
-    private void handleOtherScreen2(ActionEvent event) throws Exception {
+    private void getInventoryData(ActionEvent event) throws Exception {
         Main.showInventoryView();
     }
 
     @FXML
-    private void handleOtherScreen3(ActionEvent event) throws Exception {
+    private void getRevenueData(ActionEvent event) throws Exception {
         Main.showRevenueView();
     }
 
     @FXML
-    private void handleOtherScreen4(ActionEvent event) throws Exception {
+    private void getOrderData(ActionEvent event) throws Exception {
         Main.showOrderView();
     }
 }

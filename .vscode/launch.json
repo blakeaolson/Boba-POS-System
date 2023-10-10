@@ -1,0 +1,35 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+    {
+        "type": "java",
+        "name": "Launch Java Program",
+        "request": "launch",
+        "mainClass": ""
+    },
+        {
+            "type": "java",
+            "name": "Main",
+            "request": "launch",
+            "mainClass": "main.java.kungfutea.pos.Main",
+            "projectName": "Boba-POS-System_98d78552"
+        },
+        {
+            "type": "java",
+            "name": "Current File",
+            "request": "launch",
+            "mainClass": "${file}"
+        },
+        {
+            "type": "java",
+            "name": "Main",
+            "request": "launch",
+            "mainClass": "main.java.kungfutea.pos.Main",
+            "projectName": "kevtom2003_fe432658",
+            "vmArgs": "--module-path /usr/share/java --add-modules javafx.controls,javafx.fxml"
+        }
+    ]
+}

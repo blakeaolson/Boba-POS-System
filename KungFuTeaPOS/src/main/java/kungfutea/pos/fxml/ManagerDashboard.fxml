@@ -8,8 +8,8 @@
       fx:controller="main.java.kungfutea.pos.ManagerDashboardController"
       alignment="CENTER"
       spacing="10">
-    <Button text="Other Screen 1" onAction="#handleOtherScreen1"/>
-    <Button text="Other Screen 2" onAction="#handleOtherScreen2"/>
-    <Button text="Other Screen 3" onAction="#handleOtherScreen3"/>
-    <Button text="Other Screen 4" onAction="#handleOtherScreen4"/>
+    <Button text="Orders" onAction="getOrderData"/>
+    <Button text="Employees" onAction="#getEmployeeData"/>
+    <Button text="Inventory" onAction="#getInventoryData"/>
+    <Button text="Revenue" onAction="#getRevenueData"/>
 </VBox>
