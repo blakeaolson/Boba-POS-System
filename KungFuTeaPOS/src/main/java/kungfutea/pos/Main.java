@@ -21,7 +21,7 @@ public class Main extends Application {
     }
 
     public static void showLoginPage() throws Exception {
-        FXMLLoader loader = new FXMLLoader(Main.class.getResource("/com/yourpackage/fxml/login.fxml"));
+        FXMLLoader loader = new FXMLLoader(Main.class.getResource("fxml/LandingPage.fxml"));
         Parent root = loader.load();
         Scene scene = new Scene(root);
         primaryStage.setScene(scene);
@@ -29,12 +29,60 @@ public class Main extends Application {
     }
 
     public static void showManagerDashboard() throws Exception {
-        FXMLLoader loader = new FXMLLoader(Main.class.getResource("/com/yourpackage/fxml/manager_dashboard.fxml"));
+        FXMLLoader loader = new FXMLLoader(Main.class.getResource("fxml/ManagerDashboard.fxml"));
         Parent root = loader.load();
         Scene scene = new Scene(root);
         primaryStage.setScene(scene);
         primaryStage.setTitle("Manager Dashboard");
     }
 
-    // Add similar methods for other screens
+    public static void showManagerLogin() throws Exception {
+        FXMLLoader loader = new FXMLLoader(Main.class.getResource("fxml/ManagerLogin.fxml"));
+        Parent root = loader.load();
+        Scene scene = new Scene(root);
+        primaryStage.setScene(scene);
+        primaryStage.setTitle("Manager Login");
+    }
+
+    public static void showCashierView() throws Exception {
+        FXMLLoader loader = new FXMLLoader(Main.class.getResource("fxml/CashierView.fxml"));
+        Parent root = loader.load();
+        Scene scene = new Scene(root);
+        primaryStage.setScene(scene);
+        primaryStage.setTitle("Cashier Home");
+    }
+
+    public static void showEmployeeView() throws Exception {
+        FXMLLoader loader = new FXMLLoader(Main.class.getResource("fxml/EmployeeView.fxml"));
+        Parent root = loader.load();
+        Scene scene = new Scene(root);
+        primaryStage.setScene(scene);
+        primaryStage.setTitle("Employee Data");
+    }
+
+    public static void showOrderView() throws Exception {
+        FXMLLoader loader = new FXMLLoader(Main.class.getResource("fxml/OrderView.fxml"));
+        Parent root = loader.load();
+        Scene scene = new Scene(root);
+        primaryStage.setScene(scene);
+        primaryStage.setTitle("Order Data");
+    }
+
+    public static void showInventoryView() throws Exception {
+        FXMLLoader loader = new FXMLLoader(Main.class.getResource("fxml/InventoryView.fxml"));
+        Parent root = loader.load();
+        Scene scene = new Scene(root);
+        primaryStage.setScene(scene);
+        primaryStage.setTitle("Inventory Data");
+    }
+
+    public static void showRevenueView() throws Exception {
+        FXMLLoader loader = new FXMLLoader(Main.class.getResource("fxml/RevenueView.fxml"));
+        Parent root = loader.load();
+        Scene scene = new Scene(root);
+        primaryStage.setScene(scene);
+        primaryStage.setTitle("Revenue Data");
+    }
+
+    
 }
