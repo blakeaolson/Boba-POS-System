@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ButtonBar?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="628.0" prefWidth="898.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <TextField fx:id="curr_item" alignment="CENTER" layoutX="251.0" layoutY="14.0" prefHeight="91.0" prefWidth="397.0" text="Item: ">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </TextField>
+      <Pane layoutX="85.0" layoutY="174.0" prefHeight="302.0" prefWidth="263.0">
+         <children>
+            <ImageView fx:id="BobaItem" fitHeight="330.0" fitWidth="263.0" layoutX="1.0" pickOnBounds="true" preserveRatio="true" />
+         </children>
+      </Pane>
+      <VBox layoutX="528.0" layoutY="150.0" prefHeight="351.0" prefWidth="284.0">
+         <children>
+            <TextField alignment="CENTER" text="Sweetness Level:">
+               <font>
+                  <Font size="24.0" />
+               </font>
+            </TextField>
+            <ButtonBar prefHeight="25.0" prefWidth="522.0">
+              <buttons>
+                  <Button fx:id="NoSugar" minWidth="49.0" mnemonicParsing="false" onMouseClicked="#NoSugarClicked" prefHeight="25.0" prefWidth="93.0" text="No Sugar" />
+                <Button fx:id="QuaterSugar" mnemonicParsing="false" onMouseClicked="#QuaterSugarClicked" text="25% Sugar" />
+                  <Button fx:id="HalfSugar" mnemonicParsing="false" onMouseClicked="#HalfSugarClicked" text="50% Sugar" />
+                  <Button fx:id="SeventyFiveSugar" mnemonicParsing="false" onMouseClicked="#SeventyFiveSugar" text="75% Sugar" />
+              </buttons>
+            </ButtonBar>
+            <TextField alignment="CENTER" text="Boba Level:">
+               <font>
+                  <Font size="24.0" />
+               </font>
+            </TextField>
+            <ButtonBar prefHeight="25.0" prefWidth="522.0">
+               <buttons>
+                  <Button fx:id="NoBoba" minWidth="49.0" mnemonicParsing="false" onMouseClicked="#NoBobaClicked" prefHeight="25.0" prefWidth="93.0" text="No Boba" />
+                  <Button fx:id="LessBoba" mnemonicParsing="false" onMouseClicked="#LessBobaClicked" text="Less" />
+                  <Button fx:id="RegularBoba" mnemonicParsing="false" onMouseClicked="#RegularBobaClicked" text="Regular" />
+                  <Button fx:id="ExtraBoba" mnemonicParsing="false" onMouseClicked="#ExtraBobaClicked" text="Extra" />
+               </buttons>
+            </ButtonBar>
+            <TextField alignment="CENTER" text="Drink Size:">
+               <font>
+                  <Font size="24.0" />
+               </font>
+            </TextField>
+            <ButtonBar prefHeight="25.0" prefWidth="522.0">
+               <buttons>
+                  <Button fx:id="SmallSize" minWidth="49.0" mnemonicParsing="false" onMouseClicked="#SmallClicked" prefHeight="25.0" prefWidth="162.0" text="Small" />
+                  <Button fx:id="MediumSize" mnemonicParsing="false" onMouseClicked="#MediumClicked" prefHeight="25.0" text="Medium" />
+                  <Button fx:id="LargeSize" mnemonicParsing="false" text="Large" />
+               </buttons>
+            </ButtonBar>
+            <TextField alignment="CENTER" text="Extra Request:">
+               <font>
+                  <Font size="24.0" />
+               </font>
+            </TextField>
+            <TextArea fx:id="ExtraRequest" onMouseClicked="#ExtraRequestClicked" prefHeight="200.0" prefWidth="200.0" />
+         </children>
+      </VBox>
+      <Button fx:id="Cancel" layoutX="122.0" layoutY="515.0" mnemonicParsing="false" onMouseClicked="#CancelClicked" prefHeight="66.0" prefWidth="209.0" text="CANCEL" />
+      <Button fx:id="AddToOrder" layoutX="381.0" layoutY="515.0" mnemonicParsing="false" onMouseClicked="#AddToOrderClicked" prefHeight="66.0" prefWidth="209.0" text="ADD TO ORDER" />
+   </children>
+</AnchorPane>
