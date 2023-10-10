@@ -24,7 +24,7 @@
                </Text>
             </children>
          </StackPane>
-             <Text text="              Dashboard              ">
+             <Text text="              Employees              ">
             <font>
                <Font size="24.0" />
             </font>
@@ -37,20 +37,6 @@
         </HBox>
     </top>
     <center>
-        <VBox alignment="CENTER" prefHeight="290.0" prefWidth="445.0" spacing="10">
-            <HBox alignment="CENTER" spacing="10">
-            <children>
-               <Button fx:id="ordersButton" onAction="#ordersButtonClicked" mnemonicParsing="false" prefHeight="100.0" prefWidth="150.0" text="Orders" />
-               <Button fx:id="employeesButton" onAction="#employeesButtonClicked" mnemonicParsing="false" prefHeight="100.0" prefWidth="150.0" text="Employees" />
-            </children>
-            </HBox>
-            <HBox alignment="CENTER" spacing="10">
-            <children>
-               <Button fx:id="inventoryButton" onAction="#inventoryButtonClicked" mnemonicParsing="false" prefHeight="100.0" prefWidth="150.0" text="Inventory" />
-               <Button fx:id="revenueButton" onAction="#revenueButtonClicked" mnemonicParsing="false" prefHeight="100.0" prefWidth="150.0" text="Revenue" />
-            </children>
-            </HBox>
-         <Button fx:id="settingsButton" mnemonicParsing="false" prefHeight="50.0" prefWidth="313.0" text="Settings (Under Construction)" />
-        </VBox>
+        
     </center>
 </BorderPane>

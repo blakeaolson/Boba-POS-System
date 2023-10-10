@@ -20,7 +20,7 @@ public class ManagerLoginController {
         String username = usernameField.getText();
         String password = passwordField.getText();
 
-        if (username.equals("bob") && password.equals("password")) {
+        if (password.equals("password")) {
             // Successful login, load the dashboard
             // messageText.setText("");
             loadDashboard();
