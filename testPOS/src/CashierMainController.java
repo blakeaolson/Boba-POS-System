@@ -16,7 +16,7 @@ public class CashierMainViewController {
     public void checkout() {
         try {
             // Load the Login.fxml file
-            Parent root = FXMLLoader.load(getClass().getResource("fxml/CashierItemSelection.fxml"));
+            Parent root = FXMLLoader.load(getClass().getResource("fxml/CashierCheckout.fxml"));
 
             // Create a new Stage
             Stage stage = new Stage();
