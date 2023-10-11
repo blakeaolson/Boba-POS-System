@@ -30,7 +30,7 @@
                   </Text>
                </children>
             </StackPane>
-                <Text text="              Dashboard              ">
+                <Text text="              Add Inventory              ">
                <font>
                   <Font size="24.0" />
                </font>
@@ -44,26 +44,32 @@
         </HBox>
     </top>
     <center>
-        <VBox alignment="CENTER" prefHeight="342.0" prefWidth="445.0" spacing="10">
+        <VBox alignment="CENTER" prefHeight="290.0" prefWidth="445.0" spacing="10">
            <children>
+               <Text text="Enter Information to Add to Inventory" />
                <HBox alignment="CENTER" spacing="10">
-               <children>
-                  <Button fx:id="ordersButton" mnemonicParsing="false" onAction="#ordersButtonClicked" prefHeight="100.0" prefWidth="150.0" text="Orders" />
-                  <Button fx:id="employeesButton" mnemonicParsing="false" onAction="#employeesButtonClicked" prefHeight="100.0" prefWidth="150.0" text="Employees" />
-               </children>
+                  <children>
+                      <Label text="Item ID:" />
+                      <TextField fx:id="addInventoryID" prefWidth="150" />
+                  </children>
                </HBox>
-               <HBox alignment="CENTER" spacing="10">
+            <HBox alignment="CENTER" spacing="10">
                <children>
-                  <Button fx:id="inventoryButton" mnemonicParsing="false" onAction="#inventoryButtonClicked" prefHeight="100.0" prefWidth="150.0" text="Inventory" />
-                  <Button fx:id="revenueButton" mnemonicParsing="false" onAction="#revenueButtonClicked" prefHeight="100.0" prefWidth="150.0" text="Revenue" />
+                  <Label text="Quantity:" />
+                  <TextField fx:id="addInventoryQuantity" prefWidth="150" />
                </children>
-               </HBox>
-            <Button fx:id="settingsButton" mnemonicParsing="false" prefHeight="50.0" prefWidth="313.0" text="Settings (Under Construction)" />
+            </HBox>
+            <HBox alignment="CENTER" spacing="10">
+               <children>
+                  <Label text="Item Category: " />
+                  <TextField fx:id="addInventoryCategory" prefWidth="150" />
+               </children>
+            </HBox>
            </children>
-        </VBox>
-    </center>
+      </VBox>
+   </center>
    <bottom>
-      <Button fx:id="addInventoryButton" mnemonicParsing="false" onAction="#addInventoryButtonClicked" text="Add Inventory" BorderPane.alignment="CENTER">
+      <Button fx:id="addInventoryButton" mnemonicParsing="false" onAction="#addInventoryFinal" text="Add Inventory" BorderPane.alignment="CENTER">
          <BorderPane.margin>
             <Insets bottom="10.0" />
          </BorderPane.margin>
