@@ -62,4 +62,11 @@
            </children>
         </VBox>
     </center>
+   <bottom>
+      <Button mnemonicParsing="false" text="Add Inventory" BorderPane.alignment="CENTER">
+         <BorderPane.margin>
+            <Insets bottom="10.0" />
+         </BorderPane.margin>
+      </Button>
+   </bottom>
 </BorderPane>
