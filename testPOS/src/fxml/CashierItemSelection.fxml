@@ -13,7 +13,7 @@
 
 <AnchorPane maxHeight="628" maxWidth="898" minHeight="628" minWidth="898" prefHeight="628.0" prefWidth="898.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="CashierItemSelectionController">
    <children>
-      <TextField fx:id="currItemText" alignment="CENTER" layoutX="251.0" layoutY="14.0" prefHeight="91.0" prefWidth="397.0" text="Item: ">
+      <TextField fx:id="currItemText" alignment="CENTER" editable="false" layoutX="251.0" layoutY="14.0" prefHeight="91.0" prefWidth="397.0" text="Item: ">
          <font>
             <Font size="18.0" />
          </font>
@@ -28,7 +28,7 @@
       </Pane>
       <VBox layoutX="528.0" layoutY="150.0" prefHeight="351.0" prefWidth="284.0">
          <children>
-            <TextField fx:id="sweetnessLevelText" alignment="CENTER" text="Sweetness Level:">
+            <TextField fx:id="sweetnessLevelText" alignment="CENTER" editable="false" text="Sweetness Level:">
                <font>
                   <Font size="24.0" />
                </font>
@@ -41,7 +41,7 @@
                   <Button fx:id="SeventyFiveSugar" mnemonicParsing="false" onMouseClicked="#SeventyFiveSugarClicked" text="75% Sugar" />
               </buttons>
             </ButtonBar>
-            <TextField fx:id="bobaLevelText" alignment="CENTER" text="Boba Level:">
+            <TextField fx:id="bobaLevelText" alignment="CENTER" editable="false" text="Boba Level:">
                <font>
                   <Font size="24.0" />
                </font>
@@ -54,7 +54,7 @@
                   <Button fx:id="ExtraBoba" mnemonicParsing="false" onMouseClicked="#ExtraBobaClicked" text="Extra" />
                </buttons>
             </ButtonBar>
-            <TextField fx:id="drinkSizeText" alignment="CENTER" text="Drink Size:">
+            <TextField fx:id="drinkSizeText" alignment="CENTER" editable="false" text="Drink Size:">
                <font>
                   <Font size="24.0" />
                </font>
@@ -66,7 +66,7 @@
                   <Button fx:id="LargeSize" mnemonicParsing="false" onMouseClicked="#LargeClicked" text="Large" />
                </buttons>
             </ButtonBar>
-            <TextField alignment="CENTER" text="Extra Request:">
+            <TextField alignment="CENTER" editable="false" text="Extra Request:">
                <font>
                   <Font size="24.0" />
                </font>
