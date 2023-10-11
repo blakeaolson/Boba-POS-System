@@ -97,4 +97,20 @@ public class ManagerDashboardController {
             e.printStackTrace();
         }
     }
+
+        @FXML
+    private void addItemButtonClicked() {
+        try {
+            Parent root = FXMLLoader.load(getClass().getResource("fxml/AddItem.fxml"));
+            Stage newStage = new Stage();
+            newStage.setTitle("Manager Add");
+            newStage.setScene(new Scene(root, 460, 354));
+            newStage.show();
+
+            Stage currentStage = (Stage) logoutButton.getScene().getWindow();
+            currentStage.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 }
