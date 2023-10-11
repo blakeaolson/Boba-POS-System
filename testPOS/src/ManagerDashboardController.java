@@ -22,6 +22,7 @@ public class ManagerDashboardController {
             Stage stage = new Stage();
             stage.setTitle("Login");
             stage.setScene(new Scene(root, 460, 354));
+            stage.setMaximized(true);
             
             // Close the current dashboard stage
             Stage currentStage = (Stage) logoutButton.getScene().getWindow();
@@ -41,6 +42,7 @@ public class ManagerDashboardController {
             Stage newStage = new Stage();
             newStage.setTitle("Manager Orders");
             newStage.setScene(new Scene(root, 460, 354));
+            newStage.setMaximized(true);
             newStage.show();
 
             Stage currentStage = (Stage) logoutButton.getScene().getWindow();
@@ -57,6 +59,7 @@ public class ManagerDashboardController {
             Stage newStage = new Stage();
             newStage.setTitle("Manager Employees");
             newStage.setScene(new Scene(root, 460, 354));
+            newStage.setMaximized(true);
             newStage.show();
 
             Stage currentStage = (Stage) logoutButton.getScene().getWindow();
@@ -73,6 +76,7 @@ public class ManagerDashboardController {
             Stage newStage = new Stage();
             newStage.setTitle("Manager Employees");
             newStage.setScene(new Scene(root, 460, 354));
+            newStage.setMaximized(true);
             newStage.show();
 
             Stage currentStage = (Stage) logoutButton.getScene().getWindow();
@@ -89,6 +93,7 @@ public class ManagerDashboardController {
             Stage newStage = new Stage();
             newStage.setTitle("Manager Employees");
             newStage.setScene(new Scene(root, 460, 354));
+            newStage.setMaximized(true);
             newStage.show();
 
             Stage currentStage = (Stage) logoutButton.getScene().getWindow();
