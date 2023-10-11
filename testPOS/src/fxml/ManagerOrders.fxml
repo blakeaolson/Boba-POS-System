@@ -62,13 +62,16 @@
         </HBox>
     </center>
    <bottom>
-      <HBox prefHeight="100.0" prefWidth="200.0" BorderPane.alignment="CENTER">
-         <children>
+      <HBox alignment="CENTER" spacing="10" BorderPane.alignment="CENTER">
+            <children>
                 <Button fx:id="ordersButton" mnemonicParsing="false" prefHeight="35.0" prefWidth="100.0" text="Orders" />
                 <Button fx:id="employeesButton" mnemonicParsing="false" onAction="#employeesButtonClicked" prefHeight="35.0" prefWidth="100.0" text="Employees" />
                 <Button fx:id="inventoryButton" mnemonicParsing="false" onAction="#inventoryButtonClicked" prefHeight="35.0" prefWidth="100.0" text="Inventory" />
                 <Button fx:id="revenueButton" mnemonicParsing="false" onAction="#revenueButtonClicked" prefHeight="35.0" prefWidth="100.0" text="Revenue" />
-         </children>
-      </HBox>
+            </children>
+         <padding>
+            <Insets top="10.0" bottom="10.0" />
+         </padding>
+        </HBox>
    </bottom>
 </BorderPane>
