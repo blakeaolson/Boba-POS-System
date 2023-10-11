@@ -2,8 +2,10 @@ import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TextArea;
 import javafx.scene.text.Text;
+import javafx.stage.Stage;
 import javafx.scene.control.Button;
 import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.image.ImageView;
 import javafx.scene.image.Image;
 import javafx.fxml.FXMLLoader;
@@ -82,13 +84,11 @@ public class CashierItemSelectionController {
     String extraRequestString = "";
     Scanner scan = new Scanner(System.in);
 
-    public void initialize(String drink){
-        currItemText.setText("Item: " + drink);
+    public void initialize(){
+        currItemText.setText("Item: ");
         sweetnessLevelText.setText("Sweetness Level: ");
         bobaLevelText.setText("Boba Level: ");
         drinkSizeText.setText("Drink Size: ");
-        Image BobaItemPic = new Image("stockBoba.jpg");
-        BobaItem.setImage(BobaItemPic);
     }
     
     public void NoSugarClicked(){
@@ -131,7 +131,7 @@ public class CashierItemSelectionController {
         bobaLevel = 3;
     }
 
-    public void smallClicked(){
+    public void SmallClicked(){
         drinkSizeText.setText("Drink Size: Small");
         drinkSize = 0;
     }
@@ -148,7 +148,8 @@ public class CashierItemSelectionController {
 
     public void ExtraRequestClicked(){
         System.out.println("Please enter the extra request: ");
-        extraRequestString = scan.nextLine();
+        extraRequestString += scan.nextLine();
+        scan.close();
         ExtraRequest.setText(extraRequestString);
     }
 
@@ -161,5 +162,4 @@ public class CashierItemSelectionController {
         //TO-DO
         //go back to the order page and add drink with specifications to current order
     }
-
 }
