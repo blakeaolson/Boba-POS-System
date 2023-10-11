@@ -61,9 +61,9 @@
          <children>
             <TableView prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
             <columns>
-               <TableColumn prefWidth="75.0" text="Item ID" />
-               <TableColumn prefWidth="107.0" text="Quantity" />
-                  <TableColumn prefWidth="247.0" text="Item Category" />
+               <TableColumn fx:id="inventoryIDCol" prefWidth="75.0" text="Item ID" />
+               <TableColumn fx:id="inventoryQuantityCol" prefWidth="107.0" text="Quantity" />
+                  <TableColumn fx:id="inventoryCategoryCol" prefWidth="247.0" text="Item Category" />
             </columns>
             </TableView>
          </children>

@@ -12,6 +12,15 @@
         "c:\\javafx-sdk-21\\lib\\javafx.media.jar",
         "c:\\javafx-sdk-21\\lib\\javafx.swing.jar",
         "c:\\javafx-sdk-21\\lib\\javafx.web.jar",
-        "c:\\javafx-sdk-21\\lib\\javafx-swt.jar"
-    ]
+        "c:\\javafx-sdk-21\\lib\\javafx-swt.jar",
+        "c:\\Users\\kevto\\Downloads\\openjfx-21_windows-x64_bin-sdk\\javafx-sdk-21\\lib\\javafx.media.jar",
+        "c:\\Users\\kevto\\Downloads\\openjfx-21_windows-x64_bin-sdk\\javafx-sdk-21\\lib\\javafx.swing.jar",
+        "c:\\Users\\kevto\\Downloads\\openjfx-21_windows-x64_bin-sdk\\javafx-sdk-21\\lib\\javafx.web.jar",
+        "c:\\Users\\kevto\\Downloads\\openjfx-21_windows-x64_bin-sdk\\javafx-sdk-21\\lib\\javafx.base.jar",
+        "c:\\Users\\kevto\\Downloads\\openjfx-21_windows-x64_bin-sdk\\javafx-sdk-21\\lib\\javafx.controls.jar",
+        "c:\\Users\\kevto\\Downloads\\openjfx-21_windows-x64_bin-sdk\\javafx-sdk-21\\lib\\javafx.fxml.jar",
+        "c:\\Users\\kevto\\Downloads\\openjfx-21_windows-x64_bin-sdk\\javafx-sdk-21\\lib\\javafx.graphics.jar",
+        "c:\\Users\\kevto\\Downloads\\openjfx-21_windows-x64_bin-sdk\\javafx-sdk-21\\lib\\javafx-swt.jar"
+    ],
+    "java.jdt.ls.java.home": "C:\\Java\\jdk-17"
 }
