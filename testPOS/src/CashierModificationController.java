@@ -11,64 +11,62 @@ import java.util.Scanner;
 public class CashierModificationController {
 
     @FXML
-    private ImageView BobaItem = new ImageView();
+    private ImageView BobaItemMod = new ImageView();
 
     @FXML
-    private TextField currItemText;
+    private TextField currItemTextMod;
 
     @FXML
-    private TextField sweetnessLevelText;
+    private TextField sweetnessLevelTextMod;
 
     @FXML
-    private TextField bobaLevelText;
+    private TextField bobaLevelTextMod;
 
     @FXML
-    private TextField drinkSizeText;
+    private TextField drinkSizeTextMod;
 
     @FXML
-    private Button NoSugar = new Button();
+    private Button NoSugarMod = new Button();
 
     @FXML
-    private Button QuarterSugar = new Button();
+    private Button QuarterSugarMod = new Button();
 
     @FXML
-    private Button HalfSugar = new Button();
+    private Button HalfSugarMod = new Button();
 
     @FXML
-    private Button SeventyFiveSugar = new Button();
+    private Button SeventyFiveSugarMod = new Button();
 
     @FXML
-    private Button NoBoba = new Button();
+    private Button NoBobaMod = new Button();
 
     @FXML
-    private Button LessBoba = new Button();
+    private Button LessBobaMod = new Button();
 
     @FXML
-    private Button RegularBoba = new Button();
+    private Button RegularBobaMod = new Button();
 
     @FXML
-    private Button ExtraBoba = new Button();
+    private Button ExtraBobaMod = new Button();
 
     @FXML
-    private Button SmallSize = new Button();
+    private Button SmallSizeMod = new Button();
 
     @FXML
-    private Button MediumSize = new Button();
+    private Button MediumSizeMod = new Button();
 
     @FXML
-    private Button LargeSize = new Button();
+    private Button LargeSizeMod = new Button();
 
     @FXML
-    private TextArea ExtraRequest;
+    private TextArea ExtraRequestMod;
 
     @FXML
-    private Button RemoveFromOrder = new Button();
+    private Button Cancel = new Button();
 
     @FXML
-    private Button CancelMod = new Button();
+    private Button AddToOrder = new Button();
 
-    @FXML
-    private Button Modify = new Button();
     //sweetness and boba level will be on scale of 0-3
     //0 = no sugar/no boba
     //1 = 25% sugar/less boba
@@ -78,80 +76,79 @@ public class CashierModificationController {
     //0 = small
     //1 = medium
     //2 = large
-    int sweetness = 0;
-    int bobaLevel = 0;
-    int drinkSize = 0;
-    String extraRequestString = "";
+    int sweetnessMod = 0;
+    int bobaLevelMod = 0;
+    int drinkSizeMod = 0;
+    String extraRequestStringMod = "";
     Scanner scan = new Scanner(System.in);
 
-    public void initialize(String drink){
-        currItemText.setText("Item: " + drink);
-        sweetnessLevelText.setText("Sweetness Level: ");
-        bobaLevelText.setText("Boba Level: ");
-        drinkSizeText.setText("Drink Size: ");
-        Image BobaItemPic = new Image("stockBoba.jpg");
-        BobaItem.setImage(BobaItemPic);
+    public void initialize(){
+        currItemTextMod.setText("Item: ");
+        sweetnessLevelTextMod.setText("Sweetness Level: ");
+        bobaLevelTextMod.setText("Boba Level: ");
+        drinkSizeTextMod.setText("Drink Size: ");
     }
     
-    public void NoSugarClicked(){
-        sweetnessLevelText.setText("Sweetness Level: No Sugar");
-        sweetness = 0;
+    public void NoSugarClickedMod(){
+        sweetnessLevelTextMod.setText("Sweetness Level: No Sugar");
+        sweetnessMod = 0;
     }
 
-    public void QuarterSugarClicked(){
-        sweetnessLevelText.setText("Sweetness Level: 25% Sugar");
-        sweetness = 1;
+    public void QuarterSugarClickedMod(){
+        sweetnessLevelTextMod.setText("Sweetness Level: 25% Sugar");
+        sweetnessMod = 1;
     }
     
-    public void HalfSugarClicked(){
-        sweetnessLevelText.setText("Sweetness Level: 50% Sugar");
-        sweetness = 2;
+    public void HalfSugarClickedMod(){
+        sweetnessLevelTextMod.setText("Sweetness Level: 50% Sugar");
+        sweetnessMod = 2;
     }
 
-    public void SeventyFiveSugarClicked(){
-        sweetnessLevelText.setText("Sweetness Level: 75% Sugar");
-        sweetness = 3;
+    public void SeventyFiveSugarClickedMod(){
+        sweetnessLevelTextMod.setText("Sweetness Level: 75% Sugar");
+        sweetnessMod = 3;
     }
 
-    public void NoBobaClicked(){
-        bobaLevelText.setText("Boba Level: No Boba");
-        bobaLevel = 0;
+    public void NoBobaClickedMod(){
+        bobaLevelTextMod.setText("Boba Level: No Boba");
+        bobaLevelMod = 0;
     }
     
-    public void LessBobaClicked(){
-        bobaLevelText.setText("Boba Level: Less Boba");
-        bobaLevel = 1;
+    public void LessBobaClickedMod(){
+        bobaLevelTextMod.setText("Boba Level: Less Boba");
+        bobaLevelMod = 1;
     }
 
-    public void RegularBobaClicked(){
-        bobaLevelText.setText("Boba Level: Regular Boba");
-        bobaLevel = 2;
+    public void RegularBobaClickedMod(){
+        bobaLevelTextMod.setText("Boba Level: Regular Boba");
+        bobaLevelMod = 2;
     }
 
-    public void ExtraBobaClicked(){
-        bobaLevelText.setText("Boba Level: Extra Boba");
-        bobaLevel = 3;
+    public void ExtraBobaClickedMod(){
+        bobaLevelTextMod.setText("Boba Level: Extra Boba");
+        bobaLevelMod = 3;
     }
 
-    public void smallClicked(){
-        drinkSizeText.setText("Drink Size: Small");
-        drinkSize = 0;
+    public void SmallClickedMod(){
+        drinkSizeTextMod.setText("Drink Size: Small");
+        drinkSizeMod = 0;
     }
 
-    public void MediumClicked(){
-        drinkSizeText.setText("Drink Size: Medium");
-        drinkSize = 1;
+    public void MediumClickedMod(){
+        drinkSizeTextMod.setText("Drink Size: Medium");
+        drinkSizeMod = 1;
     }
 
-    public void LargeClicked(){
-        drinkSizeText.setText("Drink Size: Large");
-        drinkSize = 2;
+    public void LargeClickedMod(){
+        drinkSizeTextMod.setText("Drink Size: Large");
+        drinkSizeMod = 2;
     }
 
-    public void ExtraRequestClicked(){
+    public void ExtraRequestClickedMod(){
         System.out.println("Please enter the extra request: ");
-        extraRequestString = scan.nextLine();
-        ExtraRequest.setText(extraRequestString);
+        extraRequestStringMod += scan.nextLine();
+        scan.close();
+        ExtraRequestMod.setText(extraRequestStringMod);
     }
 
     public void RemoveFromOrderClicked(){
