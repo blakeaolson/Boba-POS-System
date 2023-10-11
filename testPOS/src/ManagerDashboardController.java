@@ -120,5 +120,22 @@ public class ManagerDashboardController {
         }
     }
 
+    @FXML
+    private void addInventoryFinal() {
+        try {
+            Parent root = FXMLLoader.load(getClass().getResource("fxml/ManagerDashboard.fxml"));
+            Stage newStage = new Stage();
+            newStage.setTitle("Manager Dashboard");
+            newStage.setScene(new Scene(root, 460, 354));
+            newStage.setMaximized(true);
+            newStage.show();
+
+            Stage currentStage = (Stage) logoutButton.getScene().getWindow();
+            currentStage.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
 
 }
