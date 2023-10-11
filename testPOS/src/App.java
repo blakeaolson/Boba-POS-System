@@ -11,7 +11,6 @@ public class App extends Application {
         Parent root = FXMLLoader.load(getClass().getResource("fxml/ManagerLogin.fxml"));
         primaryStage.setTitle("Manager Login");
         primaryStage.setScene(new Scene(root, 460, 354));
-        primaryStage.setMaximized(true);
         primaryStage.show();
     }
 

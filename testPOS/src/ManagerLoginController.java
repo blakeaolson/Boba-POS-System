@@ -2,7 +2,9 @@ import javafx.fxml.FXML;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.text.Text;
+import javafx.stage.Stage;
 import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.fxml.FXMLLoader;
 
 public class ManagerLoginController {
@@ -43,7 +45,14 @@ public class ManagerLoginController {
     private void loadCashier() {
         try {
             Parent root = FXMLLoader.load(getClass().getResource("fxml/MainCashierView.fxml"));
-            usernameField.getScene().setRoot(root);
+            Stage stage = new Stage();
+            stage.setTitle("Login");
+            stage.setScene(new Scene(root, 1244.0, 641.0));
+            Stage currentStage = (Stage) usernameField.getScene().getWindow();
+            currentStage.close();
+
+            // Show the login stage
+            stage.show();
         } catch (Exception e) {
             e.printStackTrace();
         }
