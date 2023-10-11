@@ -5,8 +5,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Text?>
 
-
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="641.0" prefWidth="1091.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="641.0" prefWidth="1244.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="CashierMainController">
    <children>
       <Text layoutX="106.0" layoutY="81.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Menu Category" />
       <Button id="cat_but1" layoutX="97.0" layoutY="105.0" mnemonicParsing="false" prefHeight="42.0" prefWidth="131.0" text="Classic" />
@@ -31,5 +30,6 @@
             </AnchorPane>
         </content>
       </TitledPane>
+      <Button layoutX="1132.0" layoutY="14.0" mnemonicParsing="false" fx:id="logoutButton" alignment="CENTER" onAction="#logout" prefHeight="50.0" prefWidth="73.0" text="Logout" textAlignment="CENTER" />
    </children>
 </AnchorPane>

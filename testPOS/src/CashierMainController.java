@@ -27,6 +27,8 @@ public class CashierMainController {
     private Button order_but7;
     @FXML
     private Button order_but8;
+    @FXML
+    private Button logoutButton;
 
     @FXML
     public void checkout() {
@@ -41,6 +43,29 @@ public class CashierMainController {
             
             // Close the current dashboard stage
             Stage currentStage = (Stage) finish_order_button.getScene().getWindow();
+            currentStage.close();
+
+            // Show the login stage
+            stage.show();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    @FXML
+    public void logout() {
+        try {
+            // Load the Login.fxml file
+            Parent root = FXMLLoader.load(getClass().getResource("fxml/ManagerLogin.fxml"));
+
+            // Create a new Stage
+            Stage stage = new Stage();
+            stage.setTitle("Login");
+            stage.setScene(new Scene(root, 460, 354));
+            stage.setMaximized(true);
+            
+            // Close the current dashboard stage
+            Stage currentStage = (Stage) logoutButton.getScene().getWindow();
             currentStage.close();
 
             // Show the login stage
