@@ -13,23 +13,23 @@
       <Button id="cat_but3" layoutX="489.0" layoutY="105.0" mnemonicParsing="false" prefHeight="42.0" prefWidth="123.0" text="Seasonal" />
       <Button id="cat_but4" layoutX="693.0" layoutY="105.0" mnemonicParsing="false" prefHeight="42.0" prefWidth="123.0" text="Slush" />
       <Text layoutX="129.0" layoutY="295.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Orders" />
-      <Button id="order_but1" layoutX="101.0" layoutY="321.0" mnemonicParsing="false" prefHeight="78.0" prefWidth="123.0" text="Green Tea" />
-      <Button id="order_but2" layoutX="302.0" layoutY="321.0" mnemonicParsing="false" prefHeight="78.0" prefWidth="123.0" text="Rosehip Milk Tea" />
-      <Button id="order_but3" layoutX="496.0" layoutY="321.0" mnemonicParsing="false" prefHeight="78.0" prefWidth="123.0" text="Coffee Milk  Tea" />
-      <Button id="order_but7" layoutX="496.0" layoutY="450.0" mnemonicParsing="false" prefHeight="78.0" prefWidth="123.0" text="Coconut Milk Tea" />
-      <Button id="order_but6" layoutX="302.0" layoutY="450.0" mnemonicParsing="false" prefHeight="78.0" prefWidth="123.0" text="Thai Milk Tea" />
-      <Button id="order_but5" layoutX="101.0" layoutY="450.0" mnemonicParsing="false" prefHeight="78.0" prefWidth="123.0" text="Honey Milk Tea" />
-      <Button id="order_but4" layoutX="693.0" layoutY="321.0" mnemonicParsing="false" prefHeight="78.0" prefWidth="123.0" text="Taro Milk Tea" />
-      <Button id="order_but8" layoutX="693.0" layoutY="450.0" mnemonicParsing="false" prefHeight="78.0" prefWidth="123.0" text="Almond Milk Tea" />
+      <Button id="order_but1" fx:id="order_but1" layoutX="101.0" layoutY="321.0" mnemonicParsing="false" onMouseClicked="#order_but1Clicked" prefHeight="78.0" prefWidth="123.0" text="Green Tea" />
+      <Button id="order_but2" fx:id="order_but2" layoutX="302.0" layoutY="321.0" mnemonicParsing="false" onMouseClicked="#order_but2Clicked" prefHeight="78.0" prefWidth="123.0" text="Rosehip Milk Tea" />
+      <Button id="order_but3" fx:id="order_but3" layoutX="496.0" layoutY="321.0" mnemonicParsing="false" onMouseClicked="#order_but3Clicked" prefHeight="78.0" prefWidth="123.0" text="Coffee Milk  Tea" />
+      <Button id="order_but7" fx:id="order_but7" layoutX="496.0" layoutY="450.0" mnemonicParsing="false" onMouseClicked="#order_but7Clicked" prefHeight="78.0" prefWidth="123.0" text="Coconut Milk Tea" />
+      <Button id="order_but6" fx:id="order_but6" layoutX="302.0" layoutY="450.0" mnemonicParsing="false" onMouseClicked="#order_but6Clicked" prefHeight="78.0" prefWidth="123.0" text="Thai Milk Tea" />
+      <Button id="order_but5" fx:id="order_but5" layoutX="101.0" layoutY="450.0" mnemonicParsing="false" onMouseClicked="#order_but5Clicked" prefHeight="78.0" prefWidth="123.0" text="Honey Milk Tea" />
+      <Button id="order_but4" fx:id="order_but4" layoutX="693.0" layoutY="321.0" mnemonicParsing="false" onMouseClicked="#order_but4Clicked" prefHeight="78.0" prefWidth="123.0" text="Taro Milk Tea" />
+      <Button id="order_but8" fx:id="order_but8" layoutX="693.0" layoutY="450.0" mnemonicParsing="false" onMouseClicked="#order_but8Clicked" prefHeight="78.0" prefWidth="123.0" text="Almond Milk Tea" />
       <TitledPane animated="false" layoutX="888.0" layoutY="2.0" prefHeight="641.0" prefWidth="203.0" text="CurrentOrder">
         <content>
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                <children>
-                  <Button id="finish_order_button" layoutX="58.0" layoutY="568.0" mnemonicParsing="false" text="Finish Order" />
+                  <Button id="finish_order_button" fx:id="finish_order_button" layoutX="58.0" layoutY="568.0" mnemonicParsing="false" onMouseClicked="#checkout" text="Finish Order" />
                </children>
             </AnchorPane>
         </content>
       </TitledPane>
-      <Button layoutX="1132.0" layoutY="14.0" mnemonicParsing="false" fx:id="logoutButton" alignment="CENTER" onAction="#logout" prefHeight="50.0" prefWidth="73.0" text="Logout" textAlignment="CENTER" />
+      <Button fx:id="logoutButton" alignment="CENTER" layoutX="1132.0" layoutY="14.0" mnemonicParsing="false" onAction="#logout" prefHeight="50.0" prefWidth="73.0" text="Logout" textAlignment="CENTER" />
    </children>
 </AnchorPane>

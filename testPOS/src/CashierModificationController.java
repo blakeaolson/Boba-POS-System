@@ -2,8 +2,10 @@ import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TextArea;
 import javafx.scene.text.Text;
+import javafx.stage.Stage;
 import javafx.scene.control.Button;
 import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.image.ImageView;
 import javafx.scene.image.Image;
 import javafx.fxml.FXMLLoader;
@@ -62,10 +64,13 @@ public class CashierModificationController {
     private TextArea ExtraRequestMod;
 
     @FXML
-    private Button Cancel = new Button();
+    private Button RemoveFromOrder = new Button();
 
     @FXML
-    private Button AddToOrder = new Button();
+    private Button CancelMod = new Button();
+
+    @FXML
+    private Button Modify = new Button();
 
     //sweetness and boba level will be on scale of 0-3
     //0 = no sugar/no boba
@@ -88,7 +93,7 @@ public class CashierModificationController {
         bobaLevelTextMod.setText("Boba Level: ");
         drinkSizeTextMod.setText("Drink Size: ");
     }
-    
+
     public void NoSugarClickedMod(){
         sweetnessLevelTextMod.setText("Sweetness Level: No Sugar");
         sweetnessMod = 0;
@@ -98,7 +103,7 @@ public class CashierModificationController {
         sweetnessLevelTextMod.setText("Sweetness Level: 25% Sugar");
         sweetnessMod = 1;
     }
-    
+
     public void HalfSugarClickedMod(){
         sweetnessLevelTextMod.setText("Sweetness Level: 50% Sugar");
         sweetnessMod = 2;
@@ -113,7 +118,7 @@ public class CashierModificationController {
         bobaLevelTextMod.setText("Boba Level: No Boba");
         bobaLevelMod = 0;
     }
-    
+
     public void LessBobaClickedMod(){
         bobaLevelTextMod.setText("Boba Level: Less Boba");
         bobaLevelMod = 1;
@@ -155,16 +160,70 @@ public class CashierModificationController {
         //TO-DO
         //take drink out from order
         //go back to the order page
+        try {
+            // Load the Login.fxml file
+            Parent root = FXMLLoader.load(getClass().getResource("fxml/MainCashierView.fxml"));
+
+            // Create a new Stage
+            Stage stage = new Stage();
+            stage.setTitle("Main Cashier View");
+            stage.setScene(new Scene(root, 1244.0, 641.0));
+            stage.setMaximized(true);
+
+            // Close the current dashboard stage
+            Stage currentStage = (Stage) RemoveFromOrder.getScene().getWindow();
+            currentStage.close();
+            // Show the login stage
+            stage.show();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     public void CancelModClicked(){
         //TO-DO
         //go back to the order page
+         try {
+            // Load the Login.fxml file
+            Parent root = FXMLLoader.load(getClass().getResource("fxml/MainCashierView.fxml"));
+
+            // Create a new Stage
+            Stage stage = new Stage();
+            stage.setTitle("Main Cashier View");
+            stage.setScene(new Scene(root, 1244.0, 641.0));
+            stage.setMaximized(true);
+
+            // Close the current dashboard stage
+            Stage currentStage = (Stage) CancelMod.getScene().getWindow();
+            currentStage.close();
+            // Show the login stage
+            stage.show();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     public void ModifyClicked(){
         //TO-DO
         //go back to order page with updated drink order
+        try {
+            // Load the Login.fxml file
+            Parent root = FXMLLoader.load(getClass().getResource("fxml/MainCashierView.fxml"));
+
+            // Create a new Stage
+            Stage stage = new Stage();
+            stage.setTitle("Main Cashier View");
+            stage.setScene(new Scene(root, 1244.0, 641.0));
+            stage.setMaximized(true);
+
+            // Close the current dashboard stage
+            Stage currentStage = (Stage) Modify.getScene().getWindow();
+            currentStage.close();
+            // Show the login stage
+            stage.show();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
 }

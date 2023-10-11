@@ -90,7 +90,7 @@ public class CashierItemSelectionController {
         bobaLevelText.setText("Boba Level: ");
         drinkSizeText.setText("Drink Size: ");
     }
-    
+
     public void NoSugarClicked(){
         sweetnessLevelText.setText("Sweetness Level: No Sugar");
         sweetness = 0;
@@ -100,7 +100,7 @@ public class CashierItemSelectionController {
         sweetnessLevelText.setText("Sweetness Level: 25% Sugar");
         sweetness = 1;
     }
-    
+
     public void HalfSugarClicked(){
         sweetnessLevelText.setText("Sweetness Level: 50% Sugar");
         sweetness = 2;
@@ -115,7 +115,7 @@ public class CashierItemSelectionController {
         bobaLevelText.setText("Boba Level: No Boba");
         bobaLevel = 0;
     }
-    
+
     public void LessBobaClicked(){
         bobaLevelText.setText("Boba Level: Less Boba");
         bobaLevel = 1;
@@ -156,10 +156,48 @@ public class CashierItemSelectionController {
     public void CancelClicked(){
         //TO-DO
         //go back to the order page
+        try {
+            // Load the Login.fxml file
+            Parent root = FXMLLoader.load(getClass().getResource("fxml/MainCashierView.fxml"));
+
+            // Create a new Stage
+            Stage stage = new Stage();
+            stage.setTitle("Main Cashier View");
+            stage.setScene(new Scene(root, 1244.0, 641.0));
+            stage.setMaximized(true);
+
+            // Close the current dashboard stage
+            Stage currentStage = (Stage) Cancel.getScene().getWindow();
+            currentStage.close();
+
+            // Show the login stage
+            stage.show();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     public void AddToOrderClicked(){
         //TO-DO
         //go back to the order page and add drink with specifications to current order
+        try {
+            // Load the Login.fxml file
+            Parent root = FXMLLoader.load(getClass().getResource("fxml/MainCashierView.fxml"));
+
+            // Create a new Stage
+            Stage stage = new Stage();
+            stage.setTitle("Main Cashier View");
+            stage.setScene(new Scene(root, 1244.0, 641.0));
+            stage.setMaximized(true);
+
+            // Close the current dashboard stage
+            Stage currentStage = (Stage) AddToOrder.getScene().getWindow();
+            currentStage.close();
+
+            // Show the login stage
+            stage.show();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }
