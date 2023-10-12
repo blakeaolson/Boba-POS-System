@@ -6,12 +6,40 @@ import javafx.stage.Stage;
 import javafx.stage.Window;
 import javafx.scene.control.Button;
 import javafx.scene.text.Text;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
+import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.Statement;
 
 public class ManagerDashboardController {
 
     @FXML
     private Button logoutButton;
 
+    @FXML
+    private TableView<InventoryData> resultTable;
+
+    @FXML
+    private TableColumn<InventoryData, String> itemid;
+
+    @FXML
+    private TableColumn<InventoryData, String> quantity;
+
+    @FXML    
+    private TableColumn<InventoryData, String> itemcategory;
+
+    @FXML
+    private void initialize() {
+        // This method is invoked when the FXML components are initialized.
+        executeQuery("inventory");
+    }
     @FXML
     public void logout() {
         try {
@@ -71,6 +99,7 @@ public class ManagerDashboardController {
     @FXML
     private void inventoryButtonClicked() {
         try {
+            //executeQuery("inventory");
             Parent root = FXMLLoader.load(getClass().getResource("fxml/ManagerInventory.fxml"));
             Stage newStage = new Stage();
             newStage.setTitle("Manager Employees");
@@ -136,4 +165,52 @@ public class ManagerDashboardController {
             e.printStackTrace();
         }
     }
+
+    @FXML
+    void executeQuery(String queryType) {
+        try {
+            // Replace with your PostgreSQL database credentials and connection URL
+            String jdbcUrl = "jdbc:postgresql://csce-315-db.engr.tamu.edu/csce315331_08b_db";
+            String username = "csce315_971_kevtom2003";
+            String password = "password";
+            Connection conn = null;
+            try {
+                //Class.forName("org.postgresql.Driver");
+                conn = DriverManager.getConnection(jdbcUrl,username,password);
+             } catch (Exception e) {
+                e.printStackTrace();
+                System.err.println(e.getClass().getName()+": "+e.getMessage());
+                System.exit(0);
+             }
+            // Execute a sample query (replace with your query)
+            String sql = "SELECT * FROM inventory;";
+            Statement statement = conn.createStatement();
+            ResultSet resultSet = statement.executeQuery(sql);
+
+            // Create an ObservableList to store the query results
+            ObservableList<InventoryData> data = FXCollections.observableArrayList();
+
+            while (resultSet.next()) {
+                String itemid = resultSet.getString("itemid");
+                String quantity = resultSet.getString("quantity");
+                String category = resultSet.getString("itemcategory");
+                data.add(new InventoryData(itemid,quantity,category));
+            }
+
+            // Bind the data to the TableView
+            itemid.setCellValueFactory(new PropertyValueFactory<>("Itemid"));
+            quantity.setCellValueFactory(new PropertyValueFactory<>("Quantity"));
+            itemcategory.setCellValueFactory(new PropertyValueFactory<>("Itemcategory"));
+            resultTable.setItems(data);
+
+            // Close the database connection
+            resultSet.close();
+            statement.close();
+            conn.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+
 }
