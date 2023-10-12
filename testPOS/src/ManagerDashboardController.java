@@ -24,21 +24,32 @@ public class ManagerDashboardController {
     private Button logoutButton;
 
     @FXML
-    private TableView<InventoryData> resultTable;
+    private TableView<InventoryData> InventoryTable;
+    @FXML
+    private TableView<EmployeeData> EmployeeTable;
 
     @FXML
     private TableColumn<InventoryData, String> itemid;
-
     @FXML
     private TableColumn<InventoryData, String> quantity;
-
     @FXML    
     private TableColumn<InventoryData, String> itemcategory;
 
     @FXML
+    private TableColumn<EmployeeData, String> id;
+    @FXML
+    private TableColumn<EmployeeData, String> employeename;
+    @FXML    
+    private TableColumn<EmployeeData, String> salary;
+    @FXML    
+    private TableColumn<EmployeeData, String> employeerole;
+
+    @FXML
     private void initialize() {
         // This method is invoked when the FXML components are initialized.
-        executeQuery("inventory");
+        loadInventory();
+        loadEmployees();
+
     }
     @FXML
     public void logout() {
@@ -167,7 +178,7 @@ public class ManagerDashboardController {
     }
 
     @FXML
-    void executeQuery(String queryType) {
+    void loadInventory() {
         try {
             // Replace with your PostgreSQL database credentials and connection URL
             String jdbcUrl = "jdbc:postgresql://csce-315-db.engr.tamu.edu/csce315331_08b_db";
@@ -201,7 +212,7 @@ public class ManagerDashboardController {
             itemid.setCellValueFactory(new PropertyValueFactory<>("Itemid"));
             quantity.setCellValueFactory(new PropertyValueFactory<>("Quantity"));
             itemcategory.setCellValueFactory(new PropertyValueFactory<>("Itemcategory"));
-            resultTable.setItems(data);
+            InventoryTable.setItems(data);
 
             // Close the database connection
             resultSet.close();
@@ -212,5 +223,54 @@ public class ManagerDashboardController {
         }
     }
 
+    @FXML
+    void loadEmployees() {
+        try {
+            // Replace with your PostgreSQL database credentials and connection URL
+            String jdbcUrl = "jdbc:postgresql://csce-315-db.engr.tamu.edu/csce315331_08b_db";
+            String username = "csce315_971_kevtom2003";
+            String password = "password";
+            Connection conn = null;
+            try {
+                //Class.forName("org.postgresql.Driver");
+                conn = DriverManager.getConnection(jdbcUrl,username,password);
+             } catch (Exception e) {
+                e.printStackTrace();
+                System.err.println(e.getClass().getName()+": "+e.getMessage());
+                System.exit(0);
+             }
+            // Execute a sample query (replace with your query)
+            String sql = "SELECT * FROM employees;";
+            Statement statement = conn.createStatement();
+            ResultSet resultSet = statement.executeQuery(sql);
+
+            // Create an ObservableList to store the query results
+            ObservableList<EmployeeData> data = FXCollections.observableArrayList();
+
+            while (resultSet.next()) {
+                String id = resultSet.getString("id");
+                String employeename = resultSet.getString("employeename");
+                String salary = resultSet.getString("salary");
+                String employeerole = resultSet.getString("employeerole");
+
+                data.add(new EmployeeData(id,employeename,salary,employeerole));
+            }
+
+            // Bind the data to the TableView
+            id.setCellValueFactory(new PropertyValueFactory<>("id"));
+            employeename.setCellValueFactory(new PropertyValueFactory<>("employeename"));
+            salary.setCellValueFactory(new PropertyValueFactory<>("salary"));
+            employeerole.setCellValueFactory(new PropertyValueFactory<>("employeerole"));
+
+            EmployeeTable.setItems(data);
+
+            // Close the database connection
+            resultSet.close();
+            statement.close();
+            conn.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 
 }
