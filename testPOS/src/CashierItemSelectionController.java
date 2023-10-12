@@ -10,6 +10,8 @@ import javafx.scene.image.ImageView;
 import javafx.scene.image.Image;
 import javafx.fxml.FXMLLoader;
 import java.util.Scanner;
+import SharedData.SharedItemList;
+
 public class CashierItemSelectionController {
 
     @FXML
@@ -68,6 +70,8 @@ public class CashierItemSelectionController {
 
     @FXML
     private Button AddToOrder = new Button();
+
+    private String item;
 
     //sweetness and boba level will be on scale of 0-3
     //0 = no sugar/no boba
@@ -152,6 +156,10 @@ public class CashierItemSelectionController {
         scan.close();
         ExtraRequest.setText(extraRequestString);
     }
+  
+    public void setItem(String s){
+      item = s;
+    }
 
     public void CancelClicked(){
         //TO-DO
@@ -181,20 +189,21 @@ public class CashierItemSelectionController {
         //TO-DO
         //go back to the order page and add drink with specifications to current order
         try {            
-            CashierMainController controller = new CashierMainController();
-            controller.addItem("test");
-            controller.updateScene();
-
-            System.out.println("added test item");
-
             // Load the .fxml file
-            Parent root = FXMLLoader.load(getClass().getResource("fxml/MainCashierView.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("fxml/MainCashierView.fxml"));
+            Parent root = loader.load();
 
+            SharedItemList.addItem(item);
+
+            CashierMainController controller = loader.getController();
+            controller.updateScene();
+            
             // Create a new Stage
             Stage stage = new Stage();
             stage.setTitle("Main Cashier View");
             stage.setScene(new Scene(root, 1244.0, 641.0));
             stage.setMaximized(true);
+
 
             // Close the current dashboard stage
             Stage currentStage = (Stage) AddToOrder.getScene().getWindow();
