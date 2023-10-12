@@ -73,7 +73,7 @@ public class ManagerDashboardController {
         try {
             Parent root = FXMLLoader.load(getClass().getResource("fxml/ManagerInventory.fxml"));
             Stage newStage = new Stage();
-            newStage.setTitle("Manager Employees");
+            newStage.setTitle("Manager Inventory");
             newStage.setScene(new Scene(root, 460, 354));
             newStage.setMaximized(true);
             newStage.show();
@@ -90,7 +90,7 @@ public class ManagerDashboardController {
         try {
             Parent root = FXMLLoader.load(getClass().getResource("fxml/ManagerRevenue.fxml"));
             Stage newStage = new Stage();
-            newStage.setTitle("Manager Employees");
+            newStage.setTitle("Manager Revenue");
             newStage.setScene(new Scene(root, 460, 354));
             newStage.setMaximized(true);
             newStage.show();
