@@ -8,6 +8,7 @@ import javafx.scene.control.Button;
 import javafx.scene.text.Text;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -15,13 +16,26 @@ import javafx.event.ActionEvent;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
 
 public class ManagerDashboardController {
+    @FXML
+    private TextField addInventoryID;
+    @FXML
+    private TextField addInventoryQuantity;
+    @FXML
+    private TextField addInventoryCategory;
 
     @FXML
     private Button logoutButton;
+
+    @FXML
+    private Button addInventoryButton;
+
+    @FXML
+    private Button addInventory;
 
     @FXML
     private TableView<InventoryData> InventoryTable;
@@ -47,10 +61,17 @@ public class ManagerDashboardController {
     @FXML
     private void initialize() {
         // This method is invoked when the FXML components are initialized.
-        loadInventory();
+        loadInventoryData();
         loadEmployees();
-
     }
+
+    @FXML
+    private void reloadData() {
+        // This method is invoked when the FXML components are initialized.
+        loadInventoryData();
+        loadEmployees();
+    }
+
     @FXML
     public void logout() {
         try {
@@ -72,6 +93,29 @@ public class ManagerDashboardController {
             e.printStackTrace();
         }
     }
+
+    @FXML
+    public void loadInventoryForm() {
+        try {
+            // Load the Login.fxml file
+            Parent root = FXMLLoader.load(getClass().getResource("fxml/AddInventory.fxml"));
+
+            // Create a new Stage
+            Stage stage = new Stage();
+            stage.setTitle("Add Inventory");
+            stage.setScene(new Scene(root, 460, 354));
+
+            // Close the current dashboard stage
+            Stage currentStage = (Stage) logoutButton.getScene().getWindow();
+            currentStage.close();
+
+            // Show the login stage
+            stage.show();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
 
     @FXML
     private void ordersButtonClicked() {
@@ -162,6 +206,36 @@ public class ManagerDashboardController {
 
     @FXML
     private void addInventoryFinal() {
+        String newItem = addInventoryID.getText();
+        int newQuantity = Integer.parseInt(addInventoryQuantity.getText());
+        String newCategory = addInventoryCategory.getText();
+        try {
+            // Replace with your PostgreSQL database credentials and connection URL
+            String jdbcUrl = "jdbc:postgresql://csce-315-db.engr.tamu.edu/csce315331_08b_db";
+            String username = "csce315_971_kevtom2003";
+            String password = "password";
+            Connection conn = null;
+            try {
+                //Class.forName("org.postgresql.Driver");
+                conn = DriverManager.getConnection(jdbcUrl,username,password);
+             } catch (Exception e) {
+                e.printStackTrace();
+                System.err.println(e.getClass().getName()+": "+e.getMessage());
+                System.exit(0);
+             }
+            // Execute a sample query (replace with your query)
+            String sql = "INSERT INTO inventory (itemid, quantity, itemcategory) VALUES (?, ?, ?)";
+            try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
+                pstmt.setString(1, newItem);
+                pstmt.setInt(2, newQuantity);
+                pstmt.setString(3, newCategory);
+                pstmt.executeUpdate();
+            }
+            reloadData();
+        }catch (Exception e) {
+            e.printStackTrace();
+        }
+
         try {
             Parent root = FXMLLoader.load(getClass().getResource("fxml/ManagerDashboard.fxml"));
             Stage newStage = new Stage();
@@ -178,7 +252,7 @@ public class ManagerDashboardController {
     }
 
     @FXML
-    void loadInventory() {
+    void loadInventoryData() {
         try {
             // Replace with your PostgreSQL database credentials and connection URL
             String jdbcUrl = "jdbc:postgresql://csce-315-db.engr.tamu.edu/csce315331_08b_db";

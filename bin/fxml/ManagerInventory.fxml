@@ -40,6 +40,7 @@
                   <Insets right="5.0" top="5.0" />
                </HBox.margin>
             </Button>
+            <Button fx:id="addInvetoryButton" alignment="CENTER" onAction="#loadInventoryForm" prefHeight="50.0" prefWidth="73.0" text="+" textAlignment="CENTER"></Button>
            </children>
         </HBox>
     </top>
