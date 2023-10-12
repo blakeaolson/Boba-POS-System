@@ -23,11 +23,7 @@
       <Button id="order_but8" fx:id="order_but8" layoutX="693.0" layoutY="450.0" mnemonicParsing="false" onMouseClicked="#order_but8Clicked" prefHeight="78.0" prefWidth="123.0" text="Almond Milk Tea" />
       <TitledPane animated="false" layoutX="888.0" layoutY="2.0" prefHeight="641.0" prefWidth="203.0" text="CurrentOrder">
         <content>
-<<<<<<< HEAD
           <AnchorPane fx:id="orderPane" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
-=======
-          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
->>>>>>> main
                <children>
                   <Button id="finish_order_button" fx:id="finish_order_button" layoutX="58.0" layoutY="568.0" mnemonicParsing="false" onMouseClicked="#checkout" text="Finish Order" />
                </children>
@@ -36,8 +32,4 @@
       </TitledPane>
       <Button fx:id="logoutButton" alignment="CENTER" layoutX="1132.0" layoutY="14.0" mnemonicParsing="false" onAction="#logout" prefHeight="50.0" prefWidth="73.0" text="Logout" textAlignment="CENTER" />
    </children>
-<<<<<<< HEAD
 </AnchorPane>
-=======
-</AnchorPane>
->>>>>>> main
