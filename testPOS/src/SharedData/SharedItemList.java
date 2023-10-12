@@ -11,4 +11,7 @@ public class SharedItemList {
     public static void addItem(String item) {
         itemList.add(item);
     }
+    public static void clearList(){
+        itemList.clear();
+    }
 }
