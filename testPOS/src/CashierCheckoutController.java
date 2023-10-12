@@ -4,6 +4,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
+import SharedData.SharedItemList;
 
 public class CashierCheckoutController {
 
@@ -14,6 +15,7 @@ public class CashierCheckoutController {
         try {
             // Load the Login.fxml file
             Parent root = FXMLLoader.load(getClass().getResource("fxml/MainCashierView.fxml"));
+            SharedItemList.clearList();
 
             // Create a new Stage
             Stage stage = new Stage();
