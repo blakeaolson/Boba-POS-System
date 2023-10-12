@@ -9,6 +9,7 @@ import javafx.scene.control.Button;
 import javafx.scene.text.Text;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.VBox;
 import javafx.scene.control.TextArea; // Import TextArea class
 import SharedData.SharedItemList;
 
@@ -39,10 +40,13 @@ public class CashierMainController {
 
     public void updateScene() {
       ArrayList<String> itemList = SharedItemList.getItemList();
-        for (String item : itemList) {
-            Button newButton = new Button(item);
-            orderPane.getChildren().add(newButton);
-        }
+      VBox buttonContainer = new VBox();
+
+      for (String item : itemList) {
+          Button newButton = new Button(item);
+          buttonContainer.getChildren().add(newButton);
+      }
+      orderPane.getChildren().add(buttonContainer);
     }
     
     public void checkout() {
