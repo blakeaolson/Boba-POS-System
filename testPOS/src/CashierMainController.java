@@ -4,13 +4,10 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import javafx.stage.Window;
 import javafx.scene.control.Button;
-import javafx.scene.text.Text;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
-import javafx.scene.control.TextArea; // Import TextArea class
+import SharedData.OrderData;
 import SharedData.SharedItemList;
 
 public class CashierMainController {
@@ -39,11 +36,11 @@ public class CashierMainController {
     private AnchorPane orderPane;
 
     public void updateScene() {
-      ArrayList<String> itemList = SharedItemList.getItemList();
+      ArrayList<OrderData> itemList = SharedItemList.getItemList();
       VBox buttonContainer = new VBox();
 
-      for (String item : itemList) {
-          Button newButton = new Button(item);
+      for (OrderData item : itemList) {
+          Button newButton = new Button(item.getDrinkName());
           buttonContainer.getChildren().add(newButton);
       }
       orderPane.getChildren().add(buttonContainer);
