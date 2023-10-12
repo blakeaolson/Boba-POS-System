@@ -82,6 +82,7 @@ public class ManagerDashboardController {
             Stage stage = new Stage();
             stage.setTitle("Login");
             stage.setScene(new Scene(root, 460, 354));
+            stage.setMaximized(true);
 
             // Close the current dashboard stage
             Stage currentStage = (Stage) logoutButton.getScene().getWindow();
@@ -104,6 +105,7 @@ public class ManagerDashboardController {
             Stage stage = new Stage();
             stage.setTitle("Add Inventory");
             stage.setScene(new Scene(root, 460, 354));
+            stage.setMaximized(true);
 
             // Close the current dashboard stage
             Stage currentStage = (Stage) logoutButton.getScene().getWindow();
