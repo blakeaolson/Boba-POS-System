@@ -237,7 +237,7 @@ public class ManagerDashboardController {
         }
 
         try {
-            Parent root = FXMLLoader.load(getClass().getResource("fxml/ManagerDashboard.fxml"));
+            Parent root = FXMLLoader.load(getClass().getResource("fxml/ManagerInventory.fxml"));
             Stage newStage = new Stage();
             newStage.setTitle("Manager Dashboard");
             newStage.setScene(new Scene(root, 460, 354));
