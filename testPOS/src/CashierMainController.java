@@ -10,26 +10,47 @@ import javafx.scene.text.Text;
 public class CashierMainController {
 
     @FXML
-    private Button finish_order_button;
+    private Button finish_order_button = new Button();
     @FXML  
-    private Button order_but1;
+    private Button order_but1 = new Button();
     @FXML
-    private Button order_but2;
+    private Button order_but2 = new Button();
     @FXML    
-    private Button order_but3;
+    private Button order_but3 = new Button();
     @FXML    
-    private Button order_but4;
+    private Button order_but4 = new Button();
     @FXML    
-    private Button order_but5;
+    private Button order_but5 = new Button();
     @FXML    
-    private Button order_but6;
+    private Button order_but6 = new Button();
     @FXML
-    private Button order_but7;
+    private Button order_but7 = new Button();
     @FXML
-    private Button order_but8;
+    private Button order_but8 = new Button();
     @FXML
-    private Button logoutButton;
+    private Button logoutButton = new Button();
+    @FXML
+    private Button cancelOrder = new Button();
+    public void CancelOrderClicked(){
+        try {
+            // Load the Login.fxml file
+            Parent root = FXMLLoader.load(getClass().getResource("fxml/MainCashierView.fxml"));
 
+            // Create a new Stage
+            Stage stage = new Stage();
+            stage.setTitle("Main Cashier View");
+            stage.setScene(new Scene(root, 1244.0, 641.0));
+            
+            // Close the current dashboard stage
+            Stage currentStage = (Stage) finish_order_button.getScene().getWindow();
+            currentStage.close();
+
+            // Show the login stage
+            stage.show();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
     public void checkout() {
         try {
             // Load the Login.fxml file

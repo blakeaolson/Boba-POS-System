@@ -25,7 +25,8 @@
         <content>
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                <children>
-                  <Button id="finish_order_button" fx:id="finish_order_button" layoutX="58.0" layoutY="568.0" mnemonicParsing="false" onMouseClicked="#checkout" text="Finish Order" />
+                  <Button id="finish_order_button" fx:id="finish_order_button" layoutX="106.0" layoutY="569.0" mnemonicParsing="false" onMouseClicked="#checkout" text="Finish Order" />
+                  <Button fx:id="CancelOrder" layoutX="4.0" layoutY="569.0" mnemonicParsing="false" onMouseClicked="#CancelOrderClicked" prefHeight="25.0" prefWidth="92.0" text="Cancel Order" />
                </children>
             </AnchorPane>
         </content>
