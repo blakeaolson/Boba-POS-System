@@ -1,11 +1,22 @@
 public class InventoryData {
-    private final String ItemID;
-    private final String Quantity;
-    private final String ItemCategory;
+    private String itemid = "";
+    private String quantity = "";
+    private String itemcategory = "";
 
-    public InventoryData(String ItemID, String Quantity, String ItemCategory) {
-        this.ItemID = ItemID;
-        this.Quantity = Quantity;
-        this.ItemCategory = ItemCategory;
+    public InventoryData(String itemid, String quantity, String itemcategory) {
+        this.itemid = itemid;
+        this.quantity = quantity;
+        this.itemcategory = itemcategory;
+    }
+
+    public String getItemid() {
+        return itemid;
+    }
+
+    public String getQuantity() {
+        return quantity;
+    }
+    public String getItemcategory() {
+        return itemcategory;
     }
 }

@@ -69,7 +69,7 @@
       </VBox>
    </center>
    <bottom>
-      <Button fx:id="addInventoryButton" mnemonicParsing="false" onAction="#addInventoryFinal" text="Add Inventory" BorderPane.alignment="CENTER">
+      <Button fx:id="addInventory" mnemonicParsing="false" onAction="#addInventoryFinal" text="Add Inventory" BorderPane.alignment="CENTER">
          <BorderPane.margin>
             <Insets bottom="10.0" />
          </BorderPane.margin>
