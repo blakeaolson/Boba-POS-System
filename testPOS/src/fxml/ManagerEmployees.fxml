@@ -59,12 +59,12 @@
    <center>
       <HBox alignment="CENTER" spacing="10">
          <children>
-            <TableView prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+            <TableView  fx:id="EmployeeTable" prefHeight="200.0" prefWidth="600.0" BorderPane.alignment="CENTER">
                <columns>
-                  <TableColumn prefWidth="59.0" text="ID" />
-                  <TableColumn prefWidth="156.0" text="Name" />
-                  <TableColumn minWidth="7.0" prefWidth="89.0" text="Salary" />
-                  <TableColumn minWidth="2.0" prefWidth="125.0" text="Role" />
+                  <TableColumn fx:id="id" prefWidth="156.0" text="ID" />
+                  <TableColumn fx:id="employeename" minWidth="7.0" prefWidth="125.0" text="Name" />
+                  <TableColumn fx:id="salary" minWidth="2.0" prefWidth="125.0" text="Salary" />
+                  <TableColumn fx:id="employeerole" minWidth="2.0" prefWidth="125.0" text="Role" />
                </columns>
             </TableView>
          </children>
