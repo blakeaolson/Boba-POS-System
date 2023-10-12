@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<BorderPane prefHeight="412.0" prefWidth="430.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ManagerDashboardController">
+    <top>
+        <HBox alignment="CENTER" prefHeight="72.0" prefWidth="430.0">
+           <children>
+            <StackPane prefHeight="36.0" prefWidth="70.0">
+               <children>
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Manager Name: Bob&#10;Manager ID: 12345">
+                     <font>
+                        <Font size="10.0" />
+                     </font>
+                     <StackPane.margin>
+                        <Insets left="5.0" />
+                     </StackPane.margin>
+                  </Text>
+               </children>
+            </StackPane>
+                <Text text="              Inventory              ">
+               <font>
+                  <Font size="24.0" />
+               </font>
+            </Text>
+                <Button fx:id="logoutButton" alignment="CENTER" onAction="#logout" prefHeight="50.0" prefWidth="73.0" text="Logout" textAlignment="CENTER">
+               <HBox.margin>
+                  <Insets right="5.0" top="5.0" />
+               </HBox.margin>
+            </Button>
+           </children>
+        </HBox>
+    </top>
+   <bottom>
+        <HBox alignment="CENTER" spacing="10" BorderPane.alignment="CENTER">
+            <children>
+                <Button fx:id="ordersButton" mnemonicParsing="false" onAction="#ordersButtonClicked" prefHeight="35.0" prefWidth="100.0" text="Orders" />
+                <Button fx:id="employeesButton" mnemonicParsing="false" onAction="#employeesButtonClicked" prefHeight="35.0" prefWidth="100.0" text="Employees" />
+                <Button fx:id="inventoryButton" mnemonicParsing="false" prefHeight="35.0" prefWidth="100.0" text="Inventory" />
+                <Button fx:id="revenueButton" mnemonicParsing="false" onAction="#revenueButtonClicked" prefHeight="35.0" prefWidth="100.0" text="Revenue" />
+            </children>
+         <padding>
+            <Insets top="10.0" bottom="10.0" />
+         </padding>
+        </HBox>
+   </bottom>
+   <center>
+      <HBox alignment="CENTER" spacing="10">
+         <children>
+            <TableView prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+            <columns>
+               <TableColumn prefWidth="75.0" text="Item ID" />
+               <TableColumn prefWidth="107.0" text="Quantity" />
+                  <TableColumn prefWidth="247.0" text="Item Category" />
+            </columns>
+            </TableView>
+         </children>
+         <padding>
+            <Insets top="10.0" />
+         </padding>
+        </HBox>
+   </center>
+</BorderPane>

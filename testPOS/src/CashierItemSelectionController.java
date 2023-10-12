@@ -180,8 +180,14 @@ public class CashierItemSelectionController {
     public void AddToOrderClicked(){
         //TO-DO
         //go back to the order page and add drink with specifications to current order
-        try {
-            // Load the Login.fxml file
+        try {            
+            CashierMainController controller = new CashierMainController();
+            controller.addItem("test");
+            controller.updateScene();
+
+            System.out.println("added test item");
+
+            // Load the .fxml file
             Parent root = FXMLLoader.load(getClass().getResource("fxml/MainCashierView.fxml"));
 
             // Create a new Stage
@@ -194,7 +200,7 @@ public class CashierItemSelectionController {
             Stage currentStage = (Stage) AddToOrder.getScene().getWindow();
             currentStage.close();
 
-            // Show the login stage
+            // Show the stage
             stage.show();
         } catch (Exception e) {
             e.printStackTrace();

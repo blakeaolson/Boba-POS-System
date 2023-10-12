@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -6,6 +7,8 @@ import javafx.stage.Stage;
 import javafx.stage.Window;
 import javafx.scene.control.Button;
 import javafx.scene.text.Text;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Pane;
 
 public class CashierMainController {
 
@@ -29,12 +32,27 @@ public class CashierMainController {
     private Button order_but8;
     @FXML
     private Button logoutButton;
+    @FXML
+    private AnchorPane checkoutPane;
+    @FXML
+    private Pane orderContainer;
 
+
+    private ArrayList<String> itemList = new ArrayList<>();
+
+    public void updateScene() {
+        for (String item : itemList) {
+            System.out.println(item);
+            Button newButton = new Button(item);
+        }
+    }
+    
     public void checkout() {
         try {
+
             // Load the Login.fxml file
             Parent root = FXMLLoader.load(getClass().getResource("fxml/CashierCheckout.fxml"));
-
+            
             // Create a new Stage
             Stage stage = new Stage();
             stage.setTitle("Payment");
@@ -262,5 +280,8 @@ public class CashierMainController {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+    public void addItem(String s){
+      itemList.add(s);
     }
 }
