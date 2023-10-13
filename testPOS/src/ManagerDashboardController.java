@@ -41,6 +41,8 @@ public class ManagerDashboardController {
     private TableView<InventoryData> InventoryTable;
     @FXML
     private TableView<EmployeeData> EmployeeTable;
+    @FXML
+    private TableView<Orders> OrderTable;
 
     @FXML
     private TableColumn<InventoryData, String> itemid;
@@ -59,10 +61,25 @@ public class ManagerDashboardController {
     private TableColumn<EmployeeData, String> employeerole;
 
     @FXML
+    private TableColumn<Orders, String> orderid;
+    @FXML
+    private TableColumn<Orders, String> totalamount;
+    @FXML    
+    private TableColumn<Orders, String> orderdate;
+    @FXML    
+    private TableColumn<Orders, String> orderhour;
+    @FXML    
+    private TableColumn<Orders, String> cashiername;
+    @FXML    
+    private TableColumn<Orders, String> paymentmethod;
+
+
+    @FXML
     private void initialize() {
         // This method is invoked when the FXML components are initialized.
         loadInventoryData();
         loadEmployees();
+        loadOrders();
     }
 
     @FXML
@@ -337,6 +354,61 @@ public class ManagerDashboardController {
             employeerole.setCellValueFactory(new PropertyValueFactory<>("employeerole"));
 
             EmployeeTable.setItems(data);
+
+            // Close the database connection
+            resultSet.close();
+            statement.close();
+            conn.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    @FXML
+    void loadOrders() {
+        try {
+            // Replace with your PostgreSQL database credentials and connection URL
+            String jdbcUrl = "jdbc:postgresql://csce-315-db.engr.tamu.edu/csce315331_08b_db";
+            String username = "csce315_971_kevtom2003";
+            String password = "password";
+            Connection conn = null;
+            try {
+                //Class.forName("org.postgresql.Driver");
+                conn = DriverManager.getConnection(jdbcUrl,username,password);
+             } catch (Exception e) {
+                e.printStackTrace();
+                System.err.println(e.getClass().getName()+": "+e.getMessage());
+                System.exit(0);
+             }
+            // Execute a sample query (replace with your query)
+            String sql = "SELECT * FROM orders;";
+            Statement statement = conn.createStatement();
+            ResultSet resultSet = statement.executeQuery(sql);
+
+            // Create an ObservableList to store the query results
+            ObservableList<Orders> data = FXCollections.observableArrayList();
+
+            while (resultSet.next()) {
+                String id = resultSet.getString("id");
+                String totalamount = resultSet.getString("totalamount");
+                String orderdate = resultSet.getString("orderdate");
+                String cashiername = resultSet.getString("cashiername");
+                String paymentmethod = resultSet.getString("paymentmethod");
+                String orderhour = resultSet.getString("orderhour");
+
+
+                data.add(new Orders(id,totalamount,orderdate,cashiername,paymentmethod,orderhour));
+            }
+
+            // Bind the data to the TableView
+            orderid.setCellValueFactory(new PropertyValueFactory<>("orderid"));
+            totalamount.setCellValueFactory(new PropertyValueFactory<>("totalamount"));
+            orderdate.setCellValueFactory(new PropertyValueFactory<>("orderdate"));
+            cashiername.setCellValueFactory(new PropertyValueFactory<>("cashiername"));
+            paymentmethod.setCellValueFactory(new PropertyValueFactory<>("paymentmethod"));
+            orderhour.setCellValueFactory(new PropertyValueFactory<>("orderhour"));
+
+            OrderTable.setItems(data);
 
             // Close the database connection
             resultSet.close();
