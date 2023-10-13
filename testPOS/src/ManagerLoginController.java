@@ -18,7 +18,7 @@ public class ManagerLoginController {
 
     public void login() {
         String username = usernameField.getText();
-        String password = passwordField.getText();
+        // String password = passwordField.getText();
 
         if (username.equals("manager")) {
             // Successful login, load the dashboard
