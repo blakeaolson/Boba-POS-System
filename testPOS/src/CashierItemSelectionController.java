@@ -164,7 +164,11 @@ public class CashierItemSelectionController {
         //go back to the order page
         try {
             // Load the Login.fxml file
-            Parent root = FXMLLoader.load(getClass().getResource("fxml/MainCashierView.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("fxml/MainCashierView.fxml"));
+            Parent root = loader.load();
+
+            CashierMainController controller = loader.getController();
+            controller.updateScene();
 
             // Create a new Stage
             Stage stage = new Stage();

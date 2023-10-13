@@ -1,3 +1,4 @@
+import java.io.IOException;
 import java.util.ArrayList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -41,6 +42,28 @@ public class CashierMainController {
 
       for (OrderData item : itemList) {
           Button newButton = new Button(item.getDrinkName());
+          
+          newButton.setOnAction(event -> {
+            // Load the ManagerLogin.fxml file
+            try {
+                Parent root = FXMLLoader.load(getClass().getResource("fxml/CashierModification.fxml"));
+                
+                // Create a new Stage
+                Stage stage = new Stage();
+                stage.setTitle("Manager Login");
+                stage.setScene(new Scene(root, 460, 354));
+                stage.setMaximized(true);
+                
+                // Close the current stage
+                Stage currentStage = (Stage) newButton.getScene().getWindow();
+                currentStage.close();
+                
+                // Show the Manager Login stage
+                stage.show();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+          });
           buttonContainer.getChildren().add(newButton);
       }
       orderPane.getChildren().add(buttonContainer);
