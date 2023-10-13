@@ -24,20 +24,36 @@ public class ManagerDashboardController {
     private TextField addInventoryQuantity;
     @FXML
     private TextField addInventoryCategory;
+    
+    @FXML
+    private TextField addMenuID;
+    @FXML
+    private TextField addMenuName;
+    @FXML
+    private TextField addMenuCost;
 
     @FXML
-    private Button logoutButton;
+    private Button logoutButton = new Button();
 
     @FXML
-    private Button addInventoryButton;
+    private Button addInventoryButton = new Button();
 
     @FXML
-    private Button addInventory;
+    private Button addInventory = new Button();
 
     @FXML
     private TableView<InventoryData> InventoryTable;
     @FXML
     private TableView<EmployeeData> EmployeeTable;
+    @FXML
+    private TableView<MenuData> MenuTable;
+
+    @FXML
+    private TableColumn<MenuData, String> menuid;
+    @FXML
+    private TableColumn<MenuData, String> menuName;
+    @FXML    
+    private TableColumn<MenuData, String> itemcost;
 
     @FXML
     private TableColumn<InventoryData, String> itemid;
@@ -54,12 +70,31 @@ public class ManagerDashboardController {
     private TableColumn<EmployeeData, String> salary;
     @FXML    
     private TableColumn<EmployeeData, String> employeerole;
+    @FXML
+    private Button menuButton = new Button(); 
+    @FXML
+    private TableView<Orders> OrderTable;
+    @FXML
+    private TableColumn<Orders, String> orderid;
+    @FXML
+    private TableColumn<Orders, String> totalamount;
+    @FXML    
+    private TableColumn<Orders, String> orderdate;
+    @FXML    
+    private TableColumn<Orders, String> orderhour;
+    @FXML    
+    private TableColumn<Orders, String> cashiername;
+    @FXML    
+    private TableColumn<Orders, String> paymentmethod;
+
 
     @FXML
     private void initialize() {
         // This method is invoked when the FXML components are initialized.
         loadInventoryData();
         loadEmployees();
+        loadMenu();
+        loadOrders();
     }
 
     @FXML
@@ -67,6 +102,8 @@ public class ManagerDashboardController {
         // This method is invoked when the FXML components are initialized.
         loadInventoryData();
         loadEmployees();
+        loadMenu();
+        loadOrders();
     }
 
     @FXML
@@ -100,6 +137,28 @@ public class ManagerDashboardController {
             // Create a new Stage
             Stage stage = new Stage();
             stage.setTitle("Add Inventory");
+            stage.setScene(new Scene(root, 460, 354));
+
+            // Close the current dashboard stage
+            Stage currentStage = (Stage) logoutButton.getScene().getWindow();
+            currentStage.close();
+
+            // Show the login stage
+            stage.show();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    @FXML
+    public void loadMenuForm() {
+        try {
+            // Load the Login.fxml file
+            Parent root = FXMLLoader.load(getClass().getResource("fxml/AddMenu.fxml"));
+
+            // Create a new Stage
+            Stage stage = new Stage();
+            stage.setTitle("Add to Menu");
             stage.setScene(new Scene(root, 460, 354));
 
             // Close the current dashboard stage
@@ -171,7 +230,7 @@ public class ManagerDashboardController {
         try {
             Parent root = FXMLLoader.load(getClass().getResource("fxml/ManagerRevenue.fxml"));
             Stage newStage = new Stage();
-            newStage.setTitle("Manager Employees");
+            newStage.setTitle("Manager Revenue");
             newStage.setScene(new Scene(root, 460, 354));
             newStage.setMaximized(true);
             newStage.show();
@@ -183,6 +242,22 @@ public class ManagerDashboardController {
         }
     }
 
+    @FXML
+    private void menuButtonClicked() {
+        try {
+            Parent root = FXMLLoader.load(getClass().getResource("fxml/ManagerMenu.fxml"));
+            Stage newStage = new Stage();
+            newStage.setTitle("Manager menu");
+            newStage.setScene(new Scene(root, 460, 354));
+            newStage.setMaximized(true);
+            newStage.show();
+
+            Stage currentStage = (Stage) logoutButton.getScene().getWindow();
+            currentStage.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 
     @FXML
     private void addInventoryButtonClicked() {
@@ -221,7 +296,7 @@ public class ManagerDashboardController {
                 System.exit(0);
              }
             // Execute a sample query (replace with your query)
-            String sql = "INSERT INTO inventory (itemid, quantity, itemcategory) VALUES (?, ?, ?)";
+            String sql = "INSERT INTO inventory (itemid, quantity, itemcategory) VALUES (?, ?, ?);";
             try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
                 pstmt.setString(1, newItem);
                 pstmt.setInt(2, newQuantity);
@@ -237,6 +312,54 @@ public class ManagerDashboardController {
             Parent root = FXMLLoader.load(getClass().getResource("fxml/ManagerInventory.fxml"));
             Stage newStage = new Stage();
             newStage.setTitle("Manager Dashboard");
+            newStage.setScene(new Scene(root, 460, 354));
+            newStage.setMaximized(true);
+            newStage.show();
+
+            Stage currentStage = (Stage) logoutButton.getScene().getWindow();
+            currentStage.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    @FXML
+    private void addMenuFinal() {
+        int newItem = Integer.parseInt(addMenuID.getText());
+        String newName = addMenuName.getText();
+        double newCost = Double.parseDouble(addMenuCost.getText());
+        System.out.println(newItem + " " + newName + " " + newCost);
+        try {
+            // Replace with your PostgreSQL database credentials and connection URL
+            String jdbcUrl = "jdbc:postgresql://csce-315-db.engr.tamu.edu/csce315331_08b_db";
+            String username = "csce315_971_kevtom2003";
+            String password = "password";
+            Connection conn = null;
+            try {
+                //Class.forName("org.postgresql.Driver");
+                conn = DriverManager.getConnection(jdbcUrl,username,password);
+             } catch (Exception e) {
+                e.printStackTrace();
+                System.err.println(e.getClass().getName()+": "+e.getMessage());
+                System.exit(0);
+             }
+            // Execute a sample query (replace with your query)
+            String sql = "INSERT INTO teaorders (id, tea_name, price) VALUES (?, ?, ?);";
+            try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
+                pstmt.setInt(1, newItem);
+                pstmt.setString(2, newName);
+                pstmt.setDouble(3, newCost);
+                pstmt.executeUpdate();
+            }
+            reloadData();
+        }catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        try {
+            Parent root = FXMLLoader.load(getClass().getResource("fxml/ManagerMenu.fxml"));
+            Stage newStage = new Stage();
+            newStage.setTitle("Manager Menu");
             newStage.setScene(new Scene(root, 460, 354));
             newStage.setMaximized(true);
             newStage.show();
@@ -344,4 +467,112 @@ public class ManagerDashboardController {
         }
     }
 
+    @FXML
+    private void loadMenu() {
+        try {
+            // Replace with your PostgreSQL database credentials and connection URL
+            String jdbcUrl = "jdbc:postgresql://csce-315-db.engr.tamu.edu/csce315331_08b_db";
+            String username = "csce315_971_kevtom2003";
+            String password = "password";
+            Connection conn = null;
+            try {
+                //Class.forName("org.postgresql.Driver");
+                conn = DriverManager.getConnection(jdbcUrl,username,password);
+             } catch (Exception e) {
+                e.printStackTrace();
+                System.err.println(e.getClass().getName()+": "+e.getMessage());
+                System.exit(0);
+             }
+            // Execute a sample query (replace with your query)
+            String sql = "SELECT * FROM teaorders;";
+            //System.out.println(sql);
+            Statement statement = conn.createStatement();
+            ResultSet resultSet = statement.executeQuery(sql);
+
+            // Create an ObservableList to store the query results
+            ObservableList<MenuData> data = FXCollections.observableArrayList();
+
+            while (resultSet.next()) {
+                String itemid = resultSet.getString("id");
+                String name = resultSet.getString("tea_name");
+                String cost = resultSet.getString("price");
+                //System.out.println(itemid + " " + name + " " + cost);
+                data.add(new MenuData(itemid,name,cost));
+            }
+
+            // Bind the data to the TableView
+            menuid.setCellValueFactory(new PropertyValueFactory<>("itemid"));
+            menuName.setCellValueFactory(new PropertyValueFactory<>("name"));
+            itemcost.setCellValueFactory(new PropertyValueFactory<>("itemcost"));
+            MenuTable.setItems(data);
+
+            // Close the database connection
+            resultSet.close();
+            statement.close();
+            conn.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+    @FXML
+    void loadOrders() {
+        try {
+            // Replace with your PostgreSQL database credentials and connection URL
+            String jdbcUrl = "jdbc:postgresql://csce-315-db.engr.tamu.edu/csce315331_08b_db";
+            String username = "csce315_971_kevtom2003";
+            String password = "password";
+            Connection conn = null;
+            try {
+                //Class.forName("org.postgresql.Driver");
+                conn = DriverManager.getConnection(jdbcUrl,username,password);
+             } catch (Exception e) {
+                e.printStackTrace();
+                System.err.println(e.getClass().getName()+": "+e.getMessage());
+                System.exit(0);
+             }
+            // Execute a sample query (replace with your query)
+            String sql = "SELECT * FROM orders;";
+            Statement statement = conn.createStatement();
+            ResultSet resultSet = statement.executeQuery(sql);
+
+
+            // Create an ObservableList to store the query results
+            ObservableList<Orders> data = FXCollections.observableArrayList();
+
+
+            while (resultSet.next()) {
+                String id = resultSet.getString("id");
+                String totalamount = resultSet.getString("totalamount");
+                String orderdate = resultSet.getString("orderdate");
+                String cashiername = resultSet.getString("cashiername");
+                String paymentmethod = resultSet.getString("paymentmethod");
+                String orderhour = resultSet.getString("orderhour");
+
+
+
+
+                data.add(new Orders(id,totalamount,orderdate,cashiername,paymentmethod,orderhour));
+            }
+
+
+            // Bind the data to the TableView
+            orderid.setCellValueFactory(new PropertyValueFactory<>("orderid"));
+            totalamount.setCellValueFactory(new PropertyValueFactory<>("totalamount"));
+            orderdate.setCellValueFactory(new PropertyValueFactory<>("orderdate"));
+            cashiername.setCellValueFactory(new PropertyValueFactory<>("cashiername"));
+            paymentmethod.setCellValueFactory(new PropertyValueFactory<>("paymentmethod"));
+            orderhour.setCellValueFactory(new PropertyValueFactory<>("orderhour"));
+
+
+            OrderTable.setItems(data);
+
+
+            // Close the database connection
+            resultSet.close();
+            statement.close();
+            conn.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 }

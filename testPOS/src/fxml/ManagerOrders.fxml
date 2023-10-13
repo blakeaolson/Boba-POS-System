@@ -45,14 +45,14 @@
     <center>
         <HBox alignment="CENTER" spacing="10">
             <children>
-            <TableView prefHeight="200.0" prefWidth="451.0">
+            <TableView fx:id="OrderTable" prefHeight="200.0" prefWidth="451.0">
               <columns>
-                <TableColumn prefWidth="53.0" text="Order ID" />
-                <TableColumn prefWidth="87.0" text="Total Amount" />
-                  <TableColumn prefWidth="85.0" text="Order Date" />
-                  <TableColumn prefWidth="83.0" text="Cashier" />
-                  <TableColumn prefWidth="108.0" text="Payment Method" />
-                  <TableColumn prefWidth="34.0" text="Hour" />
+                <TableColumn fx:id="orderid" prefWidth="53.0" text="Order ID" />
+                <TableColumn fx:id="totalamount" prefWidth="87.0" text="Total Amount" />
+                  <TableColumn fx:id="orderdate" prefWidth="85.0" text="Order Date" />
+                  <TableColumn fx:id="cashiername" prefWidth="83.0" text="Cashier" />
+                  <TableColumn fx:id="paymentmethod" prefWidth="108.0" text="Payment Method" />
+                  <TableColumn fx:id="orderhour" prefWidth="34.0" text="Hour" />
               </columns>
             </TableView>
             </children>
