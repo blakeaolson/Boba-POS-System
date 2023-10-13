@@ -40,17 +40,23 @@ public class CashierMainController {
       ArrayList<OrderData> itemList = SharedItemList.getItemList();
       VBox buttonContainer = new VBox();
 
-      for (OrderData item : itemList) {
+      for (int i = 0; i < itemList.size(); i++) {
+          OrderData item = itemList.get(i);
           Button newButton = new Button(item.getDrinkName());
-          
+          int index = i;
           newButton.setOnAction(event -> {
             // Load the ManagerLogin.fxml file
             try {
-                Parent root = FXMLLoader.load(getClass().getResource("fxml/CashierModification.fxml"));
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("fxml/CashierModification.fxml"));
+                Parent root = loader.load();
+                CashierModificationController controller = loader.getController();
+                
+                controller.setbuttonId(index);
+
                 
                 // Create a new Stage
                 Stage stage = new Stage();
-                stage.setTitle("Manager Login");
+                stage.setTitle("Cashier Modification");
                 stage.setScene(new Scene(root, 460, 354));
                 stage.setMaximized(true);
                 
@@ -58,7 +64,7 @@ public class CashierMainController {
                 Stage currentStage = (Stage) newButton.getScene().getWindow();
                 currentStage.close();
                 
-                // Show the Manager Login stage
+                // Show the stage
                 stage.show();
             } catch (IOException e) {
                 e.printStackTrace();

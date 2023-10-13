@@ -15,4 +15,7 @@ public class SharedItemList {
     public static void clearList(){
         itemList.clear();
     }
+    public static void removeItem(int index){
+      itemList.remove(index);
+    }
 }

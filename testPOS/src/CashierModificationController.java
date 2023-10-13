@@ -8,6 +8,8 @@ import javafx.scene.Scene;
 import javafx.scene.image.ImageView;
 import javafx.fxml.FXMLLoader;
 import java.util.Scanner;
+import SharedData.SharedItemList;
+
 public class CashierModificationController {
 
     @FXML
@@ -69,6 +71,8 @@ public class CashierModificationController {
 
     @FXML
     private Button Modify = new Button();
+
+    private int buttonId;
 
     //sweetness and boba level will be on scale of 0-3
     //0 = no sugar/no boba
@@ -153,14 +157,20 @@ public class CashierModificationController {
         scan.close();
         ExtraRequestMod.setText(extraRequestStringMod);
     }
+    
+    public void setbuttonId(int id){
+        buttonId = id;
+    }
 
     public void RemoveFromOrderClicked(){
-        //TO-DO
-        //take drink out from order
-        //go back to the order page
         try {
             // Load the Login.fxml file
-            Parent root = FXMLLoader.load(getClass().getResource("fxml/MainCashierView.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("fxml/MainCashierView.fxml"));
+            Parent root = loader.load();
+            SharedItemList.removeItem(buttonId);
+
+            CashierMainController controller = loader.getController();
+            controller.updateScene();
 
             // Create a new Stage
             Stage stage = new Stage();
@@ -179,11 +189,13 @@ public class CashierModificationController {
     }
 
     public void CancelModClicked(){
-        //TO-DO
-        //go back to the order page
          try {
             // Load the Login.fxml file
-            Parent root = FXMLLoader.load(getClass().getResource("fxml/MainCashierView.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("fxml/MainCashierView.fxml"));
+            Parent root = loader.load();
+
+            CashierMainController controller = loader.getController();
+            controller.updateScene();
 
             // Create a new Stage
             Stage stage = new Stage();
@@ -206,7 +218,11 @@ public class CashierModificationController {
         //go back to order page with updated drink order
         try {
             // Load the Login.fxml file
-            Parent root = FXMLLoader.load(getClass().getResource("fxml/MainCashierView.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("fxml/MainCashierView.fxml"));
+            Parent root = loader.load();
+
+            CashierMainController controller = loader.getController();
+            controller.updateScene();
 
             // Create a new Stage
             Stage stage = new Stage();
