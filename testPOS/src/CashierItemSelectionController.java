@@ -159,6 +159,10 @@ public class CashierItemSelectionController {
       item = s;
     }
 
+    public void setItemName(String s) {
+        currItemText.setText(s);
+    }
+
     public void CancelClicked(){
         //TO-DO
         //go back to the order page

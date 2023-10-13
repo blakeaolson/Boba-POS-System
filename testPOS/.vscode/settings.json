@@ -1,6 +1,5 @@
 {
     "java.project.referencedLibraries": [
-<<<<<<< HEAD
         "lib/**/*.jar",
         "/usr/share/openjfx/lib/javafx.fxml.jar",
         "/usr/share/openjfx/lib/javafx.graphics.jar",
@@ -36,24 +35,3 @@
     "java.jdt.ls.java.home": "C:\\Java\\jdk-17"
 }
 
-=======
-      "lib/**/*.jar",
-      "c:\\javafx-sdk-21\\lib\\javafx.base.jar",
-      "c:\\javafx-sdk-21\\lib\\javafx.controls.jar",
-      "c:\\javafx-sdk-21\\lib\\javafx.fxml.jar",
-      "c:\\javafx-sdk-21\\lib\\javafx.graphics.jar",
-      "c:\\javafx-sdk-21\\lib\\javafx.media.jar",
-      "c:\\javafx-sdk-21\\lib\\javafx.swing.jar",
-      "c:\\javafx-sdk-21\\lib\\javafx.web.jar",
-      "c:\\javafx-sdk-21\\lib\\javafx-swt.jar",
-      "/Users/sathvikyeruva/Downloads/javafx-sdk-21/lib/javafx-swt.jar",
-      "/Users/sathvikyeruva/Downloads/javafx-sdk-21/lib/javafx.base.jar",
-      "/Users/sathvikyeruva/Downloads/javafx-sdk-21/lib/javafx.controls.jar",
-      "/Users/sathvikyeruva/Downloads/javafx-sdk-21/lib/javafx.fxml.jar",
-      "/Users/sathvikyeruva/Downloads/javafx-sdk-21/lib/javafx.graphics.jar",
-      "/Users/sathvikyeruva/Downloads/javafx-sdk-21/lib/javafx.media.jar",
-      "/Users/sathvikyeruva/Downloads/javafx-sdk-21/lib/javafx.swing.jar",
-      "/Users/sathvikyeruva/Downloads/javafx-sdk-21/lib/javafx.web.jar"
-    ]
-}
->>>>>>> main

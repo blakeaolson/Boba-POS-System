@@ -8,15 +8,16 @@
             "type": "java",
             "name": "App",
             "request": "launch",
-            "vmArgs": "--module-path /Users/sathvikyeruva/Downloads/javafx-sdk-21/lib/ --add-modules javafx.controls,javafx.fxml",
             "mainClass": "App",
-<<<<<<< HEAD
-            "projectName": "Boba-POS-System_688bd8af",
-            "vmArgs": "--module-path C:/javafx-sdk-21/lib --add-modules javafx.controls,javafx.fxml",
+            "projectName": "Boba-POS-System_d629533d"
         },
-=======
-            "projectName": "Boba-POS-System_75271537"
+        {
+            "type": "java",
+            "name": "App",
+            "request": "launch",
+            "mainClass": "App",
+            "projectName": "Boba-POS-System_688bd8af",
+            "vmArgs": "--module-path C:/javafx-sdk-21/lib --add-modules javafx.controls,javafx.fxml"
         }
->>>>>>> main
     ]
 }

@@ -1,8 +1,4 @@
 {
-    "java.project.sourcePaths": [
-        "testPOS/src"
-    ],
-    "java.project.outputPath": "bin",
     "java.project.referencedLibraries": [
         "lib/**/*.jar",
         "/usr/share/openjfx/lib/javafx.fxml.jar",
@@ -38,4 +34,3 @@
     ],
     "java.jdt.ls.java.home": "C:\\Java\\jdk-17"
 }
-
