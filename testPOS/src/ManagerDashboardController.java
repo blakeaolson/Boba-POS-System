@@ -66,34 +66,34 @@ public class ManagerDashboardController {
     private Button addInventory = new Button();
 
     @FXML
-    private TableView<InventoryData> InventoryTable;
+    private TableView<InventoryData> InventoryTable = new TableView<>();
     @FXML
-    private TableView<EmployeeData> EmployeeTable;
+    private TableView<EmployeeData> EmployeeTable = new TableView<>();
     @FXML
-    private TableView<MenuData> MenuTable;
+    private TableView<MenuData> MenuTable = new TableView<>();
 
     @FXML
-    private TableColumn<MenuData, String> menuid;
+    private TableColumn<MenuData, String> menuid = new TableColumn<>("Menu ID");
     @FXML
-    private TableColumn<MenuData, String> menuName;
+    private TableColumn<MenuData, String> menuName = new TableColumn<>("Menu Name");
     @FXML    
-    private TableColumn<MenuData, String> itemcost;
+    private TableColumn<MenuData, String> itemcost = new TableColumn<>("Item Cost");
 
     @FXML
-    private TableColumn<InventoryData, String> itemid;
+    private TableColumn<InventoryData, String> itemid = new TableColumn<>("Item ID");
     @FXML
-    private TableColumn<InventoryData, String> quantity;
+    private TableColumn<InventoryData, String> quantity = new TableColumn<>("Quantity");
     @FXML    
-    private TableColumn<InventoryData, String> itemcategory;
+    private TableColumn<InventoryData, String> itemcategory = new TableColumn<>("Item Category");
 
     @FXML
-    private TableColumn<EmployeeData, String> id;
+    private TableColumn<EmployeeData, String> id = new TableColumn<>("ID");
     @FXML
-    private TableColumn<EmployeeData, String> employeename;
+    private TableColumn<EmployeeData, String> employeename = new TableColumn<>("Employee Name");
     @FXML    
-    private TableColumn<EmployeeData, String> salary;
+    private TableColumn<EmployeeData, String> salary = new TableColumn<>("Salary");
     @FXML    
-    private TableColumn<EmployeeData, String> employeerole;
+    private TableColumn<EmployeeData, String> employeerole = new TableColumn<>("Employee Role");
     @FXML
     private Button menuButton = new Button(); 
     @FXML
@@ -103,19 +103,19 @@ public class ManagerDashboardController {
     @FXML
     private Button editMenu = new Button(); 
     @FXML
-    private TableView<Orders> OrderTable;
+    private TableView<Orders> OrderTable = new TableView<>();
     @FXML
-    private TableColumn<Orders, String> orderid;
+    private TableColumn<Orders, String> orderid = new TableColumn<>("Order ID");
     @FXML
-    private TableColumn<Orders, String> totalamount;
+    private TableColumn<Orders, String> totalamount = new TableColumn<>("Total Amount");
     @FXML    
-    private TableColumn<Orders, String> orderdate;
+    private TableColumn<Orders, String> orderdate = new TableColumn<>("Order Date");
     @FXML    
-    private TableColumn<Orders, String> orderhour;
+    private TableColumn<Orders, String> orderhour = new TableColumn<>("Order Hour");
     @FXML    
-    private TableColumn<Orders, String> cashiername;
+    private TableColumn<Orders, String> cashiername = new TableColumn<>("Cashier Name");
     @FXML    
-    private TableColumn<Orders, String> paymentmethod;
+    private TableColumn<Orders, String> paymentmethod = new TableColumn<>("Payment Method");
 
 
     @FXML
