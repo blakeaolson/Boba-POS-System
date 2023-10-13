@@ -1,13 +1,11 @@
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TextArea;
-import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.scene.control.Button;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.image.ImageView;
-import javafx.scene.image.Image;
 import javafx.fxml.FXMLLoader;
 import java.util.Scanner;
 import SharedData.SharedItemList;
@@ -72,6 +70,9 @@ public class CashierItemSelectionController {
     private Button AddToOrder = new Button();
 
     private String item;
+    private int sweetness = 0;
+    private int bobaLevel = 0;
+    private int drinkSize = 0;
 
     //sweetness and boba level will be on scale of 0-3
     //0 = no sugar/no boba
@@ -82,9 +83,6 @@ public class CashierItemSelectionController {
     //0 = small
     //1 = medium
     //2 = large
-    int sweetness = 0;
-    int bobaLevel = 0;
-    int drinkSize = 0;
     String extraRequestString = "";
     Scanner scan = new Scanner(System.in);
 

@@ -1,13 +1,11 @@
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TextArea;
-import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.scene.control.Button;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.image.ImageView;
-import javafx.scene.image.Image;
 import javafx.fxml.FXMLLoader;
 import java.util.Scanner;
 public class CashierModificationController {

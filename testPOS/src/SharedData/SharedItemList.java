@@ -2,14 +2,15 @@ package SharedData;
 import java.util.ArrayList;
 
 public class SharedItemList {
-    private static ArrayList<String> itemList = new ArrayList<>();
+    private static ArrayList<OrderData> itemList = new ArrayList<>();
 
-    public static ArrayList<String> getItemList() {
+    public static ArrayList<OrderData> getItemList() {
         return itemList;
     }
 
     public static void addItem(String item) {
-        itemList.add(item);
+        OrderData newOrder = new OrderData(619502, "5", "8/12/23/", "Blake", "Cash", 8, item);
+        itemList.add(newOrder);
     }
     public static void clearList(){
         itemList.clear();
