@@ -1,3 +1,4 @@
+import SharedData.SharedItemList;
 import javafx.fxml.FXML;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
@@ -43,10 +44,10 @@ public class ManagerLoginController {
     private void loadCashier() {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("fxml/MainCashierView.fxml"));
+            Parent root = loader.load();
             CashierMainController controller = loader.getController();
             controller.fetchMenuItems();
 
-            Parent root = loader.load();
             usernameField.getScene().setRoot(root);
         } catch (Exception e) {
             e.printStackTrace();

@@ -79,7 +79,6 @@ public class CashierMainController {
         e.printStackTrace();
       }
 
-
       MenuItemList.printItems();
     }
 
