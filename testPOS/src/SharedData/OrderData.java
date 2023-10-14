@@ -1,47 +1,48 @@
 package SharedData;
 public class OrderData{ 
   private int id = 0;
-  private String TotalAmount = "";
-  private String OrderDate = "";
-  private String CashierName = "";
-  private String PaymentMethod = "";
-  private String DrinkName = "";
-  private int OrderHour = 0;
+  private String drink_name = "";
+  private String sweetness_level = "";
+  private String boba_level = "";
+  private String drink_size = "";
 
-  public OrderData(String DrinkName){
-    this.DrinkName = DrinkName;
+
+  public OrderData(String drink_name){
+    this.drink_name = drink_name;
   }
 
-  public OrderData(int id, String TotalAmount, String OrderDate, String CashierName, String PaymentMethod, int OrderHour, String DrinkName) {
+  public OrderData(int id, String drink_name, String sweetness_level, String boba_level, String drink_size) {
     this.id = id;
-    this.TotalAmount = TotalAmount;
-    this.OrderDate = OrderDate;
-    this.CashierName = CashierName;
-    this.PaymentMethod = PaymentMethod;
-    this.OrderHour = OrderHour;
-    this.DrinkName = DrinkName;
+    this.drink_name = drink_name;
+    this.sweetness_level = sweetness_level;
+    this.boba_level = boba_level;
+    this.drink_size = drink_size;
   }
 
   public int getId(){
     return id;
   }
-  public String getTotalAmount(){
-    return TotalAmount;
-  }
-  public String getOrderDate(){
-    return OrderDate;
-  }
-  public String getCashierName(){
-    return CashierName;
-  }
-  public String getPaymentMethod(){
-    return PaymentMethod;
-  }
-  public int getOrderHour(){
-    return OrderHour;
-  }
   public String getDrinkName(){
-    return DrinkName;
+    return drink_name;
+  }
+  public String getSweetnessLevel(){
+    return sweetness_level;
+  }
+  public String getBobaLevel(){
+    return boba_level;
+  }
+  public String getDrinkSize(){
+    return drink_size;
+  }
+
+  public void setSweetnessLevel(String sweetness_level){
+    this.sweetness_level = sweetness_level;
+  }
+  public void setBobaLevel(String boba_level){
+    this.boba_level = boba_level;
+  }
+  public void setDrinkSize(String drink_size){
+    this.drink_size = drink_size;
   }
 
 }

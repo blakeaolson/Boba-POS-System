@@ -9,7 +9,7 @@ public class SharedItemList {
     }
 
     public static void addItem(String item) {
-        OrderData newOrder = new OrderData(619502, "5.00", "8/12/23/", "Blake", "Cash", 8, item);
+        OrderData newOrder = new OrderData(1, item, "100%", "Regular", "Medium");
         itemList.add(newOrder);
     }
     public static void clearList(){
