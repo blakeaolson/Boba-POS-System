@@ -8,8 +8,8 @@ public class SharedItemList {
         return itemList;
     }
 
-    public static void addItem(String item) {
-        OrderData newOrder = new OrderData(1, item, 0, 0, 0);
+    public static void addItem(String item, int sweetness, int boba_level, int drink_size) {
+        OrderData newOrder = new OrderData(1, item, sweetness, boba_level, drink_size);
         itemList.add(newOrder);
     }
     public static void clearList(){
