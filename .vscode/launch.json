@@ -8,9 +8,9 @@
             "type": "java",
             "name": "App",
             "request": "launch",
-            "vmArgs": "--module-path /Users/blakeolson/downloads/javafx-sdk-21/lib --add-modules javafx.controls,javafx.fxml",
             "mainClass": "App",
             "projectName": "Boba-POS-System_688bd8af",
+            "vmArgs": "--module-path C:/Java/javafx-sdk-18.0.1/lib --add-modules javafx.controls,javafx.fxml"
         },
     ]
 }

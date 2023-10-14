@@ -2,11 +2,13 @@ public class InventoryData {
     private String itemid = "";
     private String quantity = "";
     private String itemcategory = "";
+    private String minimum = "";
 
-    public InventoryData(String itemid, String quantity, String itemcategory) {
+    public InventoryData(String itemid, String quantity, String itemcategory, String minimum) {
         this.itemid = itemid;
         this.quantity = quantity;
         this.itemcategory = itemcategory;
+        this.minimum = minimum;
     }
 
     public String getItemid() {
@@ -18,5 +20,8 @@ public class InventoryData {
     }
     public String getItemcategory() {
         return itemcategory;
+    }
+    public String getMinimum(){
+        return minimum;
     }
 }
