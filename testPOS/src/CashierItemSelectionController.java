@@ -199,7 +199,7 @@ public class CashierItemSelectionController {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("fxml/MainCashierView.fxml"));
             Parent root = loader.load();
 
-            SharedItemList.addItem(item);
+            SharedItemList.addItem(item, sweetness, bobaLevel, drinkSize);
 
             CashierMainController controller = loader.getController();
             controller.updateScene();

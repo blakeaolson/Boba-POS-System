@@ -44,6 +44,7 @@ public class CashierMainController {
       for (int i = 0; i < itemList.size(); i++) {
           OrderData item = itemList.get(i);
           Button newButton = new Button(item.getDrinkName());
+          System.out.println(item.getSweetnessLevel());
           int index = i;
           newButton.setOnAction(event -> {
             // Load the ManagerLogin.fxml file
@@ -53,7 +54,6 @@ public class CashierMainController {
                 CashierModificationController controller = loader.getController();
                 
                 controller.setbuttonId(index);
-
                 
                 // Create a new Stage
                 Stage stage = new Stage();

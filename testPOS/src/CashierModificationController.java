@@ -7,7 +7,11 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.image.ImageView;
 import javafx.fxml.FXMLLoader;
+
+import java.util.ArrayList;
 import java.util.Scanner;
+
+import SharedData.OrderData;
 import SharedData.SharedItemList;
 
 public class CashierModificationController {
@@ -220,6 +224,13 @@ public class CashierModificationController {
             // Load the Login.fxml file
             FXMLLoader loader = new FXMLLoader(getClass().getResource("fxml/MainCashierView.fxml"));
             Parent root = loader.load();
+
+            ArrayList<OrderData> itemList = SharedItemList.getItemList();
+            itemList.get(buttonId).setSweetnessLevel(sweetnessMod);
+            itemList.get(buttonId).setBobaLevel(bobaLevelMod);
+            itemList.get(buttonId).setDrinkSize(drinkSizeMod);
+
+            
 
             CashierMainController controller = loader.getController();
             controller.updateScene();
