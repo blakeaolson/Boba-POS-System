@@ -6,6 +6,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import javafx.scene.control.Button;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import SharedData.OrderData;
@@ -120,16 +121,15 @@ public class CashierMainController {
         }
     }
 
-    public void order_but1Clicked(){
-
-
-         try {
+    public void order_but1Clicked() {
+        try {
             // Load the Login.fxml file
-             FXMLLoader loader = new FXMLLoader(getClass().getResource("fxml/CashierItemSelection.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("fxml/CashierItemSelection.fxml"));
             Parent root = loader.load();
             CashierItemSelectionController controller = loader.getController();
 
             controller.setItem("Green Tea");
+            controller.setItemName("Item: Green Tea");
 
             // Create a new Stage
             Stage stage = new Stage();
@@ -147,16 +147,15 @@ public class CashierMainController {
             e.printStackTrace();
         }
     }
-    public void order_but2Clicked(){
-
-
-         try {
+    public void order_but2Clicked() {
+        try {
             // Load the Login.fxml file
-             FXMLLoader loader = new FXMLLoader(getClass().getResource("fxml/CashierItemSelection.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("fxml/CashierItemSelection.fxml"));
             Parent root = loader.load();
             CashierItemSelectionController controller = loader.getController();
 
             controller.setItem("Rosehip Milk Tea");
+            controller.setItemName("Item: Rosehip Milk Tea");
 
             // Create a new Stage
             Stage stage = new Stage();
@@ -174,16 +173,15 @@ public class CashierMainController {
             e.printStackTrace();
         }
     }
-    public void order_but3Clicked(){
-
-
-         try {
+    public void order_but3Clicked() {
+        try {
             // Load the Login.fxml file
              FXMLLoader loader = new FXMLLoader(getClass().getResource("fxml/CashierItemSelection.fxml"));
             Parent root = loader.load();
             CashierItemSelectionController controller = loader.getController();
 
             controller.setItem("Coffee Milk Tea");
+            controller.setItemName("Item: Coffee Milk Tea");
 
             // Create a new Stage
             Stage stage = new Stage();
@@ -202,16 +200,16 @@ public class CashierMainController {
         }
     }
 
-    public void order_but4Clicked(){
-
-
-         try {
+    public void order_but4Clicked() {
+        try {
             // Load the Login.fxml file
              FXMLLoader loader = new FXMLLoader(getClass().getResource("fxml/CashierItemSelection.fxml"));
             Parent root = loader.load();
             CashierItemSelectionController controller = loader.getController();
 
             controller.setItem("Taro Milk Tea");
+            controller.setItemName("Item: Taro Milk Tea");
+            
 
             // Create a new Stage
             Stage stage = new Stage();
@@ -230,16 +228,15 @@ public class CashierMainController {
         }
     }
 
-    public void order_but5Clicked(){
-
-
-         try {
+    public void order_but5Clicked() {
+        try {
             // Load the Login.fxml file
              FXMLLoader loader = new FXMLLoader(getClass().getResource("fxml/CashierItemSelection.fxml"));
             Parent root = loader.load();
             CashierItemSelectionController controller = loader.getController();
 
             controller.setItem("Honey Milk Tea");
+            controller.setItemName("Item: Honey Milk Tea");
 
             // Create a new Stage
             Stage stage = new Stage();
@@ -258,16 +255,15 @@ public class CashierMainController {
         }
     }
 
-    public void order_but6Clicked(){
-
-
-         try {
+    public void order_but6Clicked() {
+        try {
             // Load the Login.fxml file
              FXMLLoader loader = new FXMLLoader(getClass().getResource("fxml/CashierItemSelection.fxml"));
             Parent root = loader.load();
             CashierItemSelectionController controller = loader.getController();
 
             controller.setItem("Thai Milk Tea");
+            controller.setItemName("Item: Thai Milk Tea");
 
             // Create a new Stage
             Stage stage = new Stage();
@@ -286,16 +282,15 @@ public class CashierMainController {
         }
     }
 
-    public void order_but7Clicked(){
-
-
-         try {
+    public void order_but7Clicked() {
+        try {
             // Load the Login.fxml file
             FXMLLoader loader = new FXMLLoader(getClass().getResource("fxml/CashierItemSelection.fxml"));
             Parent root = loader.load();
             CashierItemSelectionController controller = loader.getController();
 
             controller.setItem("Coconut Milk Tea");
+            controller.setItemName("Item: Coconut Milk Tea");
 
             // Create a new Stage
             Stage stage = new Stage();
@@ -314,16 +309,15 @@ public class CashierMainController {
         }
     }
 
-    public void order_but8Clicked(){
-
-
-         try {
+    public void order_but8Clicked() {
+        try {
             // Load the Login.fxml file
             FXMLLoader loader = new FXMLLoader(getClass().getResource("fxml/CashierItemSelection.fxml"));
             Parent root = loader.load();
             CashierItemSelectionController controller = loader.getController();
 
             controller.setItem("Almond Milk Tea");
+            controller.setItemName("Item: Almond Milk Tea");
 
             // Create a new Stage
             Stage stage = new Stage();
