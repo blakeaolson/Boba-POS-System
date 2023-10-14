@@ -74,6 +74,45 @@ public class CashierMainController {
           buttonContainer.getChildren().add(newButton);
       }
       orderPane.getChildren().add(buttonContainer);
+
+
+      // Get menu items
+      try {
+        // Replace with your PostgreSQL database credentials and connection URL
+        String jdbcUrl = "jdbc:postgresql://csce-315-db.engr.tamu.edu/csce315331_08b_db";
+        String username = "csce315_971_kevtom2003";
+        String password = "password";
+        Connection conn = null;
+        try {
+            conn = DriverManager.getConnection(jdbcUrl,username,password);
+         } catch (Exception e) {
+            e.printStackTrace();
+            System.err.println(e.getClass().getName()+": "+e.getMessage());
+            System.exit(0);
+         }
+        // Execute a sample query (replace with your query)
+        String sql = "SELECT * FROM teaorders;";
+        Statement statement = conn.createStatement();
+        ResultSet resultSet = statement.executeQuery(sql);
+
+        // Create an ObservableList to store the query results
+        ArrayList<String> tea_names;
+
+        while (resultSet.next()) {
+            String tea_name = resultSet.getString("tea_name");
+            tea_names.add(tea_name);
+        }
+
+        // Close the database connection
+        resultSet.close();
+        statement.close();
+        conn.close();
+      } catch (Exception e) {
+        e.printStackTrace();
+      }
+      for (int i = 0; i < tea_names.size(); i++){
+        System.out.println(tea_names.get(i));
+      }
     }
     
     public void checkout() {
