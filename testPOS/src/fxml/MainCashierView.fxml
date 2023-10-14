@@ -8,19 +8,19 @@
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="641.0" prefWidth="1244.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="CashierMainController">
    <children>
       <Text layoutX="106.0" layoutY="81.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Menu Category" />
-      <Button id="cat_but1" layoutX="97.0" layoutY="105.0" mnemonicParsing="false" prefHeight="42.0" prefWidth="131.0" text="Classic" />
-      <Button id="cat_but2" layoutX="294.0" layoutY="105.0" mnemonicParsing="false" prefHeight="42.0" prefWidth="131.0" text="Milk Tea" />
-      <Button id="cat_but3" layoutX="489.0" layoutY="105.0" mnemonicParsing="false" prefHeight="42.0" prefWidth="123.0" text="Seasonal" />
-      <Button id="cat_but4" layoutX="693.0" layoutY="105.0" mnemonicParsing="false" prefHeight="42.0" prefWidth="123.0" text="Slush" />
+      <Button id="classic_cat" layoutX="97.0" layoutY="105.0" mnemonicParsing="false" prefHeight="42.0" prefWidth="131.0" text="Classic" />
+      <Button id="milk_tea_cat" layoutX="294.0" layoutY="105.0" mnemonicParsing="false" prefHeight="42.0" prefWidth="131.0" text="Milk Tea" />
+      <Button id="seasonal_cat" layoutX="489.0" layoutY="105.0" mnemonicParsing="false" prefHeight="42.0" prefWidth="123.0" text="Seasonal" />
+      <Button id="slush_cat" layoutX="693.0" layoutY="105.0" mnemonicParsing="false" prefHeight="42.0" prefWidth="123.0" text="Slush" />
       <Text layoutX="129.0" layoutY="295.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Orders" />
-      <Button id="order_but1" fx:id="order_but1" layoutX="101.0" layoutY="321.0" mnemonicParsing="false" onMouseClicked="#order_but1Clicked" prefHeight="78.0" prefWidth="123.0" text="Green Tea" />
-      <Button id="order_but2" fx:id="order_but2" layoutX="302.0" layoutY="321.0" mnemonicParsing="false" onMouseClicked="#order_but2Clicked" prefHeight="78.0" prefWidth="123.0" text="Rosehip Milk Tea" />
-      <Button id="order_but3" fx:id="order_but3" layoutX="496.0" layoutY="321.0" mnemonicParsing="false" onMouseClicked="#order_but3Clicked" prefHeight="78.0" prefWidth="123.0" text="Coffee Milk  Tea" />
-      <Button id="order_but7" fx:id="order_but7" layoutX="496.0" layoutY="450.0" mnemonicParsing="false" onMouseClicked="#order_but7Clicked" prefHeight="78.0" prefWidth="123.0" text="Coconut Milk Tea" />
-      <Button id="order_but6" fx:id="order_but6" layoutX="302.0" layoutY="450.0" mnemonicParsing="false" onMouseClicked="#order_but6Clicked" prefHeight="78.0" prefWidth="123.0" text="Thai Milk Tea" />
-      <Button id="order_but5" fx:id="order_but5" layoutX="101.0" layoutY="450.0" mnemonicParsing="false" onMouseClicked="#order_but5Clicked" prefHeight="78.0" prefWidth="123.0" text="Honey Milk Tea" />
-      <Button id="order_but4" fx:id="order_but4" layoutX="693.0" layoutY="321.0" mnemonicParsing="false" onMouseClicked="#order_but4Clicked" prefHeight="78.0" prefWidth="123.0" text="Taro Milk Tea" />
-      <Button id="order_but8" fx:id="order_but8" layoutX="693.0" layoutY="450.0" mnemonicParsing="false" onMouseClicked="#order_but8Clicked" prefHeight="78.0" prefWidth="123.0" text="Almond Milk Tea" />
+      <Button id="green_tea" fx:id="order_but1" layoutX="101.0" layoutY="321.0" mnemonicParsing="false" onMouseClicked="#order_but1Clicked" prefHeight="78.0" prefWidth="123.0" text="Green Tea" />
+      <Button id="rosehip_milk_tea" fx:id="order_but2" layoutX="302.0" layoutY="321.0" mnemonicParsing="false" onMouseClicked="#order_but2Clicked" prefHeight="78.0" prefWidth="123.0" text="Rosehip Milk Tea" />
+      <Button id="coffee_milk_tea" fx:id="order_but3" layoutX="496.0" layoutY="321.0" mnemonicParsing="false" onMouseClicked="#order_but3Clicked" prefHeight="78.0" prefWidth="123.0" text="Coffee Milk  Tea" />
+      <Button id="coconut_milk_tea" fx:id="order_but7" layoutX="496.0" layoutY="450.0" mnemonicParsing="false" onMouseClicked="#order_but7Clicked" prefHeight="78.0" prefWidth="123.0" text="Coconut Milk Tea" />
+      <Button id="thai_milk_tea" fx:id="order_but6" layoutX="302.0" layoutY="450.0" mnemonicParsing="false" onMouseClicked="#order_but6Clicked" prefHeight="78.0" prefWidth="123.0" text="Thai Milk Tea" />
+      <Button id="honey_milk_tea" fx:id="order_but5" layoutX="101.0" layoutY="450.0" mnemonicParsing="false" onMouseClicked="#order_but5Clicked" prefHeight="78.0" prefWidth="123.0" text="Honey Milk Tea" />
+      <Button id="taro_milk_tea" fx:id="order_but4" layoutX="693.0" layoutY="321.0" mnemonicParsing="false" onMouseClicked="#order_but4Clicked" prefHeight="78.0" prefWidth="123.0" text="Taro Milk Tea" />
+      <Button id="almond_milk_tea" fx:id="order_but8" layoutX="693.0" layoutY="450.0" mnemonicParsing="false" onMouseClicked="#order_but8Clicked" prefHeight="78.0" prefWidth="123.0" text="Almond Milk Tea" />
       <TitledPane animated="false" layoutX="888.0" layoutY="2.0" prefHeight="641.0" prefWidth="203.0" text="CurrentOrder">
         <content>
           <AnchorPane fx:id="orderPane" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
