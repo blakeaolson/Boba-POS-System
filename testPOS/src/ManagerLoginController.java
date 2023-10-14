@@ -42,7 +42,11 @@ public class ManagerLoginController {
 
     private void loadCashier() {
         try {
-            Parent root = FXMLLoader.load(getClass().getResource("fxml/MainCashierView.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("fxml/MainCashierView.fxml"));
+            CashierMainController controller = loader.getController();
+            controller.fetchMenuItems();
+
+            Parent root = loader.load();
             usernameField.getScene().setRoot(root);
         } catch (Exception e) {
             e.printStackTrace();
