@@ -2,16 +2,16 @@ package SharedData;
 public class OrderData{ 
   private int id = 0;
   private String drink_name = "";
-  private String sweetness_level = "";
-  private String boba_level = "";
-  private String drink_size = "";
+  private int sweetness_level = 0;
+  private int boba_level = 0;
+  private int drink_size = 0;
 
 
   public OrderData(String drink_name){
     this.drink_name = drink_name;
   }
 
-  public OrderData(int id, String drink_name, String sweetness_level, String boba_level, String drink_size) {
+  public OrderData(int id, String drink_name, int sweetness_level, int boba_level, int drink_size) {
     this.id = id;
     this.drink_name = drink_name;
     this.sweetness_level = sweetness_level;
@@ -25,23 +25,23 @@ public class OrderData{
   public String getDrinkName(){
     return drink_name;
   }
-  public String getSweetnessLevel(){
+  public int getSweetnessLevel(){
     return sweetness_level;
   }
-  public String getBobaLevel(){
+  public int getBobaLevel(){
     return boba_level;
   }
-  public String getDrinkSize(){
+  public int getDrinkSize(){
     return drink_size;
   }
 
-  public void setSweetnessLevel(String sweetness_level){
+  public void setSweetnessLevel(int sweetness_level){
     this.sweetness_level = sweetness_level;
   }
-  public void setBobaLevel(String boba_level){
+  public void setBobaLevel(int boba_level){
     this.boba_level = boba_level;
   }
-  public void setDrinkSize(String drink_size){
+  public void setDrinkSize(int drink_size){
     this.drink_size = drink_size;
   }
 
