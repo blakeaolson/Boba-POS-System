@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.*?>
+
+<VBox xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" fx:controller="ManagerDashboardController" alignment="TOP_CENTER" spacing="10">
+
+    <Label text="Enter Time Window (HH:MM:SS - HH:MM:SS):" />
+
+    <HBox alignment="CENTER" spacing="10">
+        <TextField fx:id="startTimeField" promptText="Start Time (HH:MM:SS)" />
+        <TextField fx:id="endTimeField" promptText="End Time (HH:MM:SS)" />
+        <Button text="Load Data" onAction="#loadPairs" />
+    </HBox>
+
+    <TableView fx:id="pairTable">
+        <columns>
+            <TableColumn text="Item 1" fx:id="item1Column"/>
+            <TableColumn text="Item 2" fx:id="item2Column"/>
+            <TableColumn text="Frequency" fx:id="frequencyColumn"/>
+        </columns>
+    </TableView>
+
+</VBox>
