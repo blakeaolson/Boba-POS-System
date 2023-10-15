@@ -173,7 +173,8 @@ public class CashierItemSelectionController {
 
             CashierMainController controller = loader.getController();
             controller.updateScene();
-
+            controller.showMenuItems();
+            
             // Create a new Stage
             Stage stage = new Stage();
             stage.setTitle("Main Cashier View");
@@ -203,6 +204,7 @@ public class CashierItemSelectionController {
 
             CashierMainController controller = loader.getController();
             controller.updateScene();
+            controller.showMenuItems();
             
             // Create a new Stage
             Stage stage = new Stage();

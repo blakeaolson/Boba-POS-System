@@ -175,6 +175,7 @@ public class CashierModificationController {
 
             CashierMainController controller = loader.getController();
             controller.updateScene();
+            controller.showMenuItems();
 
             // Create a new Stage
             Stage stage = new Stage();
@@ -200,6 +201,7 @@ public class CashierModificationController {
 
             CashierMainController controller = loader.getController();
             controller.updateScene();
+            controller.showMenuItems();
 
             // Create a new Stage
             Stage stage = new Stage();
@@ -234,6 +236,7 @@ public class CashierModificationController {
 
             CashierMainController controller = loader.getController();
             controller.updateScene();
+            controller.showMenuItems();
 
             // Create a new Stage
             Stage stage = new Stage();

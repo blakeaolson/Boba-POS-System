@@ -6,6 +6,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import javafx.scene.control.Button;
+import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
@@ -43,6 +44,47 @@ public class CashierMainController {
     private Button logoutButton;
     @FXML
     private AnchorPane orderPane;
+    @FXML
+    private AnchorPane menuItemPane;
+
+    public void showMenuItems(){
+      ArrayList<String> menuItemList = MenuItemList.getDisplayList();
+      VBox buttonContainer = new VBox();
+
+      for (int i = 0; i < menuItemList.size(); i++) {
+          Button newButton = new Button(menuItemList.get(i));
+
+          int index = i;
+          newButton.setOnAction(event -> {
+            // Load the ManagerLogin.fxml file
+            try {
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("fxml/CashierItemSelection.fxml"));
+                Parent root = loader.load();
+                CashierItemSelectionController controller = loader.getController();
+                
+                controller.setItem(menuItemList.get(index));
+                controller.setItemName(menuItemList.get(index));
+
+                // Create a new Stage
+                Stage stage = new Stage();
+                stage.setTitle("Cashier Item Selection");
+                stage.setScene(new Scene(root, 460, 354));
+                stage.setMaximized(true);
+                
+                // Close the current stage
+                Stage currentStage = (Stage) newButton.getScene().getWindow();
+                currentStage.close();
+                
+                // Show the stage
+                stage.show();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+          });
+          buttonContainer.getChildren().add(newButton);
+      }
+      menuItemPane.getChildren().add(buttonContainer);
+    }
 
     public void fetchMenuItems(){
       // Get menu items
@@ -79,7 +121,7 @@ public class CashierMainController {
         e.printStackTrace();
       }
 
-      MenuItemList.printItems();
+      this.showMenuItems();
     }
 
     public void updateScene() {
