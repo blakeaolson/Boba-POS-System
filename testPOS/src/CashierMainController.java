@@ -10,10 +10,12 @@ import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
+import javafx.scene.text.Text;
 import SharedData.OrderData;
 import SharedData.SharedItemList;
 import SharedData.MenuItemList;
 import javafx.scene.layout.GridPane;
+import java.util.HashMap;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -72,8 +74,11 @@ public class CashierMainController {
                 Parent root = loader.load();
                 CashierItemSelectionController controller = loader.getController();
                 
+                HashMap<String, String> costMap = MenuItemList.getCostMap();
+
                 controller.setItem(menuItemList.get(index));
                 controller.setItemName(menuItemList.get(index));
+                controller.setCost(costMap.get(menuItemList.get(index)));
 
                 // Create a new Stage
                 Stage stage = new Stage();
@@ -119,7 +124,9 @@ public class CashierMainController {
 
         while (resultSet.next()) {
             String tea_name = resultSet.getString("tea_name");
+            String cost = resultSet.getString("price");
             MenuItemList.addTotalList(tea_name);
+            MenuItemList.addCostMap(tea_name, cost);
         }
 
         // Close the database connection
@@ -150,6 +157,7 @@ public class CashierMainController {
                 CashierModificationController controller = loader.getController();
                 
                 controller.setbuttonId(index);
+                controller.setItemName(item.getDrinkName());
                 
                 // Create a new Stage
                 Stage stage = new Stage();
@@ -169,6 +177,9 @@ public class CashierMainController {
           });
           buttonContainer.getChildren().add(newButton);
       }
+      String totalCost = "Total Cost: " + SharedItemList.getTotalCost();
+      Text newText = new Text(totalCost);
+      buttonContainer.getChildren().add(newText);
       orderPane.getChildren().add(buttonContainer);
     }
     
@@ -201,7 +212,7 @@ public class CashierMainController {
             Parent root = FXMLLoader.load(getClass().getResource("fxml/ManagerLogin.fxml"));
 
             MenuItemList.clearLists();
-            
+
             // Create a new Stage
             Stage stage = new Stage();
             stage.setTitle("Login");

@@ -70,6 +70,7 @@ public class CashierItemSelectionController {
     private Button AddToOrder = new Button();
 
     private String item;
+    private String cost = "";
     private int sweetness = 0;
     private int bobaLevel = 0;
     private int drinkSize = 0;
@@ -160,7 +161,11 @@ public class CashierItemSelectionController {
     }
 
     public void setItemName(String s) {
-        currItemText.setText(s);
+      currItemText.setText(s);
+    }
+
+    public void setCost(String cost){
+      this.cost = cost;
     }
 
     public void CancelClicked(){
@@ -174,7 +179,7 @@ public class CashierItemSelectionController {
             CashierMainController controller = loader.getController();
             controller.updateScene();
             controller.showMenuItems();
-            
+
             // Create a new Stage
             Stage stage = new Stage();
             stage.setTitle("Main Cashier View");
@@ -200,7 +205,7 @@ public class CashierItemSelectionController {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("fxml/MainCashierView.fxml"));
             Parent root = loader.load();
 
-            SharedItemList.addItem(item, sweetness, bobaLevel, drinkSize);
+            SharedItemList.addItem(item, sweetness, bobaLevel, drinkSize, cost);
 
             CashierMainController controller = loader.getController();
             controller.updateScene();

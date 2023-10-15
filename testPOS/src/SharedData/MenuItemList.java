@@ -1,6 +1,7 @@
 package SharedData;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class MenuItemList {
   private static ArrayList<String> total = new ArrayList<>();
@@ -9,6 +10,8 @@ public class MenuItemList {
   private static ArrayList<String> milktea = new ArrayList<>();
   private static ArrayList<String> seasonal = new ArrayList<>();
   private static ArrayList<String> slush = new ArrayList<>();
+
+  private static HashMap<String, String> costMap = new HashMap<>();
 
   public static ArrayList<String> getDisplayList(){
     return display;
@@ -51,6 +54,12 @@ public class MenuItemList {
     milktea.clear();
     seasonal.clear();
     slush.clear();
+  }
+  public static void addCostMap(String name, String cost){
+    costMap.put(name, cost);
+  }
+  public static HashMap<String, String> getCostMap(){
+    return costMap;
   }
 
 }
