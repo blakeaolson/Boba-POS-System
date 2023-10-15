@@ -131,20 +131,18 @@ public class ManagerDashboardController {
     @FXML    
     private TableColumn<Orders, String> paymentmethod = new TableColumn<>("Payment Method");
 
-    // @FXML
-    // private TableView<PairData> PairTable = new TableView<>();
-    // @FXML
-    // private TableColumn<Orders, String> orderid = new TableColumn<>("Order ID");
-    // @FXML
-    // private TableColumn<Orders, String> totalamount = new TableColumn<>("Total Amount");
-    // @FXML    
-    // private TableColumn<Orders, String> orderdate = new TableColumn<>("Order Date");
-    // @FXML    
-    // private TableColumn<Orders, String> time = new TableColumn<>("Order Time");
-    // @FXML    
-    // private TableColumn<Orders, String> cashiername = new TableColumn<>("Cashier Name");
-    // @FXML    
-    // private TableColumn<Orders, String> paymentmethod = new TableColumn<>("Payment Method");
+    @FXML
+    private TextField startTimeField;
+    @FXML
+    private TextField endTimeField;
+    @FXML
+    private TableView<PairData> pairTable = new TableView<>();
+    @FXML
+    private TableColumn<PairData, String> item1 = new TableColumn<>("Item 1");
+    @FXML
+    private TableColumn<PairData, String> item2 = new TableColumn<>("Item 2");
+    @FXML
+    private TableColumn<PairData, Integer> frequency = new TableColumn<>("Frequency");
 
 
     @FXML
@@ -210,6 +208,7 @@ public class ManagerDashboardController {
             e.printStackTrace();
         }
     }
+    
     @FXML
     public void loadInventoryForm2() {
         try {
@@ -231,6 +230,7 @@ public class ManagerDashboardController {
             e.printStackTrace();
         }
     }
+    
     @FXML
     public void loadInventoryForm3() {
         try {
@@ -929,68 +929,49 @@ public class ManagerDashboardController {
     }
 
     @FXML
-    void loadPairs() {
+    private void loadPairs() {
         try {
-            // Replace with your PostgreSQL database credentials and connection URL
             String jdbcUrl = "jdbc:postgresql://csce-315-db.engr.tamu.edu/csce315331_08b_db";
             String username = "csce315_971_kevtom2003";
             String password = "password";
-            Connection conn = null;
-            try {
-                conn = DriverManager.getConnection(jdbcUrl,username,password);
-             } catch (Exception e) {
-                e.printStackTrace();
-                System.err.println(e.getClass().getName()+": "+e.getMessage());
-                System.exit(0);
-             }
-            // Execute a sample query (replace with your query)
-            String sql = "SELECT item1.itemname AS item1, item2.itemname AS item2, COUNT(*) AS frequency " +
-                  "FROM orderitems item1 " +
-                  "JOIN orderitems item2 ON item1.orderid = item2.orderid " +
-                  "WHERE item1.itemname < item2.itemname " +
-                  "AND item1.orderid IN (" +
-                  "    SELECT DISTINCT o1.orderid " +
-                  "    FROM orders o1 " +
-                  "    WHERE o1.orderdate >= ?::timestamp " +
-                  "    AND o1.orderdate <= ?::timestamp) " +
-                  "GROUP BY item1.itemname, item2.itemname " +
-                  "ORDER BY frequency DESC;";
-            Statement statement = conn.createStatement();
-            ResultSet resultSet = statement.executeQuery(sql);
 
+            String startTime = startTimeField.getText();
+            String endTime = endTimeField.getText();
 
-            // Create an ObservableList to store the query results
-            ObservableList<Orders> data = FXCollections.observableArrayList();
+            String sqlQuery = "SELECT oi1.itemname AS item1, oi2.itemname AS item2, COUNT(*) AS frequency " +
+    "FROM orderitems oi1 " +
+    "JOIN orderitems oi2 ON oi1.orderid = oi2.orderid AND oi1.itemname < oi2.itemname " +
+    "JOIN orders o ON oi1.orderid = o.id " +
+    "WHERE o.time BETWEEN ? AND ? " +
+    "GROUP BY oi1.itemname, oi2.itemname " +
+    "ORDER BY frequency DESC;";
 
+            // Execute the SQL Query and update the table
+            Connection connection = DriverManager.getConnection(jdbcUrl,username,password);
+            PreparedStatement statement = connection.prepareStatement(sqlQuery);
+            statement.setString(1, startTime);
+            statement.setString(2, endTime);
+            ResultSet resultSet = statement.executeQuery();
 
+            ObservableList<PairData> pairData = FXCollections.observableArrayList();
+
+            System.out.println("Item 1\tItem 2\tFrequency");
             while (resultSet.next()) {
-                String id = resultSet.getString("id");
-                String totalamount = resultSet.getString("TotalAmount");
-                String orderdate = resultSet.getString("OrderDate");
-                String cashiername = resultSet.getString("CashierName");
-                String paymentmethod = resultSet.getString("PaymentMethod");
-                String time = resultSet.getString("time");
-                data.add(new Orders(id,totalamount,orderdate,cashiername,paymentmethod,time));
+                String item1 = resultSet.getString("item1");
+                String item2 = resultSet.getString("item2");
+                int frequency = resultSet.getInt("frequency");
+                System.out.println(item1 + "\t" + item2 + "\t" + frequency);
             }
 
+            item1.setCellValueFactory(new PropertyValueFactory<>("item1"));
+            item2.setCellValueFactory(new PropertyValueFactory<>("item2"));
+            frequency.setCellValueFactory(new PropertyValueFactory<>("frequency"));
 
-            // Bind the data to the TableView
-            orderid.setCellValueFactory(new PropertyValueFactory<>("orderid"));
-            totalamount.setCellValueFactory(new PropertyValueFactory<>("totalamount"));
-            orderdate.setCellValueFactory(new PropertyValueFactory<>("orderdate"));
-            cashiername.setCellValueFactory(new PropertyValueFactory<>("cashiername"));
-            paymentmethod.setCellValueFactory(new PropertyValueFactory<>("paymentmethod"));
-            time.setCellValueFactory(new PropertyValueFactory<>("time"));
+            pairTable.setItems(pairData);
 
+            connection.close();
 
-            OrderTable.setItems(data);
-
-
-            // Close the database connection
-            resultSet.close();
-            statement.close();
-            conn.close();
-        } catch (Exception e) {
+        } catch (SQLException e) {
             e.printStackTrace();
         }
     }
