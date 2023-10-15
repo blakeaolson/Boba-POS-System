@@ -120,7 +120,7 @@ public class ManagerDashboardController {
     @FXML    
     private TableColumn<Orders, String> orderdate = new TableColumn<>("Order Date");
     @FXML    
-    private TableColumn<Orders, String> orderhour = new TableColumn<>("Order Hour");
+    private TableColumn<Orders, String> time = new TableColumn<>("Order Time");
     @FXML    
     private TableColumn<Orders, String> cashiername = new TableColumn<>("Cashier Name");
     @FXML    
@@ -860,16 +860,12 @@ public class ManagerDashboardController {
 
             while (resultSet.next()) {
                 String id = resultSet.getString("id");
-                String totalamount = resultSet.getString("totalamount");
-                String orderdate = resultSet.getString("orderdate");
-                String cashiername = resultSet.getString("cashiername");
-                String paymentmethod = resultSet.getString("paymentmethod");
-                String orderhour = resultSet.getString("orderhour");
-
-
-
-
-                data.add(new Orders(id,totalamount,orderdate,cashiername,paymentmethod,orderhour));
+                String totalamount = resultSet.getString("TotalAmount");
+                String orderdate = resultSet.getString("OrderDate");
+                String cashiername = resultSet.getString("CashierName");
+                String paymentmethod = resultSet.getString("PaymentMethod");
+                String time = resultSet.getString("time");
+                data.add(new Orders(id,totalamount,orderdate,cashiername,paymentmethod,time));
             }
 
 
@@ -879,7 +875,7 @@ public class ManagerDashboardController {
             orderdate.setCellValueFactory(new PropertyValueFactory<>("orderdate"));
             cashiername.setCellValueFactory(new PropertyValueFactory<>("cashiername"));
             paymentmethod.setCellValueFactory(new PropertyValueFactory<>("paymentmethod"));
-            orderhour.setCellValueFactory(new PropertyValueFactory<>("orderhour"));
+            time.setCellValueFactory(new PropertyValueFactory<>("time"));
 
 
             OrderTable.setItems(data);
