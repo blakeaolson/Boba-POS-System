@@ -13,6 +13,7 @@ import javafx.scene.layout.VBox;
 import SharedData.OrderData;
 import SharedData.SharedItemList;
 import SharedData.MenuItemList;
+import javafx.scene.layout.GridPane;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -49,10 +50,18 @@ public class CashierMainController {
 
     public void showMenuItems(){
       ArrayList<String> menuItemList = MenuItemList.getDisplayList();
-      VBox buttonContainer = new VBox();
+      GridPane buttonContainer = new GridPane();
 
       for (int i = 0; i < menuItemList.size(); i++) {
           Button newButton = new Button(menuItemList.get(i));
+
+          int row = i / 5;
+          int col = i % 5;
+
+          newButton.setPrefWidth(150); 
+          newButton.setPrefHeight(150); 
+
+          buttonContainer.add(newButton, col, row);
 
           int index = i;
           newButton.setOnAction(event -> {
@@ -81,7 +90,6 @@ public class CashierMainController {
                 e.printStackTrace();
             }
           });
-          buttonContainer.getChildren().add(newButton);
       }
       menuItemPane.getChildren().add(buttonContainer);
     }
@@ -199,221 +207,6 @@ public class CashierMainController {
 
             // Close the current dashboard stage
             Stage currentStage = (Stage) logoutButton.getScene().getWindow();
-            currentStage.close();
-
-            // Show the login stage
-            stage.show();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
-    public void order_but1Clicked() {
-        try {
-            // Load the Login.fxml file
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("fxml/CashierItemSelection.fxml"));
-            Parent root = loader.load();
-            CashierItemSelectionController controller = loader.getController();
-
-            controller.setItem("Green Tea");
-            controller.setItemName("Item: Green Tea");
-
-            // Create a new Stage
-            Stage stage = new Stage();
-            stage.setTitle("Item Selection");
-            stage.setScene(new Scene(root, 898, 628));
-            stage.setMaximized(true);
-
-            // Close the current dashboard stage
-            Stage currentStage = (Stage) order_but1.getScene().getWindow();
-            currentStage.close();
-
-            // Show the login stage
-            stage.show();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-    public void order_but2Clicked() {
-        try {
-            // Load the Login.fxml file
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("fxml/CashierItemSelection.fxml"));
-            Parent root = loader.load();
-            CashierItemSelectionController controller = loader.getController();
-
-            controller.setItem("Rosehip Milk Tea");
-            controller.setItemName("Item: Rosehip Milk Tea");
-
-            // Create a new Stage
-            Stage stage = new Stage();
-            stage.setTitle("Item Selection");
-            stage.setScene(new Scene(root, 898, 628));
-            stage.setMaximized(true);
-
-            // Close the current dashboard stage
-            Stage currentStage = (Stage) order_but2.getScene().getWindow();
-            currentStage.close();
-
-            // Show the login stage
-            stage.show();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-    public void order_but3Clicked() {
-        try {
-            // Load the Login.fxml file
-             FXMLLoader loader = new FXMLLoader(getClass().getResource("fxml/CashierItemSelection.fxml"));
-            Parent root = loader.load();
-            CashierItemSelectionController controller = loader.getController();
-
-            controller.setItem("Coffee Milk Tea");
-            controller.setItemName("Item: Coffee Milk Tea");
-
-            // Create a new Stage
-            Stage stage = new Stage();
-            stage.setTitle("Item Selection");
-            stage.setScene(new Scene(root, 898, 628));
-            stage.setMaximized(true);
-
-            // Close the current dashboard stage
-            Stage currentStage = (Stage) order_but3.getScene().getWindow();
-            currentStage.close();
-
-            // Show the login stage
-            stage.show();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
-    public void order_but4Clicked() {
-        try {
-            // Load the Login.fxml file
-             FXMLLoader loader = new FXMLLoader(getClass().getResource("fxml/CashierItemSelection.fxml"));
-            Parent root = loader.load();
-            CashierItemSelectionController controller = loader.getController();
-
-            controller.setItem("Taro Milk Tea");
-            controller.setItemName("Item: Taro Milk Tea");
-            
-
-            // Create a new Stage
-            Stage stage = new Stage();
-            stage.setTitle("Item Selection");
-            stage.setScene(new Scene(root, 898, 628));
-            stage.setMaximized(true);
-
-            // Close the current dashboard stage
-            Stage currentStage = (Stage) order_but4.getScene().getWindow();
-            currentStage.close();
-
-            // Show the login stage
-            stage.show();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
-    public void order_but5Clicked() {
-        try {
-            // Load the Login.fxml file
-             FXMLLoader loader = new FXMLLoader(getClass().getResource("fxml/CashierItemSelection.fxml"));
-            Parent root = loader.load();
-            CashierItemSelectionController controller = loader.getController();
-
-            controller.setItem("Honey Milk Tea");
-            controller.setItemName("Item: Honey Milk Tea");
-
-            // Create a new Stage
-            Stage stage = new Stage();
-            stage.setTitle("Item Selection");
-            stage.setScene(new Scene(root, 898, 628));
-            stage.setMaximized(true);
-
-            // Close the current dashboard stage
-            Stage currentStage = (Stage) order_but5.getScene().getWindow();
-            currentStage.close();
-
-            // Show the login stage
-            stage.show();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
-    public void order_but6Clicked() {
-        try {
-            // Load the Login.fxml file
-             FXMLLoader loader = new FXMLLoader(getClass().getResource("fxml/CashierItemSelection.fxml"));
-            Parent root = loader.load();
-            CashierItemSelectionController controller = loader.getController();
-
-            controller.setItem("Thai Milk Tea");
-            controller.setItemName("Item: Thai Milk Tea");
-
-            // Create a new Stage
-            Stage stage = new Stage();
-            stage.setTitle("Item Selection");
-            stage.setScene(new Scene(root, 898, 628));
-            stage.setMaximized(true);
-
-            // Close the current dashboard stage
-            Stage currentStage = (Stage) order_but6.getScene().getWindow();
-            currentStage.close();
-
-            // Show the login stage
-            stage.show();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
-    public void order_but7Clicked() {
-        try {
-            // Load the Login.fxml file
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("fxml/CashierItemSelection.fxml"));
-            Parent root = loader.load();
-            CashierItemSelectionController controller = loader.getController();
-
-            controller.setItem("Coconut Milk Tea");
-            controller.setItemName("Item: Coconut Milk Tea");
-
-            // Create a new Stage
-            Stage stage = new Stage();
-            stage.setTitle("Item Selection");
-            stage.setScene(new Scene(root, 898, 628));
-            stage.setMaximized(true);
-
-            // Close the current dashboard stage
-            Stage currentStage = (Stage) order_but7.getScene().getWindow();
-            currentStage.close();
-
-            // Show the login stage
-            stage.show();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
-    public void order_but8Clicked() {
-        try {
-            // Load the Login.fxml file
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("fxml/CashierItemSelection.fxml"));
-            Parent root = loader.load();
-            CashierItemSelectionController controller = loader.getController();
-
-            controller.setItem("Almond Milk Tea");
-            controller.setItemName("Item: Almond Milk Tea");
-
-            // Create a new Stage
-            Stage stage = new Stage();
-            stage.setTitle("Item Selection");
-            stage.setScene(new Scene(root, 898, 628));
-            stage.setMaximized(true);
-
-            // Close the current dashboard stage
-            Stage currentStage = (Stage) order_but8.getScene().getWindow();
             currentStage.close();
 
             // Show the login stage
