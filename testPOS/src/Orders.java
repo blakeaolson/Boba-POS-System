@@ -4,18 +4,18 @@ public class Orders {
     private String cashiername = "";
     private String orderdate = "";
     private String paymentmethod = "";
-    private String orderhour = "";
+    private String time = "";
 
 
 
 
-    public Orders(String id, String totalamount, String cashiername, String orderdate, String paymentmethod, String orderhour) {
+    public Orders(String id, String totalamount, String cashiername, String orderdate, String paymentmethod, String time) {
         this.orderid = id;
         this.totalamount = totalamount;
         this.orderdate = orderdate;
         this.cashiername = cashiername;
         this.paymentmethod = paymentmethod;
-        this.orderhour = orderhour;
+        this.time = time;
     }
 
 
@@ -36,8 +36,8 @@ public class Orders {
     public String getPaymentmethod() {
         return paymentmethod;
     }
-    public String getOrderhour() {
-        return orderhour;
+    public String getTime() {
+        return time;
     }
 
 

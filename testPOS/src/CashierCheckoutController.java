@@ -10,6 +10,9 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDate;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -22,6 +25,27 @@ public class CashierCheckoutController {
     AnchorPane Checkout;
 
     public void checkoutClicked(){  
+        String jdbcUrl = "jdbc:postgresql://csce-315-db.engr.tamu.edu/csce315331_08b_db";
+        String username = "csce315_971_kevtom2003";
+        String password = "password";
+        Connection conn = null;
+        try {
+            //Class.forName("org.postgresql.Driver");
+            conn = DriverManager.getConnection(jdbcUrl,username,password);
+        } catch (Exception e) {
+            e.printStackTrace();
+            System.err.println(e.getClass().getName()+": "+e.getMessage());
+            System.exit(0);
+        }
+        // Get the current date in "dd/MM/yyyy" format
+        LocalDate currentDate = LocalDate.now();
+        DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("MM/dd/yyyy");
+        String formattedDate = currentDate.format(dateFormatter);
+
+        // Get the current time in "HH:mm:ss" format
+        LocalTime currentTime = LocalTime.now();
+        DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("HH:mm:ss");
+        String formattedTime = currentTime.format(timeFormatter);
         try {
             ArrayList<OrderData> itemList = SharedItemList.getItemList();
             updateInventory(itemList);
@@ -39,33 +63,25 @@ public class CashierCheckoutController {
             for(OrderData item : itemList){
                 total+= priceList.get(item.getDrinkName());
             }
-            try {
-                // Replace with your PostgreSQL database credentials and connection URL
-                String jdbcUrl = "jdbc:postgresql://csce-315-db.engr.tamu.edu/csce315331_08b_db";
-                String username = "csce315_971_kevtom2003";
-                String password = "password";
-                Connection conn = null;
-                try {
-                    //Class.forName("org.postgresql.Driver");
-                    conn = DriverManager.getConnection(jdbcUrl,username,password);
-                } catch (Exception e) {
-                    e.printStackTrace();
-                    System.err.println(e.getClass().getName()+": "+e.getMessage());
-                    System.exit(0);
-                }
-                // Execute a sample query (replace with your query)
-                String sql = "INSERT INTO orders (id, totalamount, orderdate, cashiername, paymentmethod, orderhour) VALUES (?, ?, ?, ?, ?, ?);";
-                try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            // Replace with your PostgreSQL database credentials and connection URL
+            String sql = "INSERT INTO orders (TotalAmount, OrderDate, CashierName, PaymentMethod, time) VALUES (?, ?, ?, ?, ?);";
+            try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
+                pstmt.setDouble(1, total);
+                pstmt.setString(2, formattedDate);
+                pstmt.setString(3, "Bobby");
+                pstmt.setString(4, "Card");
+                pstmt.setString(5, formattedTime);
+                pstmt.executeUpdate();
+            }
+
+            for(OrderData item : itemList){
+                String sql2 = "INSERT INTO orderitems (OrderID, ItemName, Quantity) VALUES (?, ?, ?);";
+                try (PreparedStatement pstmt = conn.prepareStatement(sql2)) {
                     pstmt.setInt(1, 1000);
-                    pstmt.setString(2, Double.toString(total));
-                    pstmt.setString(3, "10/13/2023");
-                    pstmt.setString(4, "Bobby");
-                    pstmt.setString(5, "Card");
-                    pstmt.setInt(6, 11);
+                    pstmt.setString(2, item.getDrinkName());
+                    pstmt.setInt(3, 1);
                     pstmt.executeUpdate();
                 }
-            }catch (Exception e) {
-                e.printStackTrace();
             }
             // Load the Login.fxml file
             Parent root = FXMLLoader.load(getClass().getResource("fxml/MainCashierView.fxml"));

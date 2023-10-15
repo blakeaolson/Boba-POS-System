@@ -7,6 +7,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.control.TextArea;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -24,6 +25,10 @@ public class ManagerDashboardController {
     private TextField addInventoryQuantity;
     @FXML
     private TextField addInventoryCategory;
+    @FXML
+    private TextField addInventoryMinimum;
+    @FXML
+    private TextArea itemsNeeded;
     
     @FXML
     private TextField addMenuID;
@@ -61,6 +66,8 @@ public class ManagerDashboardController {
     private TextField editInventoryQuantity;
     @FXML
     private TextField editInventoryCategory;
+    @FXML
+    private TextField editInventoryMinimum;
 
     @FXML
     private Button addInventory = new Button();
@@ -85,6 +92,8 @@ public class ManagerDashboardController {
     private TableColumn<InventoryData, String> quantity = new TableColumn<>("Quantity");
     @FXML    
     private TableColumn<InventoryData, String> itemcategory = new TableColumn<>("Item Category");
+    @FXML    
+    private TableColumn<InventoryData, String> minimum = new TableColumn<>("Minimum Allowed");
 
     @FXML
     private TableColumn<EmployeeData, String> id = new TableColumn<>("ID");
@@ -111,7 +120,7 @@ public class ManagerDashboardController {
     @FXML    
     private TableColumn<Orders, String> orderdate = new TableColumn<>("Order Date");
     @FXML    
-    private TableColumn<Orders, String> orderhour = new TableColumn<>("Order Hour");
+    private TableColumn<Orders, String> time = new TableColumn<>("Order Time");
     @FXML    
     private TableColumn<Orders, String> cashiername = new TableColumn<>("Cashier Name");
     @FXML    
@@ -398,6 +407,7 @@ public class ManagerDashboardController {
         String newItem = addInventoryID.getText();
         int newQuantity = Integer.parseInt(addInventoryQuantity.getText());
         String newCategory = addInventoryCategory.getText();
+        int newMin = Integer.parseInt(addInventoryMinimum.getText());
         try {
             // Replace with your PostgreSQL database credentials and connection URL
             String jdbcUrl = "jdbc:postgresql://csce-315-db.engr.tamu.edu/csce315331_08b_db";
@@ -413,11 +423,12 @@ public class ManagerDashboardController {
                 System.exit(0);
              }
             // Execute a sample query (replace with your query)
-            String sql = "INSERT INTO inventory (itemid, quantity, itemcategory) VALUES (?, ?, ?);";
+            String sql = "INSERT INTO inventory (itemid, quantity, itemcategory, minimumamount) VALUES (?, ?, ?, ?);";
             try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
                 pstmt.setString(1, newItem);
                 pstmt.setInt(2, newQuantity);
                 pstmt.setString(3, newCategory);
+                pstmt.setInt(4, newMin);
                 pstmt.executeUpdate();
             }
             reloadData();
@@ -488,6 +499,7 @@ public class ManagerDashboardController {
         String newItem = editInventoryID.getText();
         int newQuantity = Integer.parseInt(editInventoryQuantity.getText());
         String newCategory = editInventoryCategory.getText();
+        int newMin = Integer.parseInt(editInventoryMinimum.getText());
         try {
             // Replace with your PostgreSQL database credentials and connection URL
             String jdbcUrl = "jdbc:postgresql://csce-315-db.engr.tamu.edu/csce315331_08b_db";
@@ -503,11 +515,12 @@ public class ManagerDashboardController {
                 System.exit(0);
              }
             // Execute a sample query (replace with your query)
-            String sql = "UPDATE inventory SET quantity = ?, itemcategory = ? WHERE itemid = ?;";
+            String sql = "UPDATE inventory SET quantity = ?, itemcategory = ?, minimumamount = ? WHERE itemid = ?;";
             try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
-                pstmt.setString(3, newItem);
+                pstmt.setString(4, newItem);
                 pstmt.setInt(1, newQuantity);
                 pstmt.setString(2, newCategory);
+                pstmt.setInt(3, newMin);
                 pstmt.executeUpdate();
             }
             reloadData();
@@ -698,13 +711,19 @@ public class ManagerDashboardController {
                 String itemid = resultSet.getString("itemid");
                 String quantity = resultSet.getString("quantity");
                 String category = resultSet.getString("itemcategory");
-                data.add(new InventoryData(itemid,quantity,category));
+                String min = resultSet.getString("minimumamount");
+                //System.out.println(itemid + " " + quantity + " " + category + " " + min);
+                data.add(new InventoryData(itemid,quantity,category,min));
+                if(Integer.parseInt(quantity) < Integer.parseInt(min)){
+                    itemsNeeded.setText(itemsNeeded.getText() + itemid + "\n");
+                }
             }
 
             // Bind the data to the TableView
             itemid.setCellValueFactory(new PropertyValueFactory<>("Itemid"));
             quantity.setCellValueFactory(new PropertyValueFactory<>("Quantity"));
             itemcategory.setCellValueFactory(new PropertyValueFactory<>("Itemcategory"));
+            minimum.setCellValueFactory(new PropertyValueFactory<>("Minimum"));
             InventoryTable.setItems(data);
 
             // Close the database connection
@@ -841,16 +860,12 @@ public class ManagerDashboardController {
 
             while (resultSet.next()) {
                 String id = resultSet.getString("id");
-                String totalamount = resultSet.getString("totalamount");
-                String orderdate = resultSet.getString("orderdate");
-                String cashiername = resultSet.getString("cashiername");
-                String paymentmethod = resultSet.getString("paymentmethod");
-                String orderhour = resultSet.getString("orderhour");
-
-
-
-
-                data.add(new Orders(id,totalamount,orderdate,cashiername,paymentmethod,orderhour));
+                String totalamount = resultSet.getString("TotalAmount");
+                String orderdate = resultSet.getString("OrderDate");
+                String cashiername = resultSet.getString("CashierName");
+                String paymentmethod = resultSet.getString("PaymentMethod");
+                String time = resultSet.getString("time");
+                data.add(new Orders(id,totalamount,orderdate,cashiername,paymentmethod,time));
             }
 
 
@@ -860,7 +875,7 @@ public class ManagerDashboardController {
             orderdate.setCellValueFactory(new PropertyValueFactory<>("orderdate"));
             cashiername.setCellValueFactory(new PropertyValueFactory<>("cashiername"));
             paymentmethod.setCellValueFactory(new PropertyValueFactory<>("paymentmethod"));
-            orderhour.setCellValueFactory(new PropertyValueFactory<>("orderhour"));
+            time.setCellValueFactory(new PropertyValueFactory<>("time"));
 
 
             OrderTable.setItems(data);
