@@ -16,7 +16,12 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class ManagerDashboardController {
     @FXML
@@ -28,7 +33,7 @@ public class ManagerDashboardController {
     @FXML
     private TextField addInventoryMinimum;
     @FXML
-    private TextArea itemsNeeded;
+    private TextArea itemsNeeded = new TextArea("");
     
     @FXML
     private TextField addMenuID;
@@ -125,6 +130,21 @@ public class ManagerDashboardController {
     private TableColumn<Orders, String> cashiername = new TableColumn<>("Cashier Name");
     @FXML    
     private TableColumn<Orders, String> paymentmethod = new TableColumn<>("Payment Method");
+
+    // @FXML
+    // private TableView<PairData> PairTable = new TableView<>();
+    // @FXML
+    // private TableColumn<Orders, String> orderid = new TableColumn<>("Order ID");
+    // @FXML
+    // private TableColumn<Orders, String> totalamount = new TableColumn<>("Total Amount");
+    // @FXML    
+    // private TableColumn<Orders, String> orderdate = new TableColumn<>("Order Date");
+    // @FXML    
+    // private TableColumn<Orders, String> time = new TableColumn<>("Order Time");
+    // @FXML    
+    // private TableColumn<Orders, String> cashiername = new TableColumn<>("Cashier Name");
+    // @FXML    
+    // private TableColumn<Orders, String> paymentmethod = new TableColumn<>("Payment Method");
 
 
     @FXML
@@ -340,6 +360,23 @@ public class ManagerDashboardController {
             Parent root = FXMLLoader.load(getClass().getResource("fxml/ManagerInventory.fxml"));
             Stage newStage = new Stage();
             newStage.setTitle("Manager Inventory");
+            newStage.setScene(new Scene(root, 460, 354));
+            newStage.setMaximized(true);
+            newStage.show();
+
+            Stage currentStage = (Stage) logoutButton.getScene().getWindow();
+            currentStage.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    @FXML
+    private void salesTogetherButtonClicked() {
+        try {
+            Parent root = FXMLLoader.load(getClass().getResource("fxml/WhatSalesTogether.fxml"));
+            Stage newStage = new Stage();
+            newStage.setTitle("What Sales Together");
             newStage.setScene(new Scene(root, 460, 354));
             newStage.setMaximized(true);
             newStage.show();
@@ -832,6 +869,7 @@ public class ManagerDashboardController {
             e.printStackTrace();
         }
     }
+
     @FXML
     void loadOrders() {
         try {
@@ -850,6 +888,73 @@ public class ManagerDashboardController {
              }
             // Execute a sample query (replace with your query)
             String sql = "SELECT * FROM orders;";
+            Statement statement = conn.createStatement();
+            ResultSet resultSet = statement.executeQuery(sql);
+
+
+            // Create an ObservableList to store the query results
+            ObservableList<Orders> data = FXCollections.observableArrayList();
+
+
+            while (resultSet.next()) {
+                String id = resultSet.getString("id");
+                String totalamount = resultSet.getString("TotalAmount");
+                String orderdate = resultSet.getString("OrderDate");
+                String cashiername = resultSet.getString("CashierName");
+                String paymentmethod = resultSet.getString("PaymentMethod");
+                String time = resultSet.getString("time");
+                data.add(new Orders(id,totalamount,orderdate,cashiername,paymentmethod,time));
+            }
+
+
+            // Bind the data to the TableView
+            orderid.setCellValueFactory(new PropertyValueFactory<>("orderid"));
+            totalamount.setCellValueFactory(new PropertyValueFactory<>("totalamount"));
+            orderdate.setCellValueFactory(new PropertyValueFactory<>("orderdate"));
+            cashiername.setCellValueFactory(new PropertyValueFactory<>("cashiername"));
+            paymentmethod.setCellValueFactory(new PropertyValueFactory<>("paymentmethod"));
+            time.setCellValueFactory(new PropertyValueFactory<>("time"));
+
+
+            OrderTable.setItems(data);
+
+
+            // Close the database connection
+            resultSet.close();
+            statement.close();
+            conn.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    @FXML
+    void loadPairs() {
+        try {
+            // Replace with your PostgreSQL database credentials and connection URL
+            String jdbcUrl = "jdbc:postgresql://csce-315-db.engr.tamu.edu/csce315331_08b_db";
+            String username = "csce315_971_kevtom2003";
+            String password = "password";
+            Connection conn = null;
+            try {
+                conn = DriverManager.getConnection(jdbcUrl,username,password);
+             } catch (Exception e) {
+                e.printStackTrace();
+                System.err.println(e.getClass().getName()+": "+e.getMessage());
+                System.exit(0);
+             }
+            // Execute a sample query (replace with your query)
+            String sql = "SELECT item1.itemname AS item1, item2.itemname AS item2, COUNT(*) AS frequency " +
+                  "FROM orderitems item1 " +
+                  "JOIN orderitems item2 ON item1.orderid = item2.orderid " +
+                  "WHERE item1.itemname < item2.itemname " +
+                  "AND item1.orderid IN (" +
+                  "    SELECT DISTINCT o1.orderid " +
+                  "    FROM orders o1 " +
+                  "    WHERE o1.orderdate >= ?::timestamp " +
+                  "    AND o1.orderdate <= ?::timestamp) " +
+                  "GROUP BY item1.itemname, item2.itemname " +
+                  "ORDER BY frequency DESC;";
             Statement statement = conn.createStatement();
             ResultSet resultSet = statement.executeQuery(sql);
 
