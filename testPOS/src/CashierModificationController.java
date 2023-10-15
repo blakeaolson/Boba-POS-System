@@ -9,8 +9,10 @@ import javafx.scene.image.ImageView;
 import javafx.fxml.FXMLLoader;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Scanner;
 
+import SharedData.MenuItemList;
 import SharedData.OrderData;
 import SharedData.SharedItemList;
 
@@ -77,6 +79,7 @@ public class CashierModificationController {
     private Button Modify = new Button();
 
     private int buttonId;
+    private String itemName = "";
 
     //sweetness and boba level will be on scale of 0-3
     //0 = no sugar/no boba
@@ -90,6 +93,7 @@ public class CashierModificationController {
     int sweetnessMod = 0;
     int bobaLevelMod = 0;
     int drinkSizeMod = 0;
+
     String extraRequestStringMod = "";
     Scanner scan = new Scanner(System.in);
 
@@ -163,7 +167,10 @@ public class CashierModificationController {
     }
     
     public void setbuttonId(int id){
-        buttonId = id;
+      buttonId = id;
+    }
+    public void setItemName(String s){
+      itemName = s;
     }
 
     public void RemoveFromOrderClicked(){
@@ -171,10 +178,15 @@ public class CashierModificationController {
             // Load the Login.fxml file
             FXMLLoader loader = new FXMLLoader(getClass().getResource("fxml/MainCashierView.fxml"));
             Parent root = loader.load();
+
+            HashMap<String, String> costMap = MenuItemList.getCostMap();
+
+            SharedItemList.lowerTotalCost(costMap.get(itemName));
             SharedItemList.removeItem(buttonId);
 
             CashierMainController controller = loader.getController();
             controller.updateScene();
+            controller.showMenuItems();
 
             // Create a new Stage
             Stage stage = new Stage();
@@ -200,6 +212,7 @@ public class CashierModificationController {
 
             CashierMainController controller = loader.getController();
             controller.updateScene();
+            controller.showMenuItems();
 
             // Create a new Stage
             Stage stage = new Stage();
@@ -234,6 +247,7 @@ public class CashierModificationController {
 
             CashierMainController controller = loader.getController();
             controller.updateScene();
+            controller.showMenuItems();
 
             // Create a new Stage
             Stage stage = new Stage();
