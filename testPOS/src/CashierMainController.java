@@ -49,6 +49,7 @@ public class CashierMainController {
     private AnchorPane menuItemPane;
 
     public void showMenuItems(){
+      menuItemPane.getChildren().clear();
       ArrayList<String> menuItemList = MenuItemList.getDisplayList();
       GridPane buttonContainer = new GridPane();
 
@@ -128,7 +129,7 @@ public class CashierMainController {
       } catch (Exception e) {
         e.printStackTrace();
       }
-
+      MenuItemList.parseItems();
       this.showMenuItems();
     }
 
@@ -199,6 +200,8 @@ public class CashierMainController {
             // Load the Login.fxml file
             Parent root = FXMLLoader.load(getClass().getResource("fxml/ManagerLogin.fxml"));
 
+            MenuItemList.clearLists();
+            
             // Create a new Stage
             Stage stage = new Stage();
             stage.setTitle("Login");
@@ -214,5 +217,22 @@ public class CashierMainController {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    public void displayClassic(){
+      MenuItemList.changeDisplay("classic");
+      this.showMenuItems();
+    }
+    public void displayMilkTea(){
+      MenuItemList.changeDisplay("milktea");
+      this.showMenuItems();
+    }
+    public void displaySeasonal(){
+      MenuItemList.changeDisplay("seasonal");
+      this.showMenuItems();
+    }
+    public void displaySlush(){
+      MenuItemList.changeDisplay("slush");
+      this.showMenuItems();
     }
 }

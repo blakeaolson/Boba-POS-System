@@ -47,6 +47,7 @@ public class ManagerLoginController {
             Parent root = loader.load();
             CashierMainController controller = loader.getController();
             controller.fetchMenuItems();
+            
 
             usernameField.getScene().setRoot(root);
         } catch (Exception e) {

@@ -8,10 +8,10 @@
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="641.0" prefWidth="1244.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="CashierMainController">
    <children>
       <Text layoutX="106.0" layoutY="81.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Menu Category" />
-      <Button id="classic_cat" layoutX="97.0" layoutY="105.0" mnemonicParsing="false" prefHeight="42.0" prefWidth="131.0" text="Classic" />
-      <Button id="milk_tea_cat" layoutX="294.0" layoutY="105.0" mnemonicParsing="false" prefHeight="42.0" prefWidth="131.0" text="Milk Tea" />
-      <Button id="seasonal_cat" layoutX="489.0" layoutY="105.0" mnemonicParsing="false" prefHeight="42.0" prefWidth="123.0" text="Seasonal" />
-      <Button id="slush_cat" layoutX="693.0" layoutY="105.0" mnemonicParsing="false" prefHeight="42.0" prefWidth="123.0" text="Slush" />
+      <Button id="classic_cat" layoutX="97.0" layoutY="105.0" mnemonicParsing="false" onAction="#displayClassic" prefHeight="42.0" prefWidth="131.0" text="Classic" />
+      <Button id="milk_tea_cat" layoutX="294.0" layoutY="105.0" mnemonicParsing="false" onAction="#displayMilkTea" prefHeight="42.0" prefWidth="131.0" text="Milk Tea" />
+      <Button id="seasonal_cat" layoutX="489.0" layoutY="105.0" mnemonicParsing="false" onAction="#displaySeasonal" prefHeight="42.0" prefWidth="123.0" text="Seasonal" />
+      <Button id="slush_cat" layoutX="693.0" layoutY="105.0" mnemonicParsing="false" onAction="#displaySlush" prefHeight="42.0" prefWidth="123.0" text="Slush" />
       <Text layoutX="129.0" layoutY="295.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Orders" />
       <TitledPane animated="false" layoutX="888.0" layoutY="2.0" prefHeight="641.0" prefWidth="203.0" text="CurrentOrder">
         <content>
