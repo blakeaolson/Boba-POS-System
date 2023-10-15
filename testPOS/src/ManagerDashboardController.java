@@ -939,12 +939,12 @@ public class ManagerDashboardController {
             String endTime = endTimeField.getText();
 
             String sqlQuery = "SELECT oi1.itemname AS item1, oi2.itemname AS item2, COUNT(*) AS frequency " +
-    "FROM orderitems oi1 " +
-    "JOIN orderitems oi2 ON oi1.orderid = oi2.orderid AND oi1.itemname < oi2.itemname " +
-    "JOIN orders o ON oi1.orderid = o.id " +
-    "WHERE o.time BETWEEN ? AND ? " +
-    "GROUP BY oi1.itemname, oi2.itemname " +
-    "ORDER BY frequency DESC;";
+                            "FROM orderitems oi1 " +
+                            "JOIN orderitems oi2 ON oi1.orderid = oi2.orderid AND oi1.itemname < oi2.itemname " +
+                            "JOIN orders o ON oi1.orderid = o.id " +
+                            "WHERE o.time BETWEEN ? AND ? " +
+                            "GROUP BY oi1.itemname, oi2.itemname " +
+                            "ORDER BY frequency DESC;";
 
             // Execute the SQL Query and update the table
             Connection connection = DriverManager.getConnection(jdbcUrl,username,password);
@@ -955,12 +955,13 @@ public class ManagerDashboardController {
 
             ObservableList<PairData> pairData = FXCollections.observableArrayList();
 
-            System.out.println("Item 1\tItem 2\tFrequency");
+            // System.out.println("Item 1\tItem 2\tFrequency");
             while (resultSet.next()) {
                 String item1 = resultSet.getString("item1");
                 String item2 = resultSet.getString("item2");
-                int frequency = resultSet.getInt("frequency");
-                System.out.println(item1 + "\t" + item2 + "\t" + frequency);
+                Integer frequency = resultSet.getInt("frequency");
+                // System.out.println(item1 + "\t" + item2 + "\t" + frequency);
+                pairData.add(new PairData(item1, item2, frequency));
             }
 
             item1.setCellValueFactory(new PropertyValueFactory<>("item1"));
@@ -972,6 +973,16 @@ public class ManagerDashboardController {
             connection.close();
 
         } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @FXML
+    private void loadDashboard() {
+        try {
+            Parent root = FXMLLoader.load(getClass().getResource("fxml/ManagerOrders.fxml"));
+            pairTable.getScene().setRoot(root);
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
