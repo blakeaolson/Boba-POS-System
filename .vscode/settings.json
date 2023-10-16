@@ -2,7 +2,6 @@
     "java.project.sourcePaths": [
         "testPOS/src"
     ],
-    "java.project.outputPath": "bin",
     "java.project.referencedLibraries": [
         "lib/**/*.jar",
         "c:\\javafx-sdk-21\\lib\\javafx.base.jar",
