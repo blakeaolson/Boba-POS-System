@@ -1,5 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
@@ -11,7 +16,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<BorderPane prefHeight="387.0" prefWidth="550.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ManagerDashboardController">
+<BorderPane prefHeight="387.0" prefWidth="550.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ManagerDashboardController">
    <top>
       <HBox alignment="CENTER">
          <children>
@@ -27,7 +32,7 @@
                   </Text>
                </children>
             </StackPane>
-            <Text text="              Edit Inventory              ">
+            <Text text="              Inventory Excess Report             ">
                <font>
                   <Font size="24.0" />
                </font>
@@ -43,36 +48,26 @@
    <center>
       <VBox alignment="CENTER" prefHeight="290.0" prefWidth="445.0" spacing="10">
          <children>
-            <Text text="Enter Information to Edit the Inventory" />
+            <Text text="Enter a Timestamp and Date to see if 10% of the Inventory has been used by now from then" wrappingWidth="493.7841796875" />
             <HBox alignment="CENTER" spacing="10">
                <children>
-                  <Label text="Item ID:" />
-                  <TextField fx:id="editInventoryID" prefWidth="150" />
+                  <Label text="Date:" />
+                  <DatePicker fx:id="excessReportDate"/>
                </children>
             </HBox>
             <HBox alignment="CENTER" spacing="10">
                <children>
-                  <Label text="Quantity:" />
-                  <TextField fx:id="editInventoryQuantity" prefWidth="150" />
+                  <Label text="Timestamp:" />
+                  <TextField fx:id="excessReportTime" prefWidth="150" />
                </children>
             </HBox>
-            <HBox alignment="CENTER" spacing="10">
-               <children>
-                  <Label text="Item Category: " />
-                  <TextField fx:id="editInventoryCategory" prefWidth="150" />
-               </children>
-            </HBox>
-            <HBox alignment="CENTER" spacing="10">
-               <children>
-                  <Label text="Minimum Amount Allowed:" />
-                  <TextField fx:id="editInventoryMinimum" prefWidth="150" />
-               </children>
-            </HBox>
+            <HBox alignment="CENTER" spacing="10" />
+            <HBox alignment="CENTER" spacing="10" />
          </children>
       </VBox>
    </center>
    <bottom>
-      <Button fx:id="editInventory" mnemonicParsing="false" onAction="#editInventoryFinal" text="Edit Inventory" BorderPane.alignment="CENTER">
+      <Button fx:id="makeExcessReport" mnemonicParsing="false" onAction="#generateExcessReport" text="Generate Report" BorderPane.alignment="CENTER">
          <BorderPane.margin>
             <Insets bottom="10.0" />
          </BorderPane.margin>

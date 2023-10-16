@@ -1,5 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
@@ -11,10 +16,10 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<BorderPane prefHeight="387.0" prefWidth="550.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ManagerDashboardController">
-    <top>
-        <HBox alignment="CENTER">
-           <children>
+<BorderPane prefHeight="387.0" prefWidth="550.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ManagerDashboardController">
+   <top>
+      <HBox alignment="CENTER">
+         <children>
             <StackPane prefHeight="36.0" prefWidth="70.0">
                <children>
                   <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Manager Name: Bob&#10;Manager ID: 12345">
@@ -27,52 +32,52 @@
                   </Text>
                </children>
             </StackPane>
-                <Text text="              Add Inventory              ">
+            <Text text="              Sales Report             ">
                <font>
                   <Font size="24.0" />
                </font>
             </Text>
-                <Button fx:id="logoutButton" alignment="CENTER" onAction="#logout" prefHeight="50.0" prefWidth="73.0" text="Logout" textAlignment="CENTER">
+            <Button fx:id="logoutButton" alignment="CENTER" onAction="#logout" prefHeight="50.0" prefWidth="73.0" text="Logout" textAlignment="CENTER">
                <HBox.margin>
                   <Insets right="5.0" top="5.0" />
                </HBox.margin>
             </Button>
-           </children>
-        </HBox>
-    </top>
-    <center>
-        <VBox alignment="CENTER" prefHeight="290.0" prefWidth="445.0" spacing="10">
-           <children>
-               <Text text="Enter Information to Add to Inventory" />
-               <HBox alignment="CENTER" spacing="10">
-                  <children>
-                      <Label text="Item ID:" />
-                      <TextField fx:id="addInventoryID" prefWidth="150" />
-                  </children>
-               </HBox>
+         </children>
+      </HBox>
+   </top>
+   <center>
+      <VBox alignment="CENTER" prefHeight="290.0" prefWidth="445.0" spacing="10">
+         <children>
+            <Text text="Pick a time window to display sales from:" textAlignment="CENTER" wrappingWidth="493.7841796875" />
             <HBox alignment="CENTER" spacing="10">
                <children>
-                  <Label text="Quantity:" />
-                  <TextField fx:id="addInventoryQuantity" prefWidth="150" />
+                  <Label text=" Start Date:" />
+                  <DatePicker fx:id="salesReportDate" />
                </children>
             </HBox>
             <HBox alignment="CENTER" spacing="10">
                <children>
-                  <Label text="Item Category: " />
-                  <TextField fx:id="addInventoryCategory" prefWidth="150" />
+                  <Label text="Start Time:" />
+                  <TextField fx:id="salesReportTime" prefWidth="150" />
                </children>
             </HBox>
             <HBox alignment="CENTER" spacing="10">
                <children>
-                  <Label prefHeight="17.0" prefWidth="156.0" text="Minimum Amount Allowed:" />
-                  <TextField fx:id="addInventoryMinimum" prefWidth="150" />
+                  <Label text=" End Date:" />
+                  <DatePicker fx:id="salesReportDateEnd" />
                </children>
             </HBox>
-           </children>
+            <HBox alignment="CENTER" spacing="10">
+               <children>
+                  <Label text="End Time:" />
+                  <TextField fx:id="salesReportTimeEnd" prefWidth="150" />
+               </children>
+            </HBox>
+         </children>
       </VBox>
    </center>
    <bottom>
-      <Button fx:id="addInventory" mnemonicParsing="false" onAction="#addInventoryFinal" text="Add Inventory" BorderPane.alignment="CENTER">
+      <Button fx:id="makeExcessReport" mnemonicParsing="false" onAction="#generateSalesReport" text="Generate Report" BorderPane.alignment="CENTER">
          <BorderPane.margin>
             <Insets bottom="10.0" />
          </BorderPane.margin>

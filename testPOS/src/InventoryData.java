@@ -10,6 +10,10 @@ public class InventoryData {
         this.itemcategory = itemcategory;
         this.minimum = minimum;
     }
+    public InventoryData(String itemid, String quantity) {
+        this.itemid = itemid;
+        this.quantity = quantity;
+    }
 
     public String getItemid() {
         return itemid;
