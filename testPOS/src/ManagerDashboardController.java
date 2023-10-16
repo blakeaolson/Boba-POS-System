@@ -16,7 +16,12 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class ManagerDashboardController {
     @FXML
@@ -28,7 +33,7 @@ public class ManagerDashboardController {
     @FXML
     private TextField addInventoryMinimum;
     @FXML
-    private TextArea itemsNeeded;
+    private TextArea itemsNeeded = new TextArea("");
     
     @FXML
     private TextField addMenuID;
@@ -126,6 +131,19 @@ public class ManagerDashboardController {
     @FXML    
     private TableColumn<Orders, String> paymentmethod = new TableColumn<>("Payment Method");
 
+    @FXML
+    private TextField startTimeField;
+    @FXML
+    private TextField endTimeField;
+    @FXML
+    private TableView<PairData> pairTable = new TableView<>();
+    @FXML
+    private TableColumn<PairData, String> item1 = new TableColumn<>("Item 1");
+    @FXML
+    private TableColumn<PairData, String> item2 = new TableColumn<>("Item 2");
+    @FXML
+    private TableColumn<PairData, Integer> frequency = new TableColumn<>("Frequency");
+
 
     @FXML
     private void initialize() {
@@ -190,6 +208,7 @@ public class ManagerDashboardController {
             e.printStackTrace();
         }
     }
+    
     @FXML
     public void loadInventoryForm2() {
         try {
@@ -211,6 +230,7 @@ public class ManagerDashboardController {
             e.printStackTrace();
         }
     }
+    
     @FXML
     public void loadInventoryForm3() {
         try {
@@ -340,6 +360,23 @@ public class ManagerDashboardController {
             Parent root = FXMLLoader.load(getClass().getResource("fxml/ManagerInventory.fxml"));
             Stage newStage = new Stage();
             newStage.setTitle("Manager Inventory");
+            newStage.setScene(new Scene(root, 460, 354));
+            newStage.setMaximized(true);
+            newStage.show();
+
+            Stage currentStage = (Stage) logoutButton.getScene().getWindow();
+            currentStage.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    @FXML
+    private void salesTogetherButtonClicked() {
+        try {
+            Parent root = FXMLLoader.load(getClass().getResource("fxml/WhatSalesTogether.fxml"));
+            Stage newStage = new Stage();
+            newStage.setTitle("What Sales Together");
             newStage.setScene(new Scene(root, 460, 354));
             newStage.setMaximized(true);
             newStage.show();
@@ -832,6 +869,7 @@ public class ManagerDashboardController {
             e.printStackTrace();
         }
     }
+
     @FXML
     void loadOrders() {
         try {
@@ -885,6 +923,65 @@ public class ManagerDashboardController {
             resultSet.close();
             statement.close();
             conn.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    @FXML
+    private void loadPairs() {
+        try {
+            String jdbcUrl = "jdbc:postgresql://csce-315-db.engr.tamu.edu/csce315331_08b_db";
+            String username = "csce315_971_kevtom2003";
+            String password = "password";
+
+            String startTime = startTimeField.getText();
+            String endTime = endTimeField.getText();
+
+            String sqlQuery = "SELECT oi1.itemname AS item1, oi2.itemname AS item2, COUNT(*) AS frequency " +
+                            "FROM orderitems oi1 " +
+                            "JOIN orderitems oi2 ON oi1.orderid = oi2.orderid AND oi1.itemname < oi2.itemname " +
+                            "JOIN orders o ON oi1.orderid = o.id " +
+                            "WHERE o.time BETWEEN ? AND ? " +
+                            "GROUP BY oi1.itemname, oi2.itemname " +
+                            "ORDER BY frequency DESC;";
+
+            // Execute the SQL Query and update the table
+            Connection connection = DriverManager.getConnection(jdbcUrl,username,password);
+            PreparedStatement statement = connection.prepareStatement(sqlQuery);
+            statement.setString(1, startTime);
+            statement.setString(2, endTime);
+            ResultSet resultSet = statement.executeQuery();
+
+            ObservableList<PairData> pairData = FXCollections.observableArrayList();
+
+            // System.out.println("Item 1\tItem 2\tFrequency");
+            while (resultSet.next()) {
+                String item1 = resultSet.getString("item1");
+                String item2 = resultSet.getString("item2");
+                Integer frequency = resultSet.getInt("frequency");
+                // System.out.println(item1 + "\t" + item2 + "\t" + frequency);
+                pairData.add(new PairData(item1, item2, frequency));
+            }
+
+            item1.setCellValueFactory(new PropertyValueFactory<>("item1"));
+            item2.setCellValueFactory(new PropertyValueFactory<>("item2"));
+            frequency.setCellValueFactory(new PropertyValueFactory<>("frequency"));
+
+            pairTable.setItems(pairData);
+
+            connection.close();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @FXML
+    private void loadDashboard() {
+        try {
+            Parent root = FXMLLoader.load(getClass().getResource("fxml/ManagerOrders.fxml"));
+            pairTable.getScene().setRoot(root);
         } catch (Exception e) {
             e.printStackTrace();
         }
