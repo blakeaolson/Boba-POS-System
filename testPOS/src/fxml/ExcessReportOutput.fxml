@@ -46,7 +46,7 @@
       </HBox>
    </top>
    <bottom>
-      <Button fx:id="makeExcessReport" mnemonicParsing="false" onAction="#generateExcessReport" text="Inventory" BorderPane.alignment="CENTER">
+      <Button fx:id="makeExcessReport" mnemonicParsing="false" onAction="#inventoryButtonClicked" text="Inventory" BorderPane.alignment="CENTER">
          <BorderPane.margin>
             <Insets bottom="10.0" />
          </BorderPane.margin>
