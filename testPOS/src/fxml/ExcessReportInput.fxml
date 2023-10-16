@@ -52,7 +52,7 @@
             <HBox alignment="CENTER" spacing="10">
                <children>
                   <Label text="Date:" />
-                  <TextField fx:id="excessReportDate" prefWidth="150" />
+                  <DatePicker />
                </children>
             </HBox>
             <HBox alignment="CENTER" spacing="10">
