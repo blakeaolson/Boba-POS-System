@@ -364,6 +364,7 @@ public class ManagerDashboardController {
             Stage stage = new Stage();
             stage.setTitle("Subtract Inventory");
             stage.setScene(new Scene(root, 460, 354));
+            stage.setMaximized(true);
 
             // Close the current dashboard stage
             Stage currentStage = (Stage) logoutButton.getScene().getWindow();
@@ -386,6 +387,7 @@ public class ManagerDashboardController {
             Stage stage = new Stage();
             stage.setTitle("Edit Inventory");
             stage.setScene(new Scene(root, 460, 354));
+            stage.setMaximized(true);
 
             // Close the current dashboard stage
             Stage currentStage = (Stage) logoutButton.getScene().getWindow();
@@ -408,6 +410,7 @@ public class ManagerDashboardController {
             Stage stage = new Stage();
             stage.setTitle("Add to Menu");
             stage.setScene(new Scene(root, 460, 354));
+            stage.setMaximized(true);
 
             // Close the current dashboard stage
             Stage currentStage = (Stage) logoutButton.getScene().getWindow();
@@ -430,6 +433,7 @@ public class ManagerDashboardController {
             Stage stage = new Stage();
             stage.setTitle("take out of Menu");
             stage.setScene(new Scene(root, 460, 354));
+            stage.setMaximized(true);
 
             // Close the current dashboard stage
             Stage currentStage = (Stage) logoutButton.getScene().getWindow();
@@ -452,6 +456,7 @@ public class ManagerDashboardController {
             Stage stage = new Stage();
             stage.setTitle("Edit The Menu");
             stage.setScene(new Scene(root, 460, 354));
+            stage.setMaximized(true);
 
             // Close the current dashboard stage
             Stage currentStage = (Stage) logoutButton.getScene().getWindow();
