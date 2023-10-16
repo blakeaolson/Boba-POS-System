@@ -169,6 +169,30 @@ public class ManagerDashboardController {
     }
 
     @FXML
+    public void loadExcessReportInput() {
+        try {
+            // Load the Login.fxml file
+            Parent root = FXMLLoader.load(getClass().getResource("fxml/ExcessReportInput.fxml"));
+
+            // Create a new Stage
+            Stage stage = new Stage();
+            stage.setTitle("Add Inventory");
+            stage.setScene(new Scene(root, 460, 354));
+            stage.setMaximized(true);
+
+            // Close the current dashboard stage
+            Stage currentStage = (Stage) logoutButton.getScene().getWindow();
+            currentStage.close();
+
+            // Show the login stage
+            stage.show();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+
+    @FXML
     public void loadInventoryForm() {
         try {
             // Load the Login.fxml file

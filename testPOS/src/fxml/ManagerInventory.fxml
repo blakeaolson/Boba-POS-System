@@ -45,7 +45,7 @@
             <Button fx:id="addInventoryButton" alignment="CENTER" onAction="#loadInventoryForm" prefHeight="50.0" prefWidth="73.0" text="+" textAlignment="CENTER" />
             <Button fx:id="subInventoryButton" mnemonicParsing="false" onAction="#loadInventoryForm2" prefHeight="50.0" prefWidth="80.0" text="-" />
             <Button fx:id="editInventoryButton" mnemonicParsing="false" onAction="#loadInventoryForm3" prefHeight="51.0" prefWidth="87.0" text="EDIT" />
-            <Button fx:id="excessReportButton" mnemonicParsing="false" prefHeight="50.0" prefWidth="101.0" text="Excess Report" />
+            <Button fx:id="excessReportButton" mnemonicParsing="false" onAction = "#loadExcessReportInput" prefHeight="50.0" prefWidth="101.0" text="Excess Report" />
            </children>
         </HBox>
     </top>
