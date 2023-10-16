@@ -4,6 +4,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import javafx.scene.control.Button;
+import javafx.scene.control.DatePicker;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
@@ -11,12 +12,14 @@ import javafx.scene.control.TextArea;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.time.LocalDate;
 
 public class ManagerDashboardController {
     @FXML
@@ -29,6 +32,18 @@ public class ManagerDashboardController {
     private TextField addInventoryMinimum;
     @FXML
     private TextArea itemsNeeded;
+
+    @FXML
+    private DatePicker excessReportDate;
+
+    @FXML
+    private TextField excessReportTime;
+
+    @FXML
+    private TableView<InventoryData> excessReportTable  = new TableView<>();
+
+    @FXML
+    private TableColumn<InventoryData, String> itemname = new TableColumn<>("Item Name");
     
     @FXML
     private TextField addMenuID;
@@ -176,7 +191,7 @@ public class ManagerDashboardController {
 
             // Create a new Stage
             Stage stage = new Stage();
-            stage.setTitle("Add Inventory");
+            stage.setTitle("Excess Report");
             stage.setScene(new Scene(root, 460, 354));
             stage.setMaximized(true);
 
@@ -190,6 +205,66 @@ public class ManagerDashboardController {
             e.printStackTrace();
         }
     }
+
+    @FXML
+    void generateExcessReport(ActionEvent event) {
+        try {
+            // Retrieve the date and time from the user input
+            LocalDate date = excessReportDate.getValue();
+            String timeInput = excessReportTime.getText();
+
+            // Create a combined date-time string for filtering
+            String startDateTime = date.toString() + " " + timeInput;
+
+            // Connect to the database
+            String jdbcUrl = "jdbc:postgresql://csce-315-db.engr.tamu.edu/csce315331_08b_db";
+            String username = "csce315_971_kevtom2003";
+            String password = "password";
+            Connection conn = DriverManager.getConnection(jdbcUrl,username,password);
+
+            // Write the SQL query
+            String sql = "WITH Combined AS (" + 
+                        "SELECT o.orderdate, o.time, oi.itemname, oi.quantity " +
+                        "FROM orderitems oi " +
+                        "JOIN orders o ON oi.orderid = o.id " +
+                        "WHERE o.orderdate || ' ' || o.time > ?" +
+                        ") " +
+                        "SELECT itemname, SUM(quantity) as totalQuantity " +
+                        "FROM Combined " +
+                        "GROUP BY itemname " +
+                        "HAVING SUM(quantity) < 0.1 * (SELECT quantity FROM inventory WHERE itemid = itemname);";
+
+            PreparedStatement statement = conn.prepareStatement(sql);
+            statement.setString(1, startDateTime);
+
+            ResultSet resultSet = statement.executeQuery();
+
+            ObservableList<InventoryData> data = FXCollections.observableArrayList();
+
+            // Extract data from the result set and add to the ObservableList
+            while (resultSet.next()) {
+                String itemName = resultSet.getString("itemname");
+                int quantity = resultSet.getInt("totalQuantity");
+                data.add(new InventoryData(itemName, String.valueOf(quantity)));
+            }
+
+            // Display the results on your TableView
+            // Assuming you have an equivalent TableColumn for 'itemname'
+            itemname.setCellValueFactory(new PropertyValueFactory<>("Itemid"));
+            quantity.setCellValueFactory(new PropertyValueFactory<>("Quantity"));
+
+            // Assuming your TableView for the report is named 'excessReportTable'
+            excessReportTable.setItems(data);
+
+            // Close the database connection
+            resultSet.close();
+            statement.close();
+            conn.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
 
 
     @FXML
