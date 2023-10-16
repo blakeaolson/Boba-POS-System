@@ -206,6 +206,29 @@ public class ManagerDashboardController {
         }
     }
 
+        @FXML
+    public void loadSalesReportInput() {
+        try {
+            // Load the Login.fxml file
+            Parent root = FXMLLoader.load(getClass().getResource("fxml/SalesReportInput.fxml"));
+
+            // Create a new Stage
+            Stage stage = new Stage();
+            stage.setTitle("Sales Report");
+            stage.setScene(new Scene(root, 460, 354));
+            stage.setMaximized(true);
+
+            // Close the current dashboard stage
+            Stage currentStage = (Stage) logoutButton.getScene().getWindow();
+            currentStage.close();
+
+            // Show the login stage
+            stage.show();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
     @FXML
     void generateExcessReport(ActionEvent event) {
         try {

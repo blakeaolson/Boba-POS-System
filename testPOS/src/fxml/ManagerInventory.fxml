@@ -83,7 +83,7 @@
       <VBox prefHeight="590.0" prefWidth="127.0" BorderPane.alignment="CENTER">
          <children>
             <Button fx:id="excessReportButton" mnemonicParsing="false" onAction="#loadExcessReportInput" prefHeight="50.0" prefWidth="112.0" text="Excess Report" />
-            <Button mnemonicParsing="false" prefHeight="49.0" prefWidth="112.0" text="Sales Report" />
+            <Button fx:id="salesReportButton" mnemonicParsing="false" onAction="#loadSalesReportInput" prefHeight="49.0" prefWidth="112.0" text="Sales Report" />
          </children>
       </VBox>
    </right>
