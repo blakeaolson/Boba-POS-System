@@ -496,6 +496,7 @@ public class ManagerDashboardController {
         }
     }
 
+    //loads the manager order page
     @FXML
     private void ordersButtonClicked() {
         try {
@@ -513,6 +514,7 @@ public class ManagerDashboardController {
         }
     }
 
+    //loads the manager employees page
     @FXML
     private void employeesButtonClicked() {
         try {
@@ -530,6 +532,7 @@ public class ManagerDashboardController {
         }
     }
 
+    //loads the manager inventory page
     @FXML
     private void inventoryButtonClicked() {
         try {
@@ -548,6 +551,7 @@ public class ManagerDashboardController {
         }
     }
 
+    //loads the page that holds the sales that are made together page
     @FXML
     private void salesTogetherButtonClicked() {
         try {
