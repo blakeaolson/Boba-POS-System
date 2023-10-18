@@ -84,6 +84,7 @@
          <children>
             <Button fx:id="excessReportButton" mnemonicParsing="false" onAction="#loadExcessReportInput" prefHeight="50.0" prefWidth="112.0" text="Excess Report" />
             <Button fx:id="salesReportButton" mnemonicParsing="false" onAction="#loadSalesReportInput" prefHeight="49.0" prefWidth="112.0" text="Sales Report" />
+            <Button fx:id="honorsReportButton" mnemonicParsing="false" onAction="#loadHonorsReportInput" prefHeight="49.0" prefWidth="112.0" text="Honors Report" />
          </children>
       </VBox>
    </right>

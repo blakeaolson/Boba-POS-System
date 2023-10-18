@@ -38,5 +38,6 @@
       "/Users/blakeolson/Downloads/javafx-sdk-21/lib/javafx.media.jar",
       "/Users/blakeolson/Downloads/javafx-sdk-21/lib/javafx.swing.jar",
       "/Users/blakeolson/Downloads/javafx-sdk-21/lib/javafx.web.jar"
-    ]
+    ],
+    "java.jdt.ls.java.home": "C:\\Java\\jdk-17"
 }

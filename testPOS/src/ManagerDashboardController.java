@@ -105,6 +105,8 @@ public class ManagerDashboardController {
     @FXML
     private TableView<InventoryData> InventoryTable = new TableView<>();
     @FXML
+    private TableView<SalesData> HonorsTable = new TableView<>();
+    @FXML
     private TableView<SalesData> SalesTable = new TableView<>();
     @FXML
     private TableView<EmployeeData> EmployeeTable = new TableView<>();
@@ -126,6 +128,10 @@ public class ManagerDashboardController {
     private TableColumn<SalesData, String> itemreport = new TableColumn<>("Item Name");
     @FXML
     private TableColumn<SalesData, String> quantitysold = new TableColumn<>("Quantity");
+    @FXML
+    private TableColumn<SalesData, String> honorsitemreport = new TableColumn<>("Item Name");
+    @FXML
+    private TableColumn<SalesData, String> honorsquantitysold = new TableColumn<>("Quantity");
     @FXML    
     private TableColumn<InventoryData, String> itemcategory = new TableColumn<>("Item Category");
     @FXML    
@@ -176,6 +182,12 @@ public class ManagerDashboardController {
     @FXML
     private TableColumn<PairData, Integer> frequency = new TableColumn<>("Frequency");
 
+    @FXML
+    private TextField honorsStartTimeField;
+    @FXML
+    private TextField honorsEndTimeField;
+    @FXML
+    private TextField numShow;
     @FXML
     private TextField salesStartTimeField;
     @FXML
@@ -291,6 +303,30 @@ public class ManagerDashboardController {
         try {
             // Load the Login.fxml file
             Parent root = FXMLLoader.load(getClass().getResource("fxml/SalesReportInput.fxml"));
+
+            // Create a new Stage
+            Stage stage = new Stage();
+            stage.setTitle("Sales Report");
+            stage.setScene(new Scene(root, 460, 354));
+            stage.setMaximized(true);
+
+            // Close the current dashboard stage
+            Stage currentStage = (Stage) logoutButton.getScene().getWindow();
+            currentStage.close();
+
+            // Show the login stage
+            stage.show();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    //loads the sales report page
+    @FXML
+    public void loadHonorsReportInput() {
+        try {
+            // Load the Login.fxml file
+            Parent root = FXMLLoader.load(getClass().getResource("fxml/HonorsReportInput.fxml"));
 
             // Create a new Stage
             Stage stage = new Stage();
@@ -1208,47 +1244,54 @@ public class ManagerDashboardController {
     //queries the database for a set number of sold items between a set time in descending order by top sold and displays in table
     @FXML
     void generateHonorsReport() {
-        String startStamp = salesReportStart.getText();
         try {
-            // Replace with your PostgreSQL database credentials and connection URL
             String jdbcUrl = "jdbc:postgresql://csce-315-db.engr.tamu.edu/csce315331_08b_db";
             String username = "csce315_971_kevtom2003";
             String password = "password";
-            Connection conn = null;
-            try {
-                conn = DriverManager.getConnection(jdbcUrl,username,password);
-             } catch (Exception e) {
-                e.printStackTrace();
-             }
-            // Execute a sample query (replace with your query)
-            String sql = "SELECT oi.itemname as itemreport, SUM(oi.quantity) as quantitysold FROM orders o JOIN orderitems oi ON o.id = oi.orderid WHERE TO_TIMESTAMP(o.orderdate || ' ' || o.time, 'MM/DD/YY HH24:MI:SS') BETWEEN TIMESTAMP '01/01/23 10:10:10' AND TIMESTAMP '05/05/23 10:10:10' GROUP BY oi.itemname ORDER BY quantitysold DESC LIMIT ?;";
-            PreparedStatement statement = conn.prepareStatement(sql);
-            statement.setTimestamp(1, Timestamp.valueOf(startStamp));
-            // statement.setTimestamp(2, Timestamp.valueOf(endStamp));
+
+            String startTime = honorsStartTimeField.getText(); // Format: "02/02/23 00:00:00"
+            String endTime = honorsEndTimeField.getText(); // Format: "02/02/23 00:00:00"
+            String numItems = numShow.getText();
+            int num = Integer.parseInt(numItems);
+
+            // Modify the time format to match the expected format in the SQL query
+            SimpleDateFormat inputFormat = new SimpleDateFormat("MM/dd/yy HH:mm:ss");
+            SimpleDateFormat outputFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+            Date startDate = inputFormat.parse(startTime);
+            Date endDate = inputFormat.parse(endTime);
+            String formattedStartTime = outputFormat.format(startDate);
+            String formattedEndTime = outputFormat.format(endDate);
+
+            String sqlQuery = "SELECT oi.itemname as itemreport, SUM(oi.quantity) as quantitysold FROM orders o JOIN orderitems oi ON o.id = oi.orderid WHERE (o.orderdate::timestamp || ' ' || o.time::time) BETWEEN ? AND ? GROUP BY oi.itemname ORDER BY quantitysold DESC LIMIT ?;";
+
+            // Execute the SQL Query and update the table
+            Connection connection = DriverManager.getConnection(jdbcUrl, username, password);
+            PreparedStatement statement = connection.prepareStatement(sqlQuery);
+            Timestamp startTimeStamp = Timestamp.valueOf(formattedStartTime);
+            Timestamp endTimeStamp = Timestamp.valueOf(formattedEndTime);
+            statement.setTimestamp(1, startTimeStamp);
+            statement.setTimestamp(2, endTimeStamp);
+            statement.setInt(3, num);
             ResultSet resultSet = statement.executeQuery();
 
-            // Create an ObservableList to store the query results
             ObservableList<SalesData> data = FXCollections.observableArrayList();
 
             while (resultSet.next()) {
                 String itemreport = resultSet.getString("itemreport");
-                String quantity = resultSet.getString("quantitysold");
-                data.add(new SalesData(itemreport,quantity));
-                System.out.println(itemreport);
-                System.out.println(quantity);
+                String quantitysold = resultSet.getString("quantitysold");
+                data.add(new SalesData(itemreport, quantitysold));
             }
+            honorsitemreport.setCellValueFactory(new PropertyValueFactory<>("itemreport"));
+            honorsquantitysold.setCellValueFactory(new PropertyValueFactory<>("quantitysold"));
 
-            // Bind the data to the TableView
-            itemreport.setCellValueFactory(new PropertyValueFactory<>("Itemreport"));
-            quantitysold.setCellValueFactory(new PropertyValueFactory<>("Quantitysold"));
-            SalesTable.setItems(data);
+            HonorsTable.setItems(data);
 
-            // Close the database connection
-            resultSet.close();
-            statement.close();
-            conn.close();
-        } catch (Exception e) {
+            connection.close();
+
+        } catch (ParseException | SQLException e) {
             e.printStackTrace();
+            // Handle the exceptions here as needed
         }
-    }
+}
+
 }
