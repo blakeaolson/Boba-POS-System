@@ -17,6 +17,7 @@ public class ManagerLoginController {
     @FXML
     private Text messageText;
 
+    //allows user to login to cashier or manager side based on username input
     public void login() {
         String username = usernameField.getText();
         // String password = passwordField.getText();
@@ -32,6 +33,7 @@ public class ManagerLoginController {
         }
     }
 
+    //loads the manager side's initial dashboard
     private void loadDashboard() {
         try {
             Parent root = FXMLLoader.load(getClass().getResource("fxml/ManagerDashboard.fxml"));
@@ -41,6 +43,7 @@ public class ManagerLoginController {
         }
     }
 
+    //loads the cahsier side's initial dashboard
     private void loadCashier() {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("fxml/MainCashierView.fxml"));
