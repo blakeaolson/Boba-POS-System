@@ -16,6 +16,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import SharedData.MenuItemList;
 import SharedData.OrderData;
 import SharedData.SharedItemList;
 
@@ -50,18 +51,19 @@ public class CashierCheckoutController {
             ArrayList<OrderData> itemList = SharedItemList.getItemList();
             updateInventory(itemList);
             double total=0;
-            HashMap<String, Double> priceList = new HashMap<String,Double>();
-            priceList.put("Green Tea",4.75);
-            priceList.put("Rosehip Milk Tea",5.35);
-            priceList.put("Coffee Milk Tea", 3.80);
-            priceList.put("Taro Milk Tea",4.75);
-            priceList.put("Honey Milk Tea",5.35);
-            priceList.put("Thai Milk Tea", 3.80);
-            priceList.put("Coconut Milk Tea",4.75);
-            priceList.put("Almond Milk Tea",5.35);
-                
+            HashMap<String, String> priceListString = MenuItemList.getCostMap();
+            HashMap<String, Double> priceListDouble = new HashMap<String,Double>();
+            for (String key : priceListString.keySet()) {
+                String stringValue = priceListString.get(key);
+                try {
+                    double doubleValue = Double.parseDouble(stringValue);
+                    priceListDouble.put(key, doubleValue);
+                } catch (NumberFormatException e) {
+                    System.out.println("Error parsing value for key: " + key);
+                }
+            }     
             for(OrderData item : itemList){
-                total+= priceList.get(item.getDrinkName());
+                total+= priceListDouble.get(item.getDrinkName());
             }
             // Replace with your PostgreSQL database credentials and connection URL
             String sql = "INSERT INTO orders (TotalAmount, OrderDate, CashierName, PaymentMethod, time) VALUES (?, ?, ?, ?, ?);";
@@ -112,7 +114,17 @@ public class CashierCheckoutController {
         Connection conn = null;
         
         // Mapping of drinks to ingredients and supplies they use
+        ArrayList<String> menuItems = MenuItemList.getTotalArray();
         HashMap<String, HashMap<String, Integer>> drinkIngredients = new HashMap<>();
+        for (String menuItem : menuItems){
+            drinkIngredients.put(menuItem, new HashMap<>() {{
+            put("Ice Cubes", 15);
+            put("Lid", 1);
+            put("Napkins",4);
+            put("drink holder", 1);
+            put("Boba straw", 1);
+          }});
+        }
 
         drinkIngredients.put("Green Tea", new HashMap<>() {{
             put("Green Tea Leaves", 1);

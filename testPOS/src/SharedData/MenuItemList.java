@@ -65,5 +65,8 @@ public class MenuItemList {
   public static HashMap<String, String> getCostMap(){
     return costMap;
   }
+  public static ArrayList<String> getTotalArray(){
+    return total;
+  }
 
 }
