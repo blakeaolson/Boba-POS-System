@@ -9,10 +9,18 @@ public class PairData {
         this.frequency = frequency;
     }
 
+    
+    /** 
+     * @return String
+     */
     public String getItem1() {
         return item1;
     }
 
+    
+    /** 
+     * @return String
+     */
     public String getItem2() {
         return item2;
     }

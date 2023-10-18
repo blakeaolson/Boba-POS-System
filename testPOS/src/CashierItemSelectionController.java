@@ -156,10 +156,18 @@ public class CashierItemSelectionController {
         ExtraRequest.setText(extraRequestString);
     }
   
+    
+    /** 
+     * @param s
+     */
     public void setItem(String s){
       item = s;
     }
 
+    
+    /** 
+     * @param s
+     */
     public void setItemName(String s) {
       currItemText.setText(s);
     }

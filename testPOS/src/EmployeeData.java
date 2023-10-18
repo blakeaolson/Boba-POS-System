@@ -11,10 +11,18 @@ public class EmployeeData {
         this.employeerole = employeerole;
     }
 
+    
+    /** 
+     * @return String
+     */
     public String getId() {
         return id;
     }
 
+    
+    /** 
+     * @return String
+     */
     public String getEmployeename() {
         return employeename;
     }

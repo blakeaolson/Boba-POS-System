@@ -21,6 +21,10 @@ public class OrderData{
     this.cost = cost;
   }
 
+  
+  /** 
+   * @return int
+   */
   public int getId(){
     return id;
   }

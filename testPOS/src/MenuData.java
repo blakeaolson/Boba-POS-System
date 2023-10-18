@@ -9,10 +9,18 @@ public class MenuData {
         this.itemcost = itemcost;
     }
 
+    
+    /** 
+     * @return String
+     */
     public String getItemid() {
         return itemid;
     }
 
+    
+    /** 
+     * @return String
+     */
     public String getName() {
         return name;
     }

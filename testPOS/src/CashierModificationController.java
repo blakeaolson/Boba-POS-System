@@ -166,9 +166,17 @@ public class CashierModificationController {
         ExtraRequestMod.setText(extraRequestStringMod);
     }
     
+    
+    /** 
+     * @param id
+     */
     public void setbuttonId(int id){
       buttonId = id;
     }
+    
+    /** 
+     * @param s
+     */
     public void setItemName(String s){
       itemName = s;
     }
