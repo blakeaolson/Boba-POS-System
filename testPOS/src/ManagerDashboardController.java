@@ -1120,12 +1120,34 @@ public class ManagerDashboardController {
         }
     }
 
-    //allows manager to go back to dashboard
+    //allows manager to go back to orders dashboard
     @FXML
     private void loadDashboard() {
         try {
             Parent root = FXMLLoader.load(getClass().getResource("fxml/ManagerOrders.fxml"));
             pairTable.getScene().setRoot(root);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    //allows manager to go back to inventory dashboard
+    @FXML
+    private void loadDashboardFromExcessReport() {
+        try {
+            Parent root = FXMLLoader.load(getClass().getResource("fxml/ManagerInventory.fxml"));
+            excessReportTable.getScene().setRoot(root);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    //allows manager to go back to inventory dashboard
+    @FXML
+    private void loadDashboardFromSalesReport() {
+        try {
+            Parent root = FXMLLoader.load(getClass().getResource("fxml/ManagerInventory.fxml"));
+            SalesTable.getScene().setRoot(root);
         } catch (Exception e) {
             e.printStackTrace();
         }
