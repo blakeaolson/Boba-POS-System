@@ -357,7 +357,7 @@ public class ManagerDashboardController {
             String username = "csce315_971_kevtom2003";
             String password = "password";
 
-            System.out.println("YO");
+            // System.out.println("YO");
 
             String startTime = excessStartTimeField.getText(); // Format: "02/02/23 00:00:00"
             String endTime = excessEndTimeField.getText(); // Format: "02/02/23 00:00:00"
@@ -370,23 +370,51 @@ public class ManagerDashboardController {
             String formattedStartTime = outputFormat.format(startDate);
             String formattedEndTime = outputFormat.format(endDate);
 
-            String sqlQuery = "WITH item_sales AS ( SELECT itemname, SUM(quantity) as total_quantity FROM orders JOIN orderitems ON orders.id = orderitems.orderid WHERE time >= ? AND time <= ? GROUP BY itemname ), item_inventory AS ( SELECT itemid, quantity FROM inventory ) SELECT i.itemid as excessitem, (100 * (i.quantity - COALESCE(s.total_quantity, 0)) / i.quantity) as excessquantity FROM item_inventory i LEFT JOIN item_sales s ON i.itemid = s.itemname WHERE (100 * (i.quantity - COALESCE(s.total_quantity, 0)) / i.quantity) < 10;";
+            String sqlQuery = "WITH total_sold AS (\n" +
+                    "    SELECT itemname, SUM(quantity) as total_quantity_sold\n" +
+                    "    FROM orderitems oi\n" +
+                    "    JOIN orders o ON oi.orderid = o.id\n" +
+                    "    WHERE o.orderdate >= '2022-01-01' \n" +
+                    "        AND o.orderdate <= '2022-01-02'\n" +
+                    "    GROUP BY itemname\n" +
+                    "),\n" +
+                    "current_inventory AS (\n" +
+                    "    SELECT itemid, quantity, minimumamount\n" +
+                    "    FROM inventory\n" +
+                    "),\n" +
+                    "sold_percentage AS (\n" +
+                    "    SELECT i.itemid, i.quantity, i.minimumamount, COALESCE(t.total_quantity_sold, 0) as total_quantity_sold\n" +
+                    "    FROM current_inventory i\n" +
+                    "    LEFT JOIN total_sold t ON i.itemid = t.itemname\n" +
+                    "),\n" +
+                    "inventory_percentage AS (\n" +
+                    "    SELECT itemid, quantity, minimumamount, \n" +
+                    "        CASE \n" +
+                    "            WHEN minimumamount = 0 THEN 1 \n" +
+                    "            ELSE total_quantity_sold::float / minimumamount \n" +
+                    "        END as percentage_sold\n" +
+                    "    FROM sold_percentage\n" +
+                    ")\n" +
+                    "SELECT itemid, quantity, minimumamount\n" +
+                    "FROM inventory_percentage\n" +
+                    "WHERE percentage_sold < 0.1;";
+
 
             // Execute the SQL Query and update the table
             Connection connection = DriverManager.getConnection(jdbcUrl, username, password);
             PreparedStatement statement = connection.prepareStatement(sqlQuery);
             Timestamp startTimeStamp = Timestamp.valueOf(formattedStartTime);
             Timestamp endTimeStamp = Timestamp.valueOf(formattedEndTime);
-            statement.setTimestamp(1, startTimeStamp);
-            statement.setTimestamp(2, endTimeStamp);
+            // statement.setTimestamp(1, startTimeStamp);
+            // statement.setTimestamp(2, endTimeStamp);
             ResultSet resultSet = statement.executeQuery();
 
             ObservableList<InventoryData> data = FXCollections.observableArrayList();
 
             while (resultSet.next()) {
-                String excessitem = resultSet.getString("excessitem");
-                String excessquantity = resultSet.getString("excessquantity");
-                System.out.println(excessitem + "\t" + excessquantity);
+                String excessitem = resultSet.getString("itemid");
+                String excessquantity = resultSet.getString("quantity");
+                // System.out.println(excessitem + "\t" + excessquantity);
                 data.add(new InventoryData(excessitem, excessquantity));
             }
 
