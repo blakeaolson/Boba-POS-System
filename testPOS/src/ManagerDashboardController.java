@@ -719,20 +719,17 @@ public class ManagerDashboardController {
         String newCategory = editInventoryCategory.getText();
         int newMin = Integer.parseInt(editInventoryMinimum.getText());
         try {
-            // Replace with your PostgreSQL database credentials and connection URL
             String jdbcUrl = "jdbc:postgresql://csce-315-db.engr.tamu.edu/csce315331_08b_db";
             String username = "csce315_971_kevtom2003";
             String password = "password";
             Connection conn = null;
             try {
-                //Class.forName("org.postgresql.Driver");
                 conn = DriverManager.getConnection(jdbcUrl,username,password);
              } catch (Exception e) {
                 e.printStackTrace();
                 System.err.println(e.getClass().getName()+": "+e.getMessage());
                 System.exit(0);
              }
-            // Execute a sample query (replace with your query)
             String sql = "UPDATE inventory SET quantity = ?, itemcategory = ?, minimumamount = ? WHERE itemid = ?;";
             try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
                 pstmt.setString(4, newItem);
@@ -761,27 +758,24 @@ public class ManagerDashboardController {
         }
     }
 
+    //function that updates the menu item database according to menu item added by the manager
     @FXML
     private void addMenuFinal() {
         int newItem = Integer.parseInt(addMenuID.getText());
         String newName = addMenuName.getText();
         double newCost = Double.parseDouble(addMenuCost.getText());
-        //System.out.println(newItem + " " + newName + " " + newCost);
         try {
-            // Replace with your PostgreSQL database credentials and connection URL
             String jdbcUrl = "jdbc:postgresql://csce-315-db.engr.tamu.edu/csce315331_08b_db";
             String username = "csce315_971_kevtom2003";
             String password = "password";
             Connection conn = null;
             try {
-                //Class.forName("org.postgresql.Driver");
                 conn = DriverManager.getConnection(jdbcUrl,username,password);
              } catch (Exception e) {
                 e.printStackTrace();
                 System.err.println(e.getClass().getName()+": "+e.getMessage());
                 System.exit(0);
              }
-            // Execute a sample query (replace with your query)
             String sql = "INSERT INTO teaorders (id, tea_name, price) VALUES (?, ?, ?);";
             try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
                 pstmt.setInt(1, newItem);
@@ -809,25 +803,22 @@ public class ManagerDashboardController {
         }
     }
 
+    //function that deletes from the menu item database according to the manager's requests
     @FXML
     private void subMenuFinal() {
         int newItem = Integer.parseInt(subMenuID.getText());
-        //System.out.println(newItem);
         try {
-            // Replace with your PostgreSQL database credentials and connection URL
             String jdbcUrl = "jdbc:postgresql://csce-315-db.engr.tamu.edu/csce315331_08b_db";
             String username = "csce315_971_kevtom2003";
             String password = "password";
             Connection conn = null;
             try {
-                //Class.forName("org.postgresql.Driver");
                 conn = DriverManager.getConnection(jdbcUrl,username,password);
              } catch (Exception e) {
                 e.printStackTrace();
                 System.err.println(e.getClass().getName()+": "+e.getMessage());
                 System.exit(0);
              }
-            // Execute a sample query (replace with your query)
             String sql = "DELETE FROM teaorders WHERE id = ?;";
             try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
                 pstmt.setInt(1, newItem);
@@ -853,27 +844,24 @@ public class ManagerDashboardController {
         }
     }
 
+    //function that edits items from the menu item database according to the manager's requests
     @FXML
     private void editMenuFinal() {
         int newItem = Integer.parseInt(editMenuID.getText());
         String newName = editMenuName.getText();
         double newCost = Double.parseDouble(editMenuCost.getText());
-        //System.out.println(newItem + " " + newName + " " + newCost);
         try {
-            // Replace with your PostgreSQL database credentials and connection URL
             String jdbcUrl = "jdbc:postgresql://csce-315-db.engr.tamu.edu/csce315331_08b_db";
             String username = "csce315_971_kevtom2003";
             String password = "password";
             Connection conn = null;
             try {
-                //Class.forName("org.postgresql.Driver");
                 conn = DriverManager.getConnection(jdbcUrl,username,password);
              } catch (Exception e) {
                 e.printStackTrace();
                 System.err.println(e.getClass().getName()+": "+e.getMessage());
                 System.exit(0);
              }
-            // Execute a sample query (replace with your query)
             String sql = "UPDATE teaorders SET tea_name = ?, price = ? WHERE id = ?;";
             try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
                 pstmt.setInt(3, newItem);
@@ -901,14 +889,13 @@ public class ManagerDashboardController {
         }
     }
 
-    
+    //loads the inventory data into the inventory page/table
     /** 
      * @param conn
      */
     @FXML
     void loadInventoryData(Connection conn) {
         try{
-            // Execute a sample query (replace with your query)
             String sql = "SELECT * FROM inventory;";
             Statement statement = conn.createStatement();
             ResultSet resultSet = statement.executeQuery(sql);
@@ -921,7 +908,6 @@ public class ManagerDashboardController {
                 String quantity = resultSet.getString("quantity");
                 String category = resultSet.getString("itemcategory");
                 String min = resultSet.getString("minimumamount");
-                //System.out.println(itemid + " " + quantity + " " + category + " " + min);
                 data.add(new InventoryData(itemid,quantity,category,min));
                 if(Integer.parseInt(quantity) < Integer.parseInt(min)){
                     itemsNeeded.setText(itemsNeeded.getText() + itemid + "\n");
@@ -943,19 +929,17 @@ public class ManagerDashboardController {
         }
     }
 
-    
+    //loads the employee data into the employee page/table
     /** 
      * @param conn
      */
     @FXML
     void loadEmployees(Connection conn) {
         try{
-            // Execute a sample query (replace with your query)
             String sql = "SELECT * FROM employees;";
             Statement statement = conn.createStatement();
             ResultSet resultSet = statement.executeQuery(sql);
 
-            // Create an ObservableList to store the query results
             ObservableList<EmployeeData> data = FXCollections.observableArrayList();
 
             while (resultSet.next()) {
@@ -983,12 +967,11 @@ public class ManagerDashboardController {
         }
     }
 
+    //loads the menu data into the menu page/table
     @FXML
     private void loadMenu(Connection conn) {
         try{
-            // Execute a sample query (replace with your query)
             String sql = "SELECT * FROM teaorders;";
-            //System.out.println(sql);
             Statement statement = conn.createStatement();
             ResultSet resultSet = statement.executeQuery(sql);
 
@@ -999,7 +982,6 @@ public class ManagerDashboardController {
                 String itemid = resultSet.getString("id");
                 String name = resultSet.getString("tea_name");
                 String cost = resultSet.getString("price");
-                //System.out.println(itemid + " " + name + " " + cost);
                 data.add(new MenuData(itemid,name,cost));
             }
 
@@ -1017,7 +999,7 @@ public class ManagerDashboardController {
         }
     }
 
-    
+    //loads the orders data into the orders page/table
     /** 
      * @param conn
      */
