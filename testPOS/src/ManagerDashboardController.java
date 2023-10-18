@@ -334,37 +334,48 @@ public class ManagerDashboardController {
      * @param event
      */
     @FXML
-    void generateExcessReport(ActionEvent event) {
+    void generateExcessReport() {
         try {
             String jdbcUrl = "jdbc:postgresql://csce-315-db.engr.tamu.edu/csce315331_08b_db";
             String username = "csce315_971_kevtom2003";
             String password = "password";
 
-            String startTime = excessStartTimeField.getText();
-            String endTime = excessEndTimeField.getText();
+            System.out.println("YO");
 
-            // fix query
+            String startTime = excessStartTimeField.getText(); // Format: "02/02/23 00:00:00"
+            String endTime = excessEndTimeField.getText(); // Format: "02/02/23 00:00:00"
+
+            // Modify the time format to match the expected format in the SQL query
+            SimpleDateFormat inputFormat = new SimpleDateFormat("MM/dd/yy HH:mm:ss");
+            SimpleDateFormat outputFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+            Date startDate = inputFormat.parse(startTime);
+            Date endDate = inputFormat.parse(endTime);
+            String formattedStartTime = outputFormat.format(startDate);
+            String formattedEndTime = outputFormat.format(endDate);
+
             String sqlQuery = "WITH item_sales AS ( " +
-            "SELECT itemname, SUM(quantity) as total_quantity " +
-            "FROM orders " +
-            "JOIN orderitems ON orders.id = orderitems.orderid " +
-            "WHERE time >= ? AND time <= ? " +
-            "GROUP BY itemname " +
-            "), " +
-            "item_inventory AS ( " +
-            "SELECT itemid, quantity " +
-            "FROM inventory " +
-            ") " +
-            "SELECT i.itemid as excessitem, (100 * (i.quantity - COALESCE(s.total_quantity, 0)) / i.quantity) as excessquantity " +
-            "FROM item_inventory i " +
-            "LEFT JOIN item_sales s ON i.itemid = s.itemname " +
-            "WHERE (100 * (i.quantity - COALESCE(s.total_quantity, 0)) / i.quantity) < 10";
-        
+                    "SELECT itemname, SUM(quantity) as total_quantity " +
+                    "FROM orders " +
+                    "JOIN orderitems ON orders.id = orderitems.orderid " +
+                    "WHERE time >= ? AND time <= ? " +
+                    "GROUP BY itemname " +
+                    "), " +
+                    "item_inventory AS ( " +
+                    "SELECT itemid, quantity " +
+                    "FROM inventory " +
+                    ") " +
+                    "SELECT i.itemid as excessitem, (100 * (i.quantity - COALESCE(s.total_quantity, 0)) / i.quantity) as excessquantity " +
+                    "FROM item_inventory i " +
+                    "LEFT JOIN item_sales s ON i.itemid = s.itemname " +
+                    "WHERE (100 * (i.quantity - COALESCE(s.total_quantity, 0)) / i.quantity) < 10";
+
             // Execute the SQL Query and update the table
-            Connection connection = DriverManager.getConnection(jdbcUrl,username,password);
+            Connection connection = DriverManager.getConnection(jdbcUrl, username, password);
             PreparedStatement statement = connection.prepareStatement(sqlQuery);
-            statement.setString(1, startTime);
-            statement.setString(2, endTime);
+            Timestamp startTimeStamp = Timestamp.valueOf(formattedStartTime);
+            Timestamp endTimeStamp = Timestamp.valueOf(formattedEndTime);
+            statement.setTimestamp(1, startTimeStamp);
+            statement.setTimestamp(2, endTimeStamp);
             ResultSet resultSet = statement.executeQuery();
 
             ObservableList<InventoryData> data = FXCollections.observableArrayList();
@@ -376,13 +387,16 @@ public class ManagerDashboardController {
                 data.add(new InventoryData(excessitem, excessquantity));
             }
 
-            excessitem.setCellValueFactory(new PropertyValueFactory<>("itemid"));
-            excessquantity.setCellValueFactory(new PropertyValueFactory<>("quantity"));
+            itemreport.setCellValueFactory(new PropertyValueFactory<>("itemreport"));
+            quantitysold.setCellValueFactory(new PropertyValueFactory<>("quantitysold"));
 
             excessReportTable.setItems(data);
 
             connection.close();
 
+        } catch (ParseException e) {
+            e.printStackTrace();
+            // Handle the ParseException here or throw it if necessary.
         } catch (SQLException e) {
             e.printStackTrace();
         }
