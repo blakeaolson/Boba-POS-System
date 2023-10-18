@@ -370,21 +370,7 @@ public class ManagerDashboardController {
             String formattedStartTime = outputFormat.format(startDate);
             String formattedEndTime = outputFormat.format(endDate);
 
-            String sqlQuery = "WITH item_sales AS ( " +
-                    "SELECT itemname, SUM(quantity) as total_quantity " +
-                    "FROM orders " +
-                    "JOIN orderitems ON orders.id = orderitems.orderid " +
-                    "WHERE time >= ? AND time <= ? " +
-                    "GROUP BY itemname " +
-                    "), " +
-                    "item_inventory AS ( " +
-                    "SELECT itemid, quantity " +
-                    "FROM inventory " +
-                    ") " +
-                    "SELECT i.itemid as excessitem, (100 * (i.quantity - COALESCE(s.total_quantity, 0)) / i.quantity) as excessquantity " +
-                    "FROM item_inventory i " +
-                    "LEFT JOIN item_sales s ON i.itemid = s.itemname " +
-                    "WHERE (100 * (i.quantity - COALESCE(s.total_quantity, 0)) / i.quantity) < 10";
+            String sqlQuery = "WITH item_sales AS ( SELECT itemname, SUM(quantity) as total_quantity FROM orders JOIN orderitems ON orders.id = orderitems.orderid WHERE time >= ? AND time <= ? GROUP BY itemname ), item_inventory AS ( SELECT itemid, quantity FROM inventory ) SELECT i.itemid as excessitem, (100 * (i.quantity - COALESCE(s.total_quantity, 0)) / i.quantity) as excessquantity FROM item_inventory i LEFT JOIN item_sales s ON i.itemid = s.itemname WHERE (100 * (i.quantity - COALESCE(s.total_quantity, 0)) / i.quantity) < 10;";
 
             // Execute the SQL Query and update the table
             Connection connection = DriverManager.getConnection(jdbcUrl, username, password);
