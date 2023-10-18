@@ -111,66 +111,84 @@ public class CashierCheckoutController {
         HashMap<String, HashMap<String, Integer>> drinkIngredients = new HashMap<>();
 
         drinkIngredients.put("Green Tea", new HashMap<>() {{
-            put("Green Tea Leaves Boxes", 1);
-            put("water cup", 1);
-            put("Boba straw", 1);
-            put("lid", 1);
+            put("Green Tea Leaves", 1);
+            put("Lid", 1);
+            put("Napkins",4);
+            put("drink holder", 1);
         }});
 
         drinkIngredients.put("Rosehip Milk Tea", new HashMap<>() {{
-            put("Black Tea Leaves Boxes", 1); 
+            put("Black Tea Leaves", 1); 
             put("Milk", 1);
-            put("medium cup", 1);
+            put("Rose syrup", 1);
             put("Boba straw", 1);
-            put("lid", 1);
+            put("Lid", 1);
+            put("Ice Cubes", 15);
+            put("Napkins",4);
+            put("drink holder", 1);
         }});
 
         drinkIngredients.put("Coffee Milk Tea", new HashMap<>() {{
-            put("Black Tea Leaves Boxes", 1); 
+            put("Black Tea Leaves", 1); 
             put("Milk", 1);
-            put("medium cup", 1);
             put("Boba straw", 1);
-            put("lid", 1);
+            put("Coffee",1);
+            put("Lid", 1);
+            put("Ice Cubes", 15);
+            put("Napkins",4);
+            put("drink holder", 1);
         }});
 
         drinkIngredients.put("Taro Milk Tea", new HashMap<>() {{
-            put("Black Tea Leaves Boxes", 1); 
+            put("Green Tea Leaves", 1); 
             put("Milk", 1);
-            put("medium cup", 1);
+            put("Taro",1);
             put("Boba straw", 1);
-            put("lid", 1);
+            put("Lid", 1);
+            put("Ice Cubes", 15);
+            put("Napkins",4);
+            put("drink holder", 1);
         }});
 
 
         drinkIngredients.put("Honey Milk Tea", new HashMap<>() {{
-            put("Black Tea Leaves Boxes", 1); 
+            put("Green Tea Leaves", 1); 
             put("Milk", 1);
-            put("medium cup", 1);
+            put("Honey",1);
             put("Boba straw", 1);
-            put("lid", 1);
+            put("Lid", 1);
+            put("Ice Cubes", 15);
+            put("Napkins",4);
+            put("drink holder", 1);
         }});
 
         drinkIngredients.put("Thai Milk Tea", new HashMap<>() {{
-            put("Black Tea Leaves Boxes", 1); 
+            put("Thai Tea Leaves", 1); 
             put("Coconut Milk", 1);
-            put("medium cup", 1);
             put("Boba straw", 1);
+            put("Ice Cubes", 15);
+            put("Napkins",4);
+            put("drink holder", 1);
         }});
 
         drinkIngredients.put("Coconut Milk Tea", new HashMap<>() {{
-            put("Black Tea Leaves Boxes", 1); 
+            put("Black Tea Leaves", 1); 
             put("Coconut Milk", 1);
-            put("medium cup", 1);
             put("Boba straw", 1);
-            put("lid", 1);
+            put("Lid", 1);
+            put("Ice Cubes", 15);
+            put("Napkins",4);
+            put("drink holder", 1);
         }});
 
         drinkIngredients.put("Almond Milk Tea", new HashMap<>() {{
-            put("Black Tea Leaves Boxes", 1); 
+            put("Black Tea Leaves", 1); 
             put("Almond Milk", 1);
-            put("medium cup", 1);
             put("Boba straw", 1);
-            put("lid", 1);
+            put("Lid", 1);
+            put("Ice Cubes", 15);
+            put("Napkins",4);
+            put("drink holder", 1);
         }});
 
         try {
@@ -184,7 +202,14 @@ public class CashierCheckoutController {
             for (OrderData order : itemList) {
                 if (drinkIngredients.containsKey(order.getDrinkName())) {
                     HashMap<String, Integer> ingredients = drinkIngredients.get(order.getDrinkName());
-                    
+                    ingredients.put("Sugar", order.getSweetnessLevel());
+                    ingredients.put("Boba",order.getBobaLevel());
+                    if(order.getDrinkSize() == 0)
+                        ingredients.put("small cup", 1);
+                    else if(order.getDrinkSize() == 1)
+                        ingredients.put("medium cup", 1);
+                    else if(order.getDrinkSize() == 2)
+                        ingredients.put("large cup", 1);
                     for (String ingredient : ingredients.keySet()) {
                         // Fetch current inventory
                         String query = "SELECT quantity FROM inventory WHERE itemid = ?";
