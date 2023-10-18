@@ -414,12 +414,12 @@ public class ManagerDashboardController {
             while (resultSet.next()) {
                 String excessitem = resultSet.getString("itemid");
                 String excessquantity = resultSet.getString("quantity");
-                // System.out.println(excessitem + "\t" + excessquantity);
+                System.out.println(excessitem + "\t" + excessquantity);
                 data.add(new InventoryData(excessitem, excessquantity));
             }
 
-            itemreport.setCellValueFactory(new PropertyValueFactory<>("itemreport"));
-            quantitysold.setCellValueFactory(new PropertyValueFactory<>("quantitysold"));
+            itemid.setCellValueFactory(new PropertyValueFactory<>("itemid"));
+            quantity.setCellValueFactory(new PropertyValueFactory<>("quantity"));
 
             excessReportTable.setItems(data);
 

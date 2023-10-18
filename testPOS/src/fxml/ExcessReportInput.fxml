@@ -26,8 +26,8 @@
 
     <TableView fx:id="excessReportTable" prefHeight="554.0" prefWidth="424.0">
         <columns>
-            <TableColumn fx:id="excessitem" prefWidth="275.0" text="Excess Item" />
-            <TableColumn fx:id="excessquantity" minWidth="0.0" prefWidth="275.0" text="Excess Quantity" />
+            <TableColumn fx:id="itemid" prefWidth="275.0" text="Excess Item" />
+            <TableColumn fx:id="quantity" minWidth="0.0" prefWidth="275.0" text="Excess Quantity" />
         </columns>
       <columnResizePolicy>
          <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
