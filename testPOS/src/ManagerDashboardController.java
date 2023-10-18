@@ -172,6 +172,21 @@ public class ManagerDashboardController {
     @FXML
     private TableColumn<PairData, Integer> frequency = new TableColumn<>("Frequency");
 
+    @FXML
+    private TextField salesStartTimeField;
+    @FXML
+    private TextField salesEndTimeField;
+
+    @FXML
+    private TextField excessStartTimeField;
+    @FXML
+    private TextField excessEndTimeField;
+
+    @FXML
+    private TableColumn<InventoryData, String> excessitem = new TableColumn<>("Excess Item");
+    @FXML
+    private TableColumn<InventoryData, String> excessquantity = new TableColumn<>("Excess Quantity");
+
 
     @FXML
     private void initialize() {
@@ -318,49 +333,40 @@ public class ManagerDashboardController {
     @FXML
     void generateExcessReport(ActionEvent event) {
         try {
-            // Retrieve the date and time from the user input
-            LocalDate date = excessReportDate.getValue();
-            String timeInput = excessReportTime.getText();
-
-            // Create a combined date-time string for filtering
-            String startDateTime = date.toString() + " " + timeInput;
-
-            // Connect to the database
             String jdbcUrl = "jdbc:postgresql://csce-315-db.engr.tamu.edu/csce315331_08b_db";
             String username = "csce315_971_kevtom2003";
             String password = "password";
-            Connection conn = DriverManager.getConnection(jdbcUrl,username,password);
 
-            // Write the SQL query
-            String sql = "SELECT i.itemid, i.quantity AS beginning_inventory, SUM(oi.quantity) AS total_sold FROM inventory i LEFT JOIN orderitems oi ON i.itemid = oi.itemname LEFT JOIN orders o ON oi.orderid = o.id WHERE o.orderdate >= '10/09/23' AND o.orderdate <= '10/17/2023' GROUP BY i.itemid, i.quantity HAVING (SUM(oi.quantity) / i.quantity) < 0.10;";
+            String startTime = excessStartTimeField.getText();
+            String endTime = excessEndTimeField.getText();
 
-            PreparedStatement statement = conn.prepareStatement(sql);
-            statement.setString(1, startDateTime);
+            // fix query
+            String sqlQuery = "SELECT i.itemid, i.quantity AS beginning_inventory, SUM(oi.quantity) AS total_sold FROM inventory i LEFT JOIN orderitems oi ON i.itemid = oi.itemname LEFT JOIN orders o ON oi.orderid = o.id WHERE o.orderdate >= '10/16/23' AND o.orderdate <= '10/17/2023' GROUP BY i.itemid, i.quantity HAVING (SUM(oi.quantity) / i.quantity) < 300000;";
 
+            // Execute the SQL Query and update the table
+            Connection connection = DriverManager.getConnection(jdbcUrl,username,password);
+            PreparedStatement statement = connection.prepareStatement(sqlQuery);
+            // statement.setString(1, startTime);
+            // statement.setString(2, endTime);
             ResultSet resultSet = statement.executeQuery();
 
             ObservableList<InventoryData> data = FXCollections.observableArrayList();
 
-            // Extract data from the result set and add to the ObservableList
             while (resultSet.next()) {
-                String itemName = resultSet.getString("itemname");
-                int quantity = resultSet.getInt("totalQuantity");
-                data.add(new InventoryData(itemName, String.valueOf(quantity)));
+                String excessitem = resultSet.getString("excessitem");
+                String excessquantity = resultSet.getString("excessquantity");
+                System.out.println(excessitem + "\t" + excessquantity);
+                data.add(new InventoryData(excessitem, excessquantity));
             }
 
-            // Display the results on your TableView
-            // Assuming you have an equivalent TableColumn for 'itemname'
-            itemname.setCellValueFactory(new PropertyValueFactory<>("Itemid"));
-            quantity.setCellValueFactory(new PropertyValueFactory<>("Quantity"));
+            excessitem.setCellValueFactory(new PropertyValueFactory<>("itemid"));
+            excessquantity.setCellValueFactory(new PropertyValueFactory<>("quantity"));
 
-            // Assuming your TableView for the report is named 'excessReportTable'
             excessReportTable.setItems(data);
 
-            // Close the database connection
-            resultSet.close();
-            statement.close();
-            conn.close();
-        } catch (Exception e) {
+            connection.close();
+
+        } catch (SQLException e) {
             e.printStackTrace();
         }
     }
@@ -1131,48 +1137,40 @@ public class ManagerDashboardController {
 
     @FXML
     void generateSalesReport() {
-        String startStamp = salesReportStart.getText();
-        String endStamp = salesReportEnd.getText();
         try {
-            // Replace with your PostgreSQL database credentials and connection URL
             String jdbcUrl = "jdbc:postgresql://csce-315-db.engr.tamu.edu/csce315331_08b_db";
             String username = "csce315_971_kevtom2003";
             String password = "password";
-            Connection conn = null;
-            try {
-                conn = DriverManager.getConnection(jdbcUrl,username,password);
-             } catch (Exception e) {
-                e.printStackTrace();
-             }
-            // Execute a sample query (replace with your query)
-            String sql = "SELECT oi.itemname as itemreport, SUM(oi.quantity) as quantitysold FROM orders o JOIN orderitems oi ON o.id = oi.orderid WHERE TO_TIMESTAMP(o.orderdate || ' ' || o.time, 'MM/DD/YY HH24:MI:SS') BETWEEN TIMESTAMP '01/01/23 10:10:10' AND TIMESTAMP '05/05/23 10:10:10' GROUP BY oi.itemname;";
-            PreparedStatement statement = conn.prepareStatement(sql);
-            // statement.setTimestamp(1, Timestamp.valueOf(startStamp));
-            // statement.setTimestamp(2, Timestamp.valueOf(endStamp));
+
+            String startTime = salesStartTimeField.getText();
+            String endTime = salesEndTimeField.getText();
+
+            String sqlQuery = "SELECT oi.itemname as itemreport, SUM(oi.quantity) as quantitysold FROM orders o JOIN orderitems oi ON o.id = oi.orderid WHERE TO_TIMESTAMP(o.orderdate || ' ' || o.time, 'MM/DD/YY HH24:MI:SS') BETWEEN TIMESTAMP '10/17/23 00:00:00' AND TIMESTAMP '10/18/23 23:59:59' GROUP BY oi.itemname;";
+
+            // Execute the SQL Query and update the table
+            Connection connection = DriverManager.getConnection(jdbcUrl,username,password);
+            PreparedStatement statement = connection.prepareStatement(sqlQuery);
+            // statement.setString(1, startTime);
+            // statement.setString(2, endTime);
             ResultSet resultSet = statement.executeQuery();
 
-            // Create an ObservableList to store the query results
             ObservableList<SalesData> data = FXCollections.observableArrayList();
 
             while (resultSet.next()) {
                 String itemreport = resultSet.getString("itemreport");
-                String quantity = resultSet.getString("quantitysold");
-                data.add(new SalesData(itemreport,quantity));
-                System.out.println(itemreport);
-                System.out.println(quantity);
+                String quantitysold = resultSet.getString("quantitysold");
+                // System.out.println(itemreport + "\t" + quantitysold);
+                data.add(new SalesData(itemreport, quantitysold));
             }
 
-            // Bind the data to the TableView
-            itemreport.setCellValueFactory(new PropertyValueFactory<>("Itemreport"));
-            quantitysold.setCellValueFactory(new PropertyValueFactory<>("Quantitysold"));
+            itemreport.setCellValueFactory(new PropertyValueFactory<>("itemreport"));
+            quantitysold.setCellValueFactory(new PropertyValueFactory<>("quantitysold"));
+
             SalesTable.setItems(data);
 
-            // Close the database connection
-            resultSet.close();
-            statement.close();
-            conn.close();
-            showSalesReport();
-        } catch (Exception e) {
+            connection.close();
+
+        } catch (SQLException e) {
             e.printStackTrace();
         }
     }
