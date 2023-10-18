@@ -104,6 +104,10 @@ public class CashierCheckoutController {
         //TO-DO
         //update the inventory at this point
     }
+    
+    /** 
+     * @param itemList
+     */
     private void updateInventory(ArrayList<OrderData> itemList) {
         Connection conn = null;
         

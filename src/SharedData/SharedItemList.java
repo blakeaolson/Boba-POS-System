@@ -5,6 +5,10 @@ public class SharedItemList {
     private static ArrayList<OrderData> itemList = new ArrayList<>();
     private static float totalCost;
 
+    
+    /** 
+     * @return ArrayList<OrderData>
+     */
     public static ArrayList<OrderData> getItemList() {
         return itemList;
     }

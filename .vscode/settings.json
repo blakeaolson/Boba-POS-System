@@ -30,5 +30,5 @@
         "/Users/sathvikyeruva/Downloads/javafx-sdk-21/lib/javafx.web.jar",
         "/Users/sathvikyeruva/Downloads/javafx-sdk-21/lib/postgresql-42.2.8.jar"
     ],
-    // "java.jdt.ls.java.home": "C:\\Java\\jdk-17"
+    "java.jdt.ls.java.home": "C:\\Java\\jdk-17"
 }

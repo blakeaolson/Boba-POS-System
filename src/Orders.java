@@ -19,11 +19,19 @@ public class Orders {
     }
 
 
+    
+    /** 
+     * @return String
+     */
     public String getOrderid() {
         return orderid;
     }
 
 
+    
+    /** 
+     * @return String
+     */
     public String getTotalamount() {
         return totalamount;
     }

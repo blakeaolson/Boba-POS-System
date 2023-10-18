@@ -13,6 +13,10 @@ public class MenuItemList {
 
   private static HashMap<String, String> costMap = new HashMap<>();
 
+  
+  /** 
+   * @return ArrayList<String>
+   */
   public static ArrayList<String> getDisplayList(){
     return display;
   }

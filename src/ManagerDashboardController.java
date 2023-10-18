@@ -20,6 +20,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.sql.Timestamp;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -90,10 +91,17 @@ public class ManagerDashboardController {
     private TextField editInventoryMinimum;
 
     @FXML
+    private TextField salesReportStart;
+    @FXML
+    private TextField salesReportEnd;
+
+    @FXML
     private Button addInventory = new Button();
 
     @FXML
     private TableView<InventoryData> InventoryTable = new TableView<>();
+    @FXML
+    private TableView<SalesData> SalesTable = new TableView<>();
     @FXML
     private TableView<EmployeeData> EmployeeTable = new TableView<>();
     @FXML
@@ -110,10 +118,15 @@ public class ManagerDashboardController {
     private TableColumn<InventoryData, String> itemid = new TableColumn<>("Item ID");
     @FXML
     private TableColumn<InventoryData, String> quantity = new TableColumn<>("Quantity");
+    @FXML
+    private TableColumn<SalesData, String> itemreport = new TableColumn<>("Item Name");
+    @FXML
+    private TableColumn<SalesData, String> quantitysold = new TableColumn<>("Quantity");
     @FXML    
     private TableColumn<InventoryData, String> itemcategory = new TableColumn<>("Item Category");
     @FXML    
     private TableColumn<InventoryData, String> minimum = new TableColumn<>("Minimum Allowed");
+
 
     @FXML
     private TableColumn<EmployeeData, String> id = new TableColumn<>("ID");
@@ -163,19 +176,48 @@ public class ManagerDashboardController {
     @FXML
     private void initialize() {
         // This method is invoked when the FXML components are initialized.
-        loadInventoryData();
-        loadEmployees();
-        loadMenu();
-        loadOrders();
+        Connection conn = dbHelper();
+        loadInventoryData(conn);
+        loadEmployees(conn);
+        loadMenu(conn);
+        loadOrders(conn);
     }
 
+    
+    /** 
+     * @param conn
+     */
     @FXML
-    private void reloadData() {
+    private void reloadData(Connection conn) {
         // This method is invoked when the FXML components are initialized.
-        loadInventoryData();
-        loadEmployees();
-        loadMenu();
-        loadOrders();
+        loadInventoryData(conn);
+        loadEmployees(conn);
+        loadMenu(conn);
+        loadOrders(conn);
+    }
+
+    
+    /** 
+     * @return Connection
+     */
+    @FXML
+    public Connection dbHelper(){
+        // Replace with your PostgreSQL database credentials and connection URL
+        String jdbcUrl = "jdbc:postgresql://csce-315-db.engr.tamu.edu/csce315331_08b_db";
+        String username = "csce315_971_kevtom2003";
+        String password = "password";
+        Connection conn = null;
+        try {
+            //Class.forName("org.postgresql.Driver");
+            conn = DriverManager.getConnection(jdbcUrl,username,password);
+            } catch (Exception e) {
+            e.printStackTrace();
+            System.err.println(e.getClass().getName()+": "+e.getMessage());
+            System.exit(0);
+            }
+        return conn;
+        
+            
     }
 
     @FXML
@@ -247,8 +289,7 @@ public class ManagerDashboardController {
         }
     }
 
-    @FXML
-    public void generateSalesReport() {
+    public void showSalesReport() {
         try {
             // Load the Login.fxml file
             Parent root = FXMLLoader.load(getClass().getResource("fxml/SalesReportOutput.fxml"));
@@ -270,6 +311,10 @@ public class ManagerDashboardController {
         }
     }
 
+    
+    /** 
+     * @param event
+     */
     @FXML
     void generateExcessReport(ActionEvent event) {
         try {
@@ -287,16 +332,7 @@ public class ManagerDashboardController {
             Connection conn = DriverManager.getConnection(jdbcUrl,username,password);
 
             // Write the SQL query
-            String sql = "WITH Combined AS (" + 
-                        "SELECT o.orderdate, o.time, oi.itemname, oi.quantity " +
-                        "FROM orderitems oi " +
-                        "JOIN orders o ON oi.orderid = o.id " +
-                        "WHERE o.orderdate || ' ' || o.time > ?" +
-                        ") " +
-                        "SELECT itemname, SUM(quantity) as totalQuantity " +
-                        "FROM Combined " +
-                        "GROUP BY itemname " +
-                        "HAVING SUM(quantity) < 0.1 * (SELECT quantity FROM inventory WHERE itemid = itemname);";
+            String sql = "SELECT i.itemid, i.quantity AS beginning_inventory, SUM(oi.quantity) AS total_sold FROM inventory i LEFT JOIN orderitems oi ON i.itemid = oi.itemname LEFT JOIN orders o ON oi.orderid = o.id WHERE o.orderdate >= '10/09/23' AND o.orderdate <= '10/17/2023' GROUP BY i.itemid, i.quantity HAVING (SUM(oi.quantity) / i.quantity) < 0.10;";
 
             PreparedStatement statement = conn.prepareStatement(sql);
             statement.setString(1, startDateTime);
@@ -618,7 +654,7 @@ public class ManagerDashboardController {
                 pstmt.setInt(4, newMin);
                 pstmt.executeUpdate();
             }
-            reloadData();
+            reloadData(conn);
         }catch (Exception e) {
             e.printStackTrace();
         }
@@ -661,7 +697,7 @@ public class ManagerDashboardController {
                 pstmt.setString(1, newItem);
                 pstmt.executeUpdate();
             }
-            reloadData();
+            reloadData(conn);
         }catch (Exception e) {
             e.printStackTrace();
         }
@@ -710,7 +746,7 @@ public class ManagerDashboardController {
                 pstmt.setInt(3, newMin);
                 pstmt.executeUpdate();
             }
-            reloadData();
+            reloadData(conn);
         }catch (Exception e) {
             e.printStackTrace();
         }
@@ -758,7 +794,7 @@ public class ManagerDashboardController {
                 pstmt.setDouble(3, newCost);
                 pstmt.executeUpdate();
             }
-            reloadData();
+            reloadData(conn);
         }catch (Exception e) {
             e.printStackTrace();
         }
@@ -802,7 +838,7 @@ public class ManagerDashboardController {
                 pstmt.setInt(1, newItem);
                 pstmt.executeUpdate();
             }
-            reloadData();
+            reloadData(conn);
         }catch (Exception e) {
             e.printStackTrace();
         }
@@ -850,7 +886,7 @@ public class ManagerDashboardController {
                 pstmt.setDouble(2, newCost);
                 pstmt.executeUpdate();
             }
-            reloadData();
+            reloadData(conn);
         }catch (Exception e) {
             e.printStackTrace();
         }
@@ -870,22 +906,13 @@ public class ManagerDashboardController {
         }
     }
 
+    
+    /** 
+     * @param conn
+     */
     @FXML
-    void loadInventoryData() {
-        try {
-            // Replace with your PostgreSQL database credentials and connection URL
-            String jdbcUrl = "jdbc:postgresql://csce-315-db.engr.tamu.edu/csce315331_08b_db";
-            String username = "csce315_971_kevtom2003";
-            String password = "password";
-            Connection conn = null;
-            try {
-                //Class.forName("org.postgresql.Driver");
-                conn = DriverManager.getConnection(jdbcUrl,username,password);
-             } catch (Exception e) {
-                e.printStackTrace();
-                System.err.println(e.getClass().getName()+": "+e.getMessage());
-                System.exit(0);
-             }
+    void loadInventoryData(Connection conn) {
+        try{
             // Execute a sample query (replace with your query)
             String sql = "SELECT * FROM inventory;";
             Statement statement = conn.createStatement();
@@ -916,28 +943,18 @@ public class ManagerDashboardController {
             // Close the database connection
             resultSet.close();
             statement.close();
-            conn.close();
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
+    
+    /** 
+     * @param conn
+     */
     @FXML
-    void loadEmployees() {
-        try {
-            // Replace with your PostgreSQL database credentials and connection URL
-            String jdbcUrl = "jdbc:postgresql://csce-315-db.engr.tamu.edu/csce315331_08b_db";
-            String username = "csce315_971_kevtom2003";
-            String password = "password";
-            Connection conn = null;
-            try {
-                //Class.forName("org.postgresql.Driver");
-                conn = DriverManager.getConnection(jdbcUrl,username,password);
-             } catch (Exception e) {
-                e.printStackTrace();
-                System.err.println(e.getClass().getName()+": "+e.getMessage());
-                System.exit(0);
-             }
+    void loadEmployees(Connection conn) {
+        try{
             // Execute a sample query (replace with your query)
             String sql = "SELECT * FROM employees;";
             Statement statement = conn.createStatement();
@@ -966,28 +983,14 @@ public class ManagerDashboardController {
             // Close the database connection
             resultSet.close();
             statement.close();
-            conn.close();
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
     @FXML
-    private void loadMenu() {
-        try {
-            // Replace with your PostgreSQL database credentials and connection URL
-            String jdbcUrl = "jdbc:postgresql://csce-315-db.engr.tamu.edu/csce315331_08b_db";
-            String username = "csce315_971_kevtom2003";
-            String password = "password";
-            Connection conn = null;
-            try {
-                //Class.forName("org.postgresql.Driver");
-                conn = DriverManager.getConnection(jdbcUrl,username,password);
-             } catch (Exception e) {
-                e.printStackTrace();
-                System.err.println(e.getClass().getName()+": "+e.getMessage());
-                System.exit(0);
-             }
+    private void loadMenu(Connection conn) {
+        try{
             // Execute a sample query (replace with your query)
             String sql = "SELECT * FROM teaorders;";
             //System.out.println(sql);
@@ -1014,28 +1017,18 @@ public class ManagerDashboardController {
             // Close the database connection
             resultSet.close();
             statement.close();
-            conn.close();
-        } catch (Exception e) {
+             } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
+    
+    /** 
+     * @param conn
+     */
     @FXML
-    void loadOrders() {
+    void loadOrders(Connection conn) {
         try {
-            // Replace with your PostgreSQL database credentials and connection URL
-            String jdbcUrl = "jdbc:postgresql://csce-315-db.engr.tamu.edu/csce315331_08b_db";
-            String username = "csce315_971_kevtom2003";
-            String password = "password";
-            Connection conn = null;
-            try {
-                //Class.forName("org.postgresql.Driver");
-                conn = DriverManager.getConnection(jdbcUrl,username,password);
-             } catch (Exception e) {
-                e.printStackTrace();
-                System.err.println(e.getClass().getName()+": "+e.getMessage());
-                System.exit(0);
-             }
             // Execute a sample query (replace with your query)
             String sql = "SELECT * FROM orders;";
             Statement statement = conn.createStatement();
@@ -1072,7 +1065,6 @@ public class ManagerDashboardController {
             // Close the database connection
             resultSet.close();
             statement.close();
-            conn.close();
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -1132,6 +1124,102 @@ public class ManagerDashboardController {
         try {
             Parent root = FXMLLoader.load(getClass().getResource("fxml/ManagerOrders.fxml"));
             pairTable.getScene().setRoot(root);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    @FXML
+    void generateSalesReport() {
+        String startStamp = salesReportStart.getText();
+        String endStamp = salesReportEnd.getText();
+        try {
+            // Replace with your PostgreSQL database credentials and connection URL
+            String jdbcUrl = "jdbc:postgresql://csce-315-db.engr.tamu.edu/csce315331_08b_db";
+            String username = "csce315_971_kevtom2003";
+            String password = "password";
+            Connection conn = null;
+            try {
+                conn = DriverManager.getConnection(jdbcUrl,username,password);
+             } catch (Exception e) {
+                e.printStackTrace();
+             }
+            // Execute a sample query (replace with your query)
+            String sql = "SELECT oi.itemname as itemreport, SUM(oi.quantity) as quantitysold FROM orders o JOIN orderitems oi ON o.id = oi.orderid WHERE TO_TIMESTAMP(o.orderdate || ' ' || o.time, 'MM/DD/YY HH24:MI:SS') BETWEEN TIMESTAMP '01/01/23 10:10:10' AND TIMESTAMP '05/05/23 10:10:10' GROUP BY oi.itemname;";
+            PreparedStatement statement = conn.prepareStatement(sql);
+            // statement.setTimestamp(1, Timestamp.valueOf(startStamp));
+            // statement.setTimestamp(2, Timestamp.valueOf(endStamp));
+            ResultSet resultSet = statement.executeQuery();
+
+            // Create an ObservableList to store the query results
+            ObservableList<SalesData> data = FXCollections.observableArrayList();
+
+            while (resultSet.next()) {
+                String itemreport = resultSet.getString("itemreport");
+                String quantity = resultSet.getString("quantitysold");
+                data.add(new SalesData(itemreport,quantity));
+                System.out.println(itemreport);
+                System.out.println(quantity);
+            }
+
+            // Bind the data to the TableView
+            itemreport.setCellValueFactory(new PropertyValueFactory<>("Itemreport"));
+            quantitysold.setCellValueFactory(new PropertyValueFactory<>("Quantitysold"));
+            SalesTable.setItems(data);
+
+            // Close the database connection
+            resultSet.close();
+            statement.close();
+            conn.close();
+            showSalesReport();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    @FXML
+    void generateHonorsReport() {
+        String startStamp = salesReportStart.getText();
+        String endStamp = salesReportEnd.getText();
+        try {
+            // Replace with your PostgreSQL database credentials and connection URL
+            String jdbcUrl = "jdbc:postgresql://csce-315-db.engr.tamu.edu/csce315331_08b_db";
+            String username = "csce315_971_kevtom2003";
+            String password = "password";
+            Connection conn = null;
+            try {
+                conn = DriverManager.getConnection(jdbcUrl,username,password);
+             } catch (Exception e) {
+                e.printStackTrace();
+             }
+            // Execute a sample query (replace with your query)
+            String sql = "SELECT oi.itemname as itemreport, SUM(oi.quantity) as quantitysold FROM orders o JOIN orderitems oi ON o.id = oi.orderid WHERE TO_TIMESTAMP(o.orderdate || ' ' || o.time, 'MM/DD/YY HH24:MI:SS') BETWEEN TIMESTAMP '01/01/23 10:10:10' AND TIMESTAMP '05/05/23 10:10:10' GROUP BY oi.itemname ORDER BY quantitysold DESC LIMIT ?;";
+            PreparedStatement statement = conn.prepareStatement(sql);
+            statement.setTimestamp(1, Timestamp.valueOf(startStamp));
+            // statement.setTimestamp(2, Timestamp.valueOf(endStamp));
+            ResultSet resultSet = statement.executeQuery();
+
+            // Create an ObservableList to store the query results
+            ObservableList<SalesData> data = FXCollections.observableArrayList();
+
+            while (resultSet.next()) {
+                String itemreport = resultSet.getString("itemreport");
+                String quantity = resultSet.getString("quantitysold");
+                data.add(new SalesData(itemreport,quantity));
+                System.out.println(itemreport);
+                System.out.println(quantity);
+            }
+
+            // Bind the data to the TableView
+            itemreport.setCellValueFactory(new PropertyValueFactory<>("Itemreport"));
+            quantitysold.setCellValueFactory(new PropertyValueFactory<>("Quantitysold"));
+            SalesTable.setItems(data);
+
+            // Close the database connection
+            resultSet.close();
+            statement.close();
+            conn.close();
+            showSalesReport();
         } catch (Exception e) {
             e.printStackTrace();
         }

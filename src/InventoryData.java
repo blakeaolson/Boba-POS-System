@@ -15,10 +15,18 @@ public class InventoryData {
         this.quantity = quantity;
     }
 
+    
+    /** 
+     * @return String
+     */
     public String getItemid() {
         return itemid;
     }
 
+    
+    /** 
+     * @return String
+     */
     public String getQuantity() {
         return quantity;
     }
