@@ -75,112 +75,126 @@ public class CashierItemSelectionController {
     private int bobaLevel = 0;
     private int drinkSize = 0;
 
-    //sweetness and boba level will be on scale of 0-3
-    //0 = no sugar/no boba
-    //1 = 25% sugar/less boba
-    //2 = 50% sugar/regular boba
-    //3 = 75% sugar/extra boba
-    //drink size will be on a scale of 0-2
-    //0 = small
-    //1 = medium
-    //2 = large
+    // Sweetness and boba level will be on a scale of 0-3.
+    // 0 = no sugar/no boba
+    // 1 = 25% sugar/less boba
+    // 2 = 50% sugar/regular boba
+    // 3 = 75% sugar/extra boba
+    // Drink size will be on a scale of 0-2.
+    // 0 = small
+    // 1 = medium
+    // 2 = large
     String extraRequestString = "";
     Scanner scan = new Scanner(System.in);
 
-    public void initialize(){
+    /**
+     * Initialize the controller, setting initial text in the UI fields.
+     */
+    public void initialize() {
         currItemText.setText("Item: ");
         sweetnessLevelText.setText("Sweetness Level: ");
         bobaLevelText.setText("Boba Level: ");
         drinkSizeText.setText("Drink Size: ");
     }
 
-    public void NoSugarClicked(){
+    // Methods to set sweetness level based on button clicks.
+    public void NoSugarClicked() {
         sweetnessLevelText.setText("Sweetness Level: No Sugar");
         sweetness = 0;
     }
 
-    public void QuarterSugarClicked(){
+    public void QuarterSugarClicked() {
         sweetnessLevelText.setText("Sweetness Level: 25% Sugar");
         sweetness = 1;
     }
 
-    public void HalfSugarClicked(){
+    public void HalfSugarClicked() {
         sweetnessLevelText.setText("Sweetness Level: 50% Sugar");
         sweetness = 2;
     }
 
-    public void SeventyFiveSugarClicked(){
+    public void SeventyFiveSugarClicked() {
         sweetnessLevelText.setText("Sweetness Level: 75% Sugar");
         sweetness = 3;
     }
 
-    public void NoBobaClicked(){
+    // Methods to set boba level based on button clicks.
+    public void NoBobaClicked() {
         bobaLevelText.setText("Boba Level: No Boba");
         bobaLevel = 0;
     }
 
-    public void LessBobaClicked(){
+    public void LessBobaClicked() {
         bobaLevelText.setText("Boba Level: Less Boba");
         bobaLevel = 1;
     }
 
-    public void RegularBobaClicked(){
+    public void RegularBobaClicked() {
         bobaLevelText.setText("Boba Level: Regular Boba");
         bobaLevel = 2;
     }
 
-    public void ExtraBobaClicked(){
+    public void ExtraBobaClicked() {
         bobaLevelText.setText("Boba Level: Extra Boba");
         bobaLevel = 3;
     }
 
-    public void SmallClicked(){
+    // Methods to set drink size based on button clicks.
+    public void SmallClicked() {
         drinkSizeText.setText("Drink Size: Small");
         drinkSize = 0;
     }
 
-    public void MediumClicked(){
+    public void MediumClicked() {
         drinkSizeText.setText("Drink Size: Medium");
         drinkSize = 1;
     }
 
-    public void LargeClicked(){
+    public void LargeClicked() {
         drinkSizeText.setText("Drink Size: Large");
         drinkSize = 2;
     }
 
-    public void ExtraRequestClicked(){
+    /**
+     * Handle the user's extra request and update the UI accordingly.
+     */
+    public void ExtraRequestClicked() {
         System.out.println("Please enter the extra request: ");
         extraRequestString += scan.nextLine();
         scan.close();
         ExtraRequest.setText(extraRequestString);
     }
-  
-    
-    /** 
-     * @param s
-     */
-    public void setItem(String s){
-      item = s;
-    }
 
-    
-    /** 
-     * @param s
+    /**
+     * Set the item name for the current order.
+     * @param s - the name of the item to set.
      */
     public void setItemName(String s) {
-      currItemText.setText(s);
+        currItemText.setText(s);
     }
 
-    public void setCost(String cost){
-      this.cost = cost;
+    /**
+     * Set the selected item for the order.
+     * @param s - the selected item.
+     */
+    public void setItem(String s) {
+        item = s;
     }
 
-    public void CancelClicked(){
-        //TO-DO
-        //go back to the order page
+    /**
+     * Set the cost of the selected item.
+     * @param cost - the cost to set.
+     */
+    public void setCost(String cost) {
+        this.cost = cost;
+    }
+
+    /**
+     * Handle the "Cancel" button click, navigate back to the main cashier view.
+     */
+    public void CancelClicked() {
         try {
-            // Load the Login.fxml file
+            // Load the MainCashierView.fxml file
             FXMLLoader loader = new FXMLLoader(getClass().getResource("fxml/MainCashierView.fxml"));
             Parent root = loader.load();
 
@@ -194,21 +208,22 @@ public class CashierItemSelectionController {
             stage.setScene(new Scene(root, 1244.0, 641.0));
             stage.setMaximized(true);
 
-            // Close the current dashboard stage
+            // Close the current stage
             Stage currentStage = (Stage) Cancel.getScene().getWindow();
             currentStage.close();
 
-            // Show the login stage
+            // Show the new stage
             stage.show();
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
-    public void AddToOrderClicked(){
-        //TO-DO
-        //go back to the order page and add drink with specifications to current order
-        try {            
+    /**
+     * Handle the "Add to Order" button click, add the drink with specifications to the current order.
+     */
+    public void AddToOrderClicked() {
+        try {
             // Load the .fxml file
             FXMLLoader loader = new FXMLLoader(getClass().getResource("fxml/MainCashierView.fxml"));
             Parent root = loader.load();
@@ -218,15 +233,14 @@ public class CashierItemSelectionController {
             CashierMainController controller = loader.getController();
             controller.updateScene();
             controller.showMenuItems();
-            
+
             // Create a new Stage
             Stage stage = new Stage();
             stage.setTitle("Main Cashier View");
             stage.setScene(new Scene(root, 1244.0, 641.0));
             stage.setMaximized(true);
 
-
-            // Close the current dashboard stage
+            // Close the current stage
             Stage currentStage = (Stage) AddToOrder.getScene().getWindow();
             currentStage.close();
 

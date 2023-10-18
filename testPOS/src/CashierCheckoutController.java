@@ -4,7 +4,6 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
-
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -15,7 +14,6 @@ import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.HashMap;
-
 import SharedData.MenuItemList;
 import SharedData.OrderData;
 import SharedData.SharedItemList;
@@ -25,34 +23,47 @@ public class CashierCheckoutController {
     @FXML
     AnchorPane Checkout;
 
-    public void checkoutClicked(){  
+    /**
+     * Handle the click event of the "Checkout" button.
+     * Establish a database connection, create an order, and update inventory.
+     * Also, handle UI navigation.
+     */
+    public void checkoutClicked() {
+        // Database connection parameters.
         String jdbcUrl = "jdbc:postgresql://csce-315-db.engr.tamu.edu/csce315331_08b_db";
         String username = "csce315_971_kevtom2003";
         String password = "password";
+
         Connection conn = null;
+
         try {
-            //Class.forName("org.postgresql.Driver");
-            conn = DriverManager.getConnection(jdbcUrl,username,password);
+            // Attempt to establish a database connection.
+            conn = DriverManager.getConnection(jdbcUrl, username, password);
         } catch (Exception e) {
             e.printStackTrace();
-            System.err.println(e.getClass().getName()+": "+e.getMessage());
+            System.err.println(e.getClass().getName() + ": " + e.getMessage());
             System.exit(0);
         }
-        // Get the current date in "dd/MM/yyyy" format
+
+        // Get the current date and time.
         LocalDate currentDate = LocalDate.now();
         DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("MM/dd/yyyy");
         String formattedDate = currentDate.format(dateFormatter);
 
-        // Get the current time in "HH:mm:ss" format
         LocalTime currentTime = LocalTime.now();
         DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("HH:mm:ss");
         String formattedTime = currentTime.format(timeFormatter);
+
         try {
+            // Retrieve the list of ordered items and update inventory.
             ArrayList<OrderData> itemList = SharedItemList.getItemList();
             updateInventory(itemList);
-            double total=0;
+
+            double total = 0;
             HashMap<String, String> priceListString = MenuItemList.getCostMap();
-            HashMap<String, Double> priceListDouble = new HashMap<String,Double>();
+            HashMap<String, Double> priceListDouble = new HashMap<String, Double>();
+
+            // Convert price list values from strings to doubles.
             for (String key : priceListString.keySet()) {
                 String stringValue = priceListString.get(key);
                 try {
@@ -61,11 +72,14 @@ public class CashierCheckoutController {
                 } catch (NumberFormatException e) {
                     System.out.println("Error parsing value for key: " + key);
                 }
-            }     
-            for(OrderData item : itemList){
-                total+= priceListDouble.get(item.getDrinkName());
             }
-            // Replace with your PostgreSQL database credentials and connection URL
+
+            // Calculate the total cost of the order.
+            for (OrderData item : itemList) {
+                total += priceListDouble.get(item.getDrinkName());
+            }
+
+            // Insert the order and its items into the database.
             String sql = "INSERT INTO orders (TotalAmount, OrderDate, CashierName, PaymentMethod, time) VALUES (?, ?, ?, ?, ?);";
             try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
                 pstmt.setDouble(1, total);
@@ -76,7 +90,7 @@ public class CashierCheckoutController {
                 pstmt.executeUpdate();
             }
 
-            for(OrderData item : itemList){
+            for (OrderData item : itemList) {
                 String sql2 = "INSERT INTO orderitems (OrderID, ItemName, Quantity) VALUES (?, ?, ?);";
                 try (PreparedStatement pstmt = conn.prepareStatement(sql2)) {
                     pstmt.setInt(1, 1000);
@@ -85,44 +99,45 @@ public class CashierCheckoutController {
                     pstmt.executeUpdate();
                 }
             }
-            // Load the Login.fxml file
+
+            // Load the MainCashierView.fxml file and navigate to it.
             Parent root = FXMLLoader.load(getClass().getResource("fxml/MainCashierView.fxml"));
             SharedItemList.clearList();
 
-            // Create a new Stage
             Stage stage = new Stage();
             stage.setTitle("Main Cashier View");
             stage.setScene(new Scene(root, 1244.0, 641.0));
             stage.setMaximized(true);
 
-            // Close the current dashboard stage
             Stage currentStage = (Stage) Checkout.getScene().getWindow();
             currentStage.close();
-            // Show the login stage
+
             stage.show();
         } catch (Exception e) {
             e.printStackTrace();
         }
-        //TO-DO
-        //update the inventory at this point
+
+        // TO-DO: Update the inventory at this point.
     }
-    
-    /** 
-     * @param itemList
+
+    /**
+     * Update the inventory based on the ordered items.
+     * @param itemList - the list of ordered items.
      */
     private void updateInventory(ArrayList<OrderData> itemList) {
         Connection conn = null;
-        
-        // Mapping of drinks to ingredients and supplies they use
+
+        // Mapping of drinks to ingredients and supplies they use.
         ArrayList<String> menuItems = MenuItemList.getTotalArray();
         HashMap<String, HashMap<String, Integer>> drinkIngredients = new HashMap<>();
-        for (String menuItem : menuItems){
+        // Initialize the ingredient requirements for each drink item.
+        for (String menuItem : menuItems) {
             drinkIngredients.put(menuItem, new HashMap<>() {{
-            put("Ice Cubes", 15);
-            put("Lid", 1);
-            put("Napkins",4);
-            put("drink holder", 1);
-            put("Boba straw", 1);
+                put("Ice Cubes", 15);
+                put("Lid", 1);
+                put("Napkins", 4);
+                put("drink holder", 1);
+                put("Boba straw", 1);
           }});
         }
 

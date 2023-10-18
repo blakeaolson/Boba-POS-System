@@ -81,7 +81,7 @@ public class CashierModificationController {
     private int buttonId;
     private String itemName = "";
 
-    //sweetness and boba level will be on scale of 0-3
+    //sweetness and boba level will be on a scale of 0-3
     //0 = no sugar/no boba
     //1 = 25% sugar/less boba
     //2 = 50% sugar/regular boba
@@ -97,6 +97,9 @@ public class CashierModificationController {
     String extraRequestStringMod = "";
     Scanner scan = new Scanner(System.in);
 
+    /**
+     * Initialize the modification form.
+     */
     public void initialize(){
         currItemTextMod.setText("Item: ");
         sweetnessLevelTextMod.setText("Sweetness Level: ");
@@ -168,22 +171,27 @@ public class CashierModificationController {
     
     
     /** 
-     * @param id
+     * Set the ID of the button corresponding to the item in the order.
+     * @param id - The ID of the button.
      */
     public void setbuttonId(int id){
       buttonId = id;
     }
     
     /** 
-     * @param s
+     * Set the name of the item being modified.
+     * @param s - The name of the item.
      */
     public void setItemName(String s){
       itemName = s;
     }
 
+    /**
+     * Remove the item from the order.
+     */
     public void RemoveFromOrderClicked(){
         try {
-            // Load the Login.fxml file
+            // Load the MainCashierView.fxml file
             FXMLLoader loader = new FXMLLoader(getClass().getResource("fxml/MainCashierView.fxml"));
             Parent root = loader.load();
 
@@ -202,19 +210,23 @@ public class CashierModificationController {
             stage.setScene(new Scene(root, 1244.0, 641.0));
             stage.setMaximized(true);
 
-            // Close the current dashboard stage
+            // Close the current stage
             Stage currentStage = (Stage) RemoveFromOrder.getScene().getWindow();
             currentStage.close();
-            // Show the login stage
+
+            // Show the stage
             stage.show();
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
+    /**
+     * Cancel the modification and return to the order view.
+     */
     public void CancelModClicked(){
          try {
-            // Load the Login.fxml file
+            // Load the MainCashierView.fxml file
             FXMLLoader loader = new FXMLLoader(getClass().getResource("fxml/MainCashierView.fxml"));
             Parent root = loader.load();
 
@@ -228,16 +240,20 @@ public class CashierModificationController {
             stage.setScene(new Scene(root, 1244.0, 641.0));
             stage.setMaximized(true);
 
-            // Close the current dashboard stage
+            // Close the current stage
             Stage currentStage = (Stage) CancelMod.getScene().getWindow();
             currentStage.close();
-            // Show the login stage
+
+            // Show the stage
             stage.show();
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
+    /**
+     * Modify the item in the order with the specified changes.
+     */
     public void ModifyClicked(){
         //TO-DO
         //go back to order page with updated drink order

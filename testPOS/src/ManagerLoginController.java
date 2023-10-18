@@ -1,4 +1,3 @@
-import SharedData.SharedItemList;
 import javafx.fxml.FXML;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;

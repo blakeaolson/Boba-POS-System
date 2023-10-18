@@ -30,6 +30,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+
 public class ManagerDashboardController {
     @FXML
     private TextField addInventoryID;
@@ -1193,6 +1194,7 @@ public class ManagerDashboardController {
             String username = "csce315_971_kevtom2003";
             String password = "password";
 
+<<<<<<< HEAD
             String startTime = salesStartTimeField.getText(); // Format: "02/02/23 00:00:00"
             String endTime = salesEndTimeField.getText(); // Format: "02/02/23 00:00:00"
 
@@ -1205,6 +1207,9 @@ public class ManagerDashboardController {
             String formattedEndTime = outputFormat.format(endDate);
 
             String sqlQuery = "SELECT oi.itemname as itemreport, SUM(oi.quantity) as quantitysold FROM orders o JOIN orderitems oi ON o.id = oi.orderid WHERE (o.orderdate::timestamp || ' ' || o.time::time) BETWEEN ? AND ? GROUP BY oi.itemname;";
+=======
+            String sqlQuery = "SELECT oi.itemname as itemreport, SUM(oi.quantity) as quantitysold FROM orders o JOIN orderitems oi ON o.id = oi.orderid WHERE TO_TIMESTAMP(o.orderdate || ' ' || o.time, 'MM/DD/YY HH24:MI:SS') BETWEEN TIMESTAMP '10/17/23 00:00:00' AND TIMESTAMP '10/18/23 23:59:59' GROUP BY oi.itemname;";
+>>>>>>> main
 
             // Execute the SQL Query and update the table
             Connection connection = DriverManager.getConnection(jdbcUrl, username, password);
@@ -1239,7 +1244,6 @@ public class ManagerDashboardController {
     @FXML
     void generateHonorsReport() {
         String startStamp = salesReportStart.getText();
-        String endStamp = salesReportEnd.getText();
         try {
             // Replace with your PostgreSQL database credentials and connection URL
             String jdbcUrl = "jdbc:postgresql://csce-315-db.engr.tamu.edu/csce315331_08b_db";
