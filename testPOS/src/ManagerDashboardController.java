@@ -569,6 +569,7 @@ public class ManagerDashboardController {
         }
     }
 
+    //loads the manager revenue page
     @FXML
     private void revenueButtonClicked() {
         try {
@@ -586,6 +587,7 @@ public class ManagerDashboardController {
         }
     }
 
+    //loads the menu for the manager
     @FXML
     private void menuButtonClicked() {
         try {
@@ -603,6 +605,7 @@ public class ManagerDashboardController {
         }
     }
 
+    //loads the page to where you can add inventory
     @FXML
     private void addInventoryButtonClicked() {
         try {
@@ -620,6 +623,7 @@ public class ManagerDashboardController {
         }
     }
 
+    //function to add the inventory to the data base using a sql query
     @FXML
     private void addInventoryFinal() {
         String newItem = addInventoryID.getText();
@@ -627,20 +631,17 @@ public class ManagerDashboardController {
         String newCategory = addInventoryCategory.getText();
         int newMin = Integer.parseInt(addInventoryMinimum.getText());
         try {
-            // Replace with your PostgreSQL database credentials and connection URL
             String jdbcUrl = "jdbc:postgresql://csce-315-db.engr.tamu.edu/csce315331_08b_db";
             String username = "csce315_971_kevtom2003";
             String password = "password";
             Connection conn = null;
             try {
-                //Class.forName("org.postgresql.Driver");
                 conn = DriverManager.getConnection(jdbcUrl,username,password);
              } catch (Exception e) {
                 e.printStackTrace();
                 System.err.println(e.getClass().getName()+": "+e.getMessage());
                 System.exit(0);
              }
-            // Execute a sample query (replace with your query)
             String sql = "INSERT INTO inventory (itemid, quantity, itemcategory, minimumamount) VALUES (?, ?, ?, ?);";
             try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
                 pstmt.setString(1, newItem);
@@ -669,24 +670,22 @@ public class ManagerDashboardController {
         }
     }
 
+    //function that actually the deletes the inventory from the database
     @FXML
     private void subInventoryFinal() {
         String newItem = subInventoryID.getText();
         try {
-            // Replace with your PostgreSQL database credentials and connection URL
             String jdbcUrl = "jdbc:postgresql://csce-315-db.engr.tamu.edu/csce315331_08b_db";
             String username = "csce315_971_kevtom2003";
             String password = "password";
             Connection conn = null;
             try {
-                //Class.forName("org.postgresql.Driver");
                 conn = DriverManager.getConnection(jdbcUrl,username,password);
              } catch (Exception e) {
                 e.printStackTrace();
                 System.err.println(e.getClass().getName()+": "+e.getMessage());
                 System.exit(0);
              }
-            // Execute a sample query (replace with your query)
             String sql = "DELETE FROM inventory WHERE itemid = ?;";
             try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
                 pstmt.setString(1, newItem);
@@ -712,6 +711,7 @@ public class ManagerDashboardController {
         }
     }
 
+    //function that updates the inventory in the databse according to the users changes
     @FXML
     private void editInventoryFinal() {
         String newItem = editInventoryID.getText();
