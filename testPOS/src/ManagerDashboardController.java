@@ -67,7 +67,7 @@ public class ManagerDashboardController {
 
     @FXML
     private Button addInventoryButton = new Button();
-     @FXML
+        @FXML
     private Button subInventoryButton = new Button();
     @FXML
     private Button subInventory = new Button();
@@ -81,7 +81,7 @@ public class ManagerDashboardController {
     private TextField editMenuCost;
     @FXML
     private TextField subMenuID;
-     @FXML
+        @FXML
     private Button editInventoryButton = new Button();
     @FXML
     private Button editInventory = new Button();
@@ -189,9 +189,9 @@ public class ManagerDashboardController {
     @FXML
     private TableColumn<InventoryData, String> excessitem = new TableColumn<>("Excess Item");
     @FXML
-    private TableColumn<InventoryData, String> excessquantity = new TableColumn<>("Excess Quantity");
+    private TableColumn<InventoryData, String> excessquantity = new TableColumn<>("Excess Quantity");    
 
-
+    //updates initial tables in the fxml files
     @FXML
     private void initialize() {
         // This method is invoked when the FXML components are initialized.
@@ -202,7 +202,7 @@ public class ManagerDashboardController {
         loadOrders(conn);
     }
 
-    
+    //reloads the data based on updates to the tables in the database
     /** 
      * @param conn
      */
@@ -215,7 +215,7 @@ public class ManagerDashboardController {
         loadOrders(conn);
     }
 
-    
+    //makes the database connection initally so it doesn't need to be called repeatedly
     /** 
      * @return Connection
      */
@@ -235,10 +235,9 @@ public class ManagerDashboardController {
             System.exit(0);
             }
         return conn;
-        
-            
     }
 
+    //brings the user back to the login page when they logout
     @FXML
     public void logout() {
         try {
@@ -262,6 +261,7 @@ public class ManagerDashboardController {
         }
     }
 
+    //loads the page for the excess report
     @FXML
     public void loadExcessReportInput() {
         try {
@@ -285,6 +285,7 @@ public class ManagerDashboardController {
         }
     }
 
+    //loads the sales report page
     @FXML
     public void loadSalesReportInput() {
         try {
@@ -308,29 +309,8 @@ public class ManagerDashboardController {
         }
     }
 
-    public void showSalesReport() {
-        try {
-            // Load the Login.fxml file
-            Parent root = FXMLLoader.load(getClass().getResource("fxml/SalesReportOutput.fxml"));
-
-            // Create a new Stage
-            Stage stage = new Stage();
-            stage.setTitle("Sales Report");
-            stage.setScene(new Scene(root, 460, 354));
-            stage.setMaximized(true);
-
-            // Close the current dashboard stage
-            Stage currentStage = (Stage) logoutButton.getScene().getWindow();
-            currentStage.close();
-
-            // Show the login stage
-            stage.show();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
     
+    //queries the data from the sql database and places it into the table
     /** 
      * @param event
      */
@@ -403,8 +383,7 @@ public class ManagerDashboardController {
         }
     }
 
-
-
+    //loads the page to add an inventory item
     @FXML
     public void loadInventoryForm() {
         try {
@@ -428,6 +407,7 @@ public class ManagerDashboardController {
         }
     }
     
+    //loads page to allow user to decrease the inventory amount
     @FXML
     public void loadInventoryForm2() {
         try {
@@ -451,6 +431,7 @@ public class ManagerDashboardController {
         }
     }
     
+    //loads page to allow user to change the inventory amount
     @FXML
     public void loadInventoryForm3() {
         try {
@@ -474,6 +455,7 @@ public class ManagerDashboardController {
         }
     }
 
+    //loads form to let user add menu item
     @FXML
     public void loadMenuForm() {
         try {
@@ -497,6 +479,7 @@ public class ManagerDashboardController {
         }
     }
 
+    //loads form to allow for the user to delete a menu item
     @FXML
     public void loadMenuForm2() {
         try {
@@ -520,6 +503,7 @@ public class ManagerDashboardController {
         }
     }
 
+    //loads form to let a user edit a menu item
     @FXML
     public void loadMenuForm3() {
         try {
@@ -543,6 +527,7 @@ public class ManagerDashboardController {
         }
     }
 
+    //loads the manager order page
     @FXML
     private void ordersButtonClicked() {
         try {
@@ -560,6 +545,7 @@ public class ManagerDashboardController {
         }
     }
 
+    //loads the manager employees page
     @FXML
     private void employeesButtonClicked() {
         try {
@@ -577,6 +563,7 @@ public class ManagerDashboardController {
         }
     }
 
+    //loads the manager inventory page
     @FXML
     private void inventoryButtonClicked() {
         try {
@@ -595,6 +582,7 @@ public class ManagerDashboardController {
         }
     }
 
+    //loads the page that holds the sales that are made together page
     @FXML
     private void salesTogetherButtonClicked() {
         try {
@@ -612,6 +600,7 @@ public class ManagerDashboardController {
         }
     }
 
+    //loads the manager revenue page
     @FXML
     private void revenueButtonClicked() {
         try {
@@ -629,6 +618,7 @@ public class ManagerDashboardController {
         }
     }
 
+    //loads the menu for the manager
     @FXML
     private void menuButtonClicked() {
         try {
@@ -646,6 +636,7 @@ public class ManagerDashboardController {
         }
     }
 
+    //loads the page to where you can add inventory
     @FXML
     private void addInventoryButtonClicked() {
         try {
@@ -663,6 +654,7 @@ public class ManagerDashboardController {
         }
     }
 
+    //function to add the inventory to the data base using a sql query
     @FXML
     private void addInventoryFinal() {
         String newItem = addInventoryID.getText();
@@ -670,20 +662,17 @@ public class ManagerDashboardController {
         String newCategory = addInventoryCategory.getText();
         int newMin = Integer.parseInt(addInventoryMinimum.getText());
         try {
-            // Replace with your PostgreSQL database credentials and connection URL
             String jdbcUrl = "jdbc:postgresql://csce-315-db.engr.tamu.edu/csce315331_08b_db";
             String username = "csce315_971_kevtom2003";
             String password = "password";
             Connection conn = null;
             try {
-                //Class.forName("org.postgresql.Driver");
                 conn = DriverManager.getConnection(jdbcUrl,username,password);
              } catch (Exception e) {
                 e.printStackTrace();
                 System.err.println(e.getClass().getName()+": "+e.getMessage());
                 System.exit(0);
              }
-            // Execute a sample query (replace with your query)
             String sql = "INSERT INTO inventory (itemid, quantity, itemcategory, minimumamount) VALUES (?, ?, ?, ?);";
             try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
                 pstmt.setString(1, newItem);
@@ -712,24 +701,22 @@ public class ManagerDashboardController {
         }
     }
 
+    //function that actually the deletes the inventory from the database
     @FXML
     private void subInventoryFinal() {
         String newItem = subInventoryID.getText();
         try {
-            // Replace with your PostgreSQL database credentials and connection URL
             String jdbcUrl = "jdbc:postgresql://csce-315-db.engr.tamu.edu/csce315331_08b_db";
             String username = "csce315_971_kevtom2003";
             String password = "password";
             Connection conn = null;
             try {
-                //Class.forName("org.postgresql.Driver");
                 conn = DriverManager.getConnection(jdbcUrl,username,password);
              } catch (Exception e) {
                 e.printStackTrace();
                 System.err.println(e.getClass().getName()+": "+e.getMessage());
                 System.exit(0);
              }
-            // Execute a sample query (replace with your query)
             String sql = "DELETE FROM inventory WHERE itemid = ?;";
             try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
                 pstmt.setString(1, newItem);
@@ -755,6 +742,7 @@ public class ManagerDashboardController {
         }
     }
 
+    //function that updates the inventory in the databse according to the users changes
     @FXML
     private void editInventoryFinal() {
         String newItem = editInventoryID.getText();
@@ -762,20 +750,17 @@ public class ManagerDashboardController {
         String newCategory = editInventoryCategory.getText();
         int newMin = Integer.parseInt(editInventoryMinimum.getText());
         try {
-            // Replace with your PostgreSQL database credentials and connection URL
             String jdbcUrl = "jdbc:postgresql://csce-315-db.engr.tamu.edu/csce315331_08b_db";
             String username = "csce315_971_kevtom2003";
             String password = "password";
             Connection conn = null;
             try {
-                //Class.forName("org.postgresql.Driver");
                 conn = DriverManager.getConnection(jdbcUrl,username,password);
              } catch (Exception e) {
                 e.printStackTrace();
                 System.err.println(e.getClass().getName()+": "+e.getMessage());
                 System.exit(0);
              }
-            // Execute a sample query (replace with your query)
             String sql = "UPDATE inventory SET quantity = ?, itemcategory = ?, minimumamount = ? WHERE itemid = ?;";
             try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
                 pstmt.setString(4, newItem);
@@ -804,27 +789,24 @@ public class ManagerDashboardController {
         }
     }
 
+    //function that updates the menu item database according to menu item added by the manager
     @FXML
     private void addMenuFinal() {
         int newItem = Integer.parseInt(addMenuID.getText());
         String newName = addMenuName.getText();
         double newCost = Double.parseDouble(addMenuCost.getText());
-        //System.out.println(newItem + " " + newName + " " + newCost);
         try {
-            // Replace with your PostgreSQL database credentials and connection URL
             String jdbcUrl = "jdbc:postgresql://csce-315-db.engr.tamu.edu/csce315331_08b_db";
             String username = "csce315_971_kevtom2003";
             String password = "password";
             Connection conn = null;
             try {
-                //Class.forName("org.postgresql.Driver");
                 conn = DriverManager.getConnection(jdbcUrl,username,password);
              } catch (Exception e) {
                 e.printStackTrace();
                 System.err.println(e.getClass().getName()+": "+e.getMessage());
                 System.exit(0);
              }
-            // Execute a sample query (replace with your query)
             String sql = "INSERT INTO teaorders (id, tea_name, price) VALUES (?, ?, ?);";
             try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
                 pstmt.setInt(1, newItem);
@@ -852,25 +834,22 @@ public class ManagerDashboardController {
         }
     }
 
+    //function that deletes from the menu item database according to the manager's requests
     @FXML
     private void subMenuFinal() {
         int newItem = Integer.parseInt(subMenuID.getText());
-        //System.out.println(newItem);
         try {
-            // Replace with your PostgreSQL database credentials and connection URL
             String jdbcUrl = "jdbc:postgresql://csce-315-db.engr.tamu.edu/csce315331_08b_db";
             String username = "csce315_971_kevtom2003";
             String password = "password";
             Connection conn = null;
             try {
-                //Class.forName("org.postgresql.Driver");
                 conn = DriverManager.getConnection(jdbcUrl,username,password);
              } catch (Exception e) {
                 e.printStackTrace();
                 System.err.println(e.getClass().getName()+": "+e.getMessage());
                 System.exit(0);
              }
-            // Execute a sample query (replace with your query)
             String sql = "DELETE FROM teaorders WHERE id = ?;";
             try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
                 pstmt.setInt(1, newItem);
@@ -896,27 +875,24 @@ public class ManagerDashboardController {
         }
     }
 
+    //function that edits items from the menu item database according to the manager's requests
     @FXML
     private void editMenuFinal() {
         int newItem = Integer.parseInt(editMenuID.getText());
         String newName = editMenuName.getText();
         double newCost = Double.parseDouble(editMenuCost.getText());
-        //System.out.println(newItem + " " + newName + " " + newCost);
         try {
-            // Replace with your PostgreSQL database credentials and connection URL
             String jdbcUrl = "jdbc:postgresql://csce-315-db.engr.tamu.edu/csce315331_08b_db";
             String username = "csce315_971_kevtom2003";
             String password = "password";
             Connection conn = null;
             try {
-                //Class.forName("org.postgresql.Driver");
                 conn = DriverManager.getConnection(jdbcUrl,username,password);
              } catch (Exception e) {
                 e.printStackTrace();
                 System.err.println(e.getClass().getName()+": "+e.getMessage());
                 System.exit(0);
              }
-            // Execute a sample query (replace with your query)
             String sql = "UPDATE teaorders SET tea_name = ?, price = ? WHERE id = ?;";
             try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
                 pstmt.setInt(3, newItem);
@@ -944,14 +920,13 @@ public class ManagerDashboardController {
         }
     }
 
-    
+    //loads the inventory data into the inventory page/table
     /** 
      * @param conn
      */
     @FXML
     void loadInventoryData(Connection conn) {
         try{
-            // Execute a sample query (replace with your query)
             String sql = "SELECT * FROM inventory;";
             Statement statement = conn.createStatement();
             ResultSet resultSet = statement.executeQuery(sql);
@@ -964,7 +939,6 @@ public class ManagerDashboardController {
                 String quantity = resultSet.getString("quantity");
                 String category = resultSet.getString("itemcategory");
                 String min = resultSet.getString("minimumamount");
-                //System.out.println(itemid + " " + quantity + " " + category + " " + min);
                 data.add(new InventoryData(itemid,quantity,category,min));
                 if(Integer.parseInt(quantity) < Integer.parseInt(min)){
                     itemsNeeded.setText(itemsNeeded.getText() + itemid + "\n");
@@ -986,19 +960,17 @@ public class ManagerDashboardController {
         }
     }
 
-    
+    //loads the employee data into the employee page/table
     /** 
      * @param conn
      */
     @FXML
     void loadEmployees(Connection conn) {
         try{
-            // Execute a sample query (replace with your query)
             String sql = "SELECT * FROM employees;";
             Statement statement = conn.createStatement();
             ResultSet resultSet = statement.executeQuery(sql);
 
-            // Create an ObservableList to store the query results
             ObservableList<EmployeeData> data = FXCollections.observableArrayList();
 
             while (resultSet.next()) {
@@ -1026,12 +998,11 @@ public class ManagerDashboardController {
         }
     }
 
+    //loads the menu data into the menu page/table
     @FXML
     private void loadMenu(Connection conn) {
         try{
-            // Execute a sample query (replace with your query)
             String sql = "SELECT * FROM teaorders;";
-            //System.out.println(sql);
             Statement statement = conn.createStatement();
             ResultSet resultSet = statement.executeQuery(sql);
 
@@ -1042,7 +1013,6 @@ public class ManagerDashboardController {
                 String itemid = resultSet.getString("id");
                 String name = resultSet.getString("tea_name");
                 String cost = resultSet.getString("price");
-                //System.out.println(itemid + " " + name + " " + cost);
                 data.add(new MenuData(itemid,name,cost));
             }
 
@@ -1060,22 +1030,19 @@ public class ManagerDashboardController {
         }
     }
 
-    
+    //loads the orders data into the orders page/table
     /** 
      * @param conn
      */
     @FXML
     void loadOrders(Connection conn) {
         try {
-            // Execute a sample query (replace with your query)
             String sql = "SELECT * FROM orders;";
             Statement statement = conn.createStatement();
             ResultSet resultSet = statement.executeQuery(sql);
 
-
             // Create an ObservableList to store the query results
             ObservableList<Orders> data = FXCollections.observableArrayList();
-
 
             while (resultSet.next()) {
                 String id = resultSet.getString("id");
@@ -1087,7 +1054,6 @@ public class ManagerDashboardController {
                 data.add(new Orders(id,totalamount,orderdate,cashiername,paymentmethod,time));
             }
 
-
             // Bind the data to the TableView
             orderid.setCellValueFactory(new PropertyValueFactory<>("orderid"));
             totalamount.setCellValueFactory(new PropertyValueFactory<>("totalamount"));
@@ -1096,9 +1062,7 @@ public class ManagerDashboardController {
             paymentmethod.setCellValueFactory(new PropertyValueFactory<>("paymentmethod"));
             time.setCellValueFactory(new PropertyValueFactory<>("time"));
 
-
             OrderTable.setItems(data);
-
 
             // Close the database connection
             resultSet.close();
@@ -1108,6 +1072,7 @@ public class ManagerDashboardController {
         }
     }
 
+    //queries the database for paired items between a set time and displays in table
     @FXML
     private void loadPairs() {
         try {
@@ -1135,12 +1100,10 @@ public class ManagerDashboardController {
 
             ObservableList<PairData> pairData = FXCollections.observableArrayList();
 
-            // System.out.println("Item 1\tItem 2\tFrequency");
             while (resultSet.next()) {
                 String item1 = resultSet.getString("item1");
                 String item2 = resultSet.getString("item2");
                 Integer frequency = resultSet.getInt("frequency");
-                // System.out.println(item1 + "\t" + item2 + "\t" + frequency);
                 pairData.add(new PairData(item1, item2, frequency));
             }
 
@@ -1157,6 +1120,7 @@ public class ManagerDashboardController {
         }
     }
 
+    //allows manager to go back to dashboard
     @FXML
     private void loadDashboard() {
         try {
@@ -1167,26 +1131,7 @@ public class ManagerDashboardController {
         }
     }
 
-    @FXML
-    private void loadDashboardFromSalesReport() {
-        try {
-            Parent root = FXMLLoader.load(getClass().getResource("fxml/ManagerInventory.fxml"));
-            SalesTable.getScene().setRoot(root);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
-    @FXML
-    private void loadDashboardFromExcessReport() {
-        try {
-            Parent root = FXMLLoader.load(getClass().getResource("fxml/ManagerInventory.fxml"));
-            excessReportTable.getScene().setRoot(root);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
+    //queries the database for sold items between a set time and displays in table
     @FXML
     void generateSalesReport() {
         try {
@@ -1194,7 +1139,6 @@ public class ManagerDashboardController {
             String username = "csce315_971_kevtom2003";
             String password = "password";
 
-<<<<<<< HEAD
             String startTime = salesStartTimeField.getText(); // Format: "02/02/23 00:00:00"
             String endTime = salesEndTimeField.getText(); // Format: "02/02/23 00:00:00"
 
@@ -1207,9 +1151,6 @@ public class ManagerDashboardController {
             String formattedEndTime = outputFormat.format(endDate);
 
             String sqlQuery = "SELECT oi.itemname as itemreport, SUM(oi.quantity) as quantitysold FROM orders o JOIN orderitems oi ON o.id = oi.orderid WHERE (o.orderdate::timestamp || ' ' || o.time::time) BETWEEN ? AND ? GROUP BY oi.itemname;";
-=======
-            String sqlQuery = "SELECT oi.itemname as itemreport, SUM(oi.quantity) as quantitysold FROM orders o JOIN orderitems oi ON o.id = oi.orderid WHERE TO_TIMESTAMP(o.orderdate || ' ' || o.time, 'MM/DD/YY HH24:MI:SS') BETWEEN TIMESTAMP '10/17/23 00:00:00' AND TIMESTAMP '10/18/23 23:59:59' GROUP BY oi.itemname;";
->>>>>>> main
 
             // Execute the SQL Query and update the table
             Connection connection = DriverManager.getConnection(jdbcUrl, username, password);
@@ -1241,6 +1182,8 @@ public class ManagerDashboardController {
         }
     }
 
+
+    //queries the database for a set number of sold items between a set time in descending order by top sold and displays in table
     @FXML
     void generateHonorsReport() {
         String startStamp = salesReportStart.getText();
@@ -1282,7 +1225,6 @@ public class ManagerDashboardController {
             resultSet.close();
             statement.close();
             conn.close();
-            showSalesReport();
         } catch (Exception e) {
             e.printStackTrace();
         }
