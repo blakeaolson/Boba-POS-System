@@ -1184,7 +1184,6 @@ public class ManagerDashboardController {
             resultSet.close();
             statement.close();
             conn.close();
-            showSalesReport();
         } catch (Exception e) {
             e.printStackTrace();
         }
