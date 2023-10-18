@@ -21,6 +21,14 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.sql.Timestamp;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 
 public class ManagerDashboardController {
@@ -59,7 +67,7 @@ public class ManagerDashboardController {
 
     @FXML
     private Button addInventoryButton = new Button();
-     @FXML
+        @FXML
     private Button subInventoryButton = new Button();
     @FXML
     private Button subInventory = new Button();
@@ -73,7 +81,7 @@ public class ManagerDashboardController {
     private TextField editMenuCost;
     @FXML
     private TextField subMenuID;
-     @FXML
+        @FXML
     private Button editInventoryButton = new Button();
     @FXML
     private Button editInventory = new Button();
@@ -181,7 +189,7 @@ public class ManagerDashboardController {
     @FXML
     private TableColumn<InventoryData, String> excessitem = new TableColumn<>("Excess Item");
     @FXML
-    private TableColumn<InventoryData, String> excessquantity = new TableColumn<>("Excess Quantity");
+    private TableColumn<InventoryData, String> excessquantity = new TableColumn<>("Excess Quantity");    
 
     //updates initial tables in the fxml files
     @FXML
@@ -227,8 +235,6 @@ public class ManagerDashboardController {
             System.exit(0);
             }
         return conn;
-        
-            
     }
 
     //brings the user back to the login page when they logout
@@ -309,19 +315,48 @@ public class ManagerDashboardController {
      * @param event
      */
     @FXML
-    void generateExcessReport(ActionEvent event) {
+    void generateExcessReport() {
         try {
             String jdbcUrl = "jdbc:postgresql://csce-315-db.engr.tamu.edu/csce315331_08b_db";
             String username = "csce315_971_kevtom2003";
             String password = "password";
 
+            System.out.println("YO");
 
-            // fix query
-            String sqlQuery = "SELECT i.itemid, i.quantity AS beginning_inventory, SUM(oi.quantity) AS total_sold FROM inventory i LEFT JOIN orderitems oi ON i.itemid = oi.itemname LEFT JOIN orders o ON oi.orderid = o.id WHERE o.orderdate >= '10/16/23' AND o.orderdate <= '10/17/2023' GROUP BY i.itemid, i.quantity HAVING (SUM(oi.quantity) / i.quantity) < 300000;";
+            String startTime = excessStartTimeField.getText(); // Format: "02/02/23 00:00:00"
+            String endTime = excessEndTimeField.getText(); // Format: "02/02/23 00:00:00"
+
+            // Modify the time format to match the expected format in the SQL query
+            SimpleDateFormat inputFormat = new SimpleDateFormat("MM/dd/yy HH:mm:ss");
+            SimpleDateFormat outputFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+            Date startDate = inputFormat.parse(startTime);
+            Date endDate = inputFormat.parse(endTime);
+            String formattedStartTime = outputFormat.format(startDate);
+            String formattedEndTime = outputFormat.format(endDate);
+
+            String sqlQuery = "WITH item_sales AS ( " +
+                    "SELECT itemname, SUM(quantity) as total_quantity " +
+                    "FROM orders " +
+                    "JOIN orderitems ON orders.id = orderitems.orderid " +
+                    "WHERE time >= ? AND time <= ? " +
+                    "GROUP BY itemname " +
+                    "), " +
+                    "item_inventory AS ( " +
+                    "SELECT itemid, quantity " +
+                    "FROM inventory " +
+                    ") " +
+                    "SELECT i.itemid as excessitem, (100 * (i.quantity - COALESCE(s.total_quantity, 0)) / i.quantity) as excessquantity " +
+                    "FROM item_inventory i " +
+                    "LEFT JOIN item_sales s ON i.itemid = s.itemname " +
+                    "WHERE (100 * (i.quantity - COALESCE(s.total_quantity, 0)) / i.quantity) < 10";
 
             // Execute the SQL Query and update the table
-            Connection connection = DriverManager.getConnection(jdbcUrl,username,password);
+            Connection connection = DriverManager.getConnection(jdbcUrl, username, password);
             PreparedStatement statement = connection.prepareStatement(sqlQuery);
+            Timestamp startTimeStamp = Timestamp.valueOf(formattedStartTime);
+            Timestamp endTimeStamp = Timestamp.valueOf(formattedEndTime);
+            statement.setTimestamp(1, startTimeStamp);
+            statement.setTimestamp(2, endTimeStamp);
             ResultSet resultSet = statement.executeQuery();
 
             ObservableList<InventoryData> data = FXCollections.observableArrayList();
@@ -333,18 +368,20 @@ public class ManagerDashboardController {
                 data.add(new InventoryData(excessitem, excessquantity));
             }
 
-            excessitem.setCellValueFactory(new PropertyValueFactory<>("itemid"));
-            excessquantity.setCellValueFactory(new PropertyValueFactory<>("quantity"));
+            itemreport.setCellValueFactory(new PropertyValueFactory<>("itemreport"));
+            quantitysold.setCellValueFactory(new PropertyValueFactory<>("quantitysold"));
 
             excessReportTable.setItems(data);
 
             connection.close();
 
+        } catch (ParseException e) {
+            e.printStackTrace();
+            // Handle the ParseException here or throw it if necessary.
         } catch (SQLException e) {
             e.printStackTrace();
         }
     }
-
 
     //loads the page to add an inventory item
     @FXML
@@ -1083,12 +1120,34 @@ public class ManagerDashboardController {
         }
     }
 
-    //allows manager to go back to dashboard
+    //allows manager to go back to orders dashboard
     @FXML
     private void loadDashboard() {
         try {
             Parent root = FXMLLoader.load(getClass().getResource("fxml/ManagerOrders.fxml"));
             pairTable.getScene().setRoot(root);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    //allows manager to go back to inventory dashboard
+    @FXML
+    private void loadDashboardFromExcessReport() {
+        try {
+            Parent root = FXMLLoader.load(getClass().getResource("fxml/ManagerInventory.fxml"));
+            excessReportTable.getScene().setRoot(root);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    //allows manager to go back to inventory dashboard
+    @FXML
+    private void loadDashboardFromSalesReport() {
+        try {
+            Parent root = FXMLLoader.load(getClass().getResource("fxml/ManagerInventory.fxml"));
+            SalesTable.getScene().setRoot(root);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -1102,13 +1161,26 @@ public class ManagerDashboardController {
             String username = "csce315_971_kevtom2003";
             String password = "password";
 
-            String sqlQuery = "SELECT oi.itemname as itemreport, SUM(oi.quantity) as quantitysold FROM orders o JOIN orderitems oi ON o.id = oi.orderid WHERE TO_TIMESTAMP(o.orderdate || ' ' || o.time, 'MM/DD/YY HH24:MI:SS') BETWEEN TIMESTAMP '10/17/23 00:00:00' AND TIMESTAMP '10/18/23 23:59:59' GROUP BY oi.itemname;";
+            String startTime = salesStartTimeField.getText(); // Format: "02/02/23 00:00:00"
+            String endTime = salesEndTimeField.getText(); // Format: "02/02/23 00:00:00"
+
+            // Modify the time format to match the expected format in the SQL query
+            SimpleDateFormat inputFormat = new SimpleDateFormat("MM/dd/yy HH:mm:ss");
+            SimpleDateFormat outputFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+            Date startDate = inputFormat.parse(startTime);
+            Date endDate = inputFormat.parse(endTime);
+            String formattedStartTime = outputFormat.format(startDate);
+            String formattedEndTime = outputFormat.format(endDate);
+
+            String sqlQuery = "SELECT oi.itemname as itemreport, SUM(oi.quantity) as quantitysold FROM orders o JOIN orderitems oi ON o.id = oi.orderid WHERE (o.orderdate::timestamp || ' ' || o.time::time) BETWEEN ? AND ? GROUP BY oi.itemname;";
 
             // Execute the SQL Query and update the table
-            Connection connection = DriverManager.getConnection(jdbcUrl,username,password);
+            Connection connection = DriverManager.getConnection(jdbcUrl, username, password);
             PreparedStatement statement = connection.prepareStatement(sqlQuery);
-            // statement.setString(1, startTime);
-            // statement.setString(2, endTime);
+            Timestamp startTimeStamp = Timestamp.valueOf(formattedStartTime);
+            Timestamp endTimeStamp = Timestamp.valueOf(formattedEndTime);
+            statement.setTimestamp(1, startTimeStamp);
+            statement.setTimestamp(2, endTimeStamp);
             ResultSet resultSet = statement.executeQuery();
 
             ObservableList<SalesData> data = FXCollections.observableArrayList();
@@ -1116,7 +1188,6 @@ public class ManagerDashboardController {
             while (resultSet.next()) {
                 String itemreport = resultSet.getString("itemreport");
                 String quantitysold = resultSet.getString("quantitysold");
-                // System.out.println(itemreport + "\t" + quantitysold);
                 data.add(new SalesData(itemreport, quantitysold));
             }
 
@@ -1127,10 +1198,12 @@ public class ManagerDashboardController {
 
             connection.close();
 
-        } catch (SQLException e) {
+        } catch (ParseException | SQLException e) {
             e.printStackTrace();
+            // Handle the exceptions here as needed
         }
     }
+
 
     //queries the database for a set number of sold items between a set time in descending order by top sold and displays in table
     @FXML
