@@ -187,7 +187,7 @@ public class ManagerDashboardController {
     @FXML
     private TableColumn<InventoryData, String> excessquantity = new TableColumn<>("Excess Quantity");
 
-
+    //updates initial tables in the fxml files
     @FXML
     private void initialize() {
         // This method is invoked when the FXML components are initialized.
@@ -198,7 +198,7 @@ public class ManagerDashboardController {
         loadOrders(conn);
     }
 
-    
+    //reloads the data based on updates to the tables in the database
     /** 
      * @param conn
      */
@@ -211,7 +211,7 @@ public class ManagerDashboardController {
         loadOrders(conn);
     }
 
-    
+    //makes the database connection initally so it doesn't need to be called repeatedly
     /** 
      * @return Connection
      */
@@ -235,6 +235,7 @@ public class ManagerDashboardController {
             
     }
 
+    //brings the user back to the login page when they logout
     @FXML
     public void logout() {
         try {
@@ -258,6 +259,7 @@ public class ManagerDashboardController {
         }
     }
 
+    //loads the page for the excess report
     @FXML
     public void loadExcessReportInput() {
         try {
@@ -281,6 +283,7 @@ public class ManagerDashboardController {
         }
     }
 
+    //loads the sales report page
     @FXML
     public void loadSalesReportInput() {
         try {
@@ -304,29 +307,8 @@ public class ManagerDashboardController {
         }
     }
 
-    public void showSalesReport() {
-        try {
-            // Load the Login.fxml file
-            Parent root = FXMLLoader.load(getClass().getResource("fxml/SalesReportOutput.fxml"));
-
-            // Create a new Stage
-            Stage stage = new Stage();
-            stage.setTitle("Sales Report");
-            stage.setScene(new Scene(root, 460, 354));
-            stage.setMaximized(true);
-
-            // Close the current dashboard stage
-            Stage currentStage = (Stage) logoutButton.getScene().getWindow();
-            currentStage.close();
-
-            // Show the login stage
-            stage.show();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
     
+    //queries the data from the sql database and places it into the table
     /** 
      * @param event
      */
@@ -346,8 +328,6 @@ public class ManagerDashboardController {
             // Execute the SQL Query and update the table
             Connection connection = DriverManager.getConnection(jdbcUrl,username,password);
             PreparedStatement statement = connection.prepareStatement(sqlQuery);
-            // statement.setString(1, startTime);
-            // statement.setString(2, endTime);
             ResultSet resultSet = statement.executeQuery();
 
             ObservableList<InventoryData> data = FXCollections.observableArrayList();
@@ -372,7 +352,7 @@ public class ManagerDashboardController {
     }
 
 
-
+    //loads the page to add an inventory item
     @FXML
     public void loadInventoryForm() {
         try {
@@ -396,6 +376,7 @@ public class ManagerDashboardController {
         }
     }
     
+    //loads page to allow user to decrease the inventory amount
     @FXML
     public void loadInventoryForm2() {
         try {
@@ -419,6 +400,7 @@ public class ManagerDashboardController {
         }
     }
     
+    //loads page to allow user to change the inventory amount
     @FXML
     public void loadInventoryForm3() {
         try {
@@ -442,6 +424,7 @@ public class ManagerDashboardController {
         }
     }
 
+    //loads form to let user add menu item
     @FXML
     public void loadMenuForm() {
         try {
@@ -465,6 +448,7 @@ public class ManagerDashboardController {
         }
     }
 
+    //loads form to allow for the user to delete a menu item
     @FXML
     public void loadMenuForm2() {
         try {
@@ -488,6 +472,7 @@ public class ManagerDashboardController {
         }
     }
 
+    //loads form to let a user edit a menu item
     @FXML
     public void loadMenuForm3() {
         try {
