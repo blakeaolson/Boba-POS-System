@@ -1,13 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import javafx.geometry.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.text.*?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
@@ -16,7 +13,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<BorderPane prefHeight="387.0" prefWidth="550.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ManagerDashboardController">
+<BorderPane prefHeight="387.0" prefWidth="550.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ManagerDashboardController">
    <top>
       <HBox alignment="CENTER">
          <children>
@@ -52,22 +49,28 @@
             <HBox alignment="CENTER" spacing="10">
                <children>
                   <Label text="Start: MM/DD/YY HH:MM:SS" />
-                  <TextField fx:id="salesReportStart" />
+                  <TextField fx:id="salesStartTimeField" />
                </children>
             </HBox>
             <HBox alignment="CENTER" spacing="10">
                <children>
                   <Label text="End: MM/DD/YY HH:MM:SS" />
-                  <TextField fx:id="salesReportEnd" prefWidth="150" />
+                  <TextField fx:id="salesEndTimeField" prefWidth="150" />
                </children>
             </HBox>
+            <TableView fx:id="SalesTable" prefHeight="200.0" prefWidth="468.0">
+              <columns>
+                <TableColumn fx:id="itemreport" prefWidth="275.0" text="Item" />
+                <TableColumn fx:id="quantitysold" minWidth="0.0" prefWidth="274.0" text="Quantity" />
+              </columns>
+            </TableView>
          </children>
       </VBox>
    </center>
    <bottom>
       <Button fx:id="generateSalesReport" mnemonicParsing="false" onAction="#generateSalesReport" text="Generate Report" BorderPane.alignment="CENTER">
          <BorderPane.margin>
-            <Insets bottom="10.0" />
+            <Insets bottom="10.0" top="10.0" />
          </BorderPane.margin>
       </Button>
    </bottom>
