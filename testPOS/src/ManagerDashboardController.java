@@ -21,11 +21,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.sql.Timestamp;
-import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+
 
 public class ManagerDashboardController {
     @FXML
@@ -319,8 +315,6 @@ public class ManagerDashboardController {
             String username = "csce315_971_kevtom2003";
             String password = "password";
 
-            String startTime = excessStartTimeField.getText();
-            String endTime = excessEndTimeField.getText();
 
             // fix query
             String sqlQuery = "SELECT i.itemid, i.quantity AS beginning_inventory, SUM(oi.quantity) AS total_sold FROM inventory i LEFT JOIN orderitems oi ON i.itemid = oi.itemname LEFT JOIN orders o ON oi.orderid = o.id WHERE o.orderdate >= '10/16/23' AND o.orderdate <= '10/17/2023' GROUP BY i.itemid, i.quantity HAVING (SUM(oi.quantity) / i.quantity) < 300000;";
@@ -1108,9 +1102,6 @@ public class ManagerDashboardController {
             String username = "csce315_971_kevtom2003";
             String password = "password";
 
-            String startTime = salesStartTimeField.getText();
-            String endTime = salesEndTimeField.getText();
-
             String sqlQuery = "SELECT oi.itemname as itemreport, SUM(oi.quantity) as quantitysold FROM orders o JOIN orderitems oi ON o.id = oi.orderid WHERE TO_TIMESTAMP(o.orderdate || ' ' || o.time, 'MM/DD/YY HH24:MI:SS') BETWEEN TIMESTAMP '10/17/23 00:00:00' AND TIMESTAMP '10/18/23 23:59:59' GROUP BY oi.itemname;";
 
             // Execute the SQL Query and update the table
@@ -1145,7 +1136,6 @@ public class ManagerDashboardController {
     @FXML
     void generateHonorsReport() {
         String startStamp = salesReportStart.getText();
-        String endStamp = salesReportEnd.getText();
         try {
             // Replace with your PostgreSQL database credentials and connection URL
             String jdbcUrl = "jdbc:postgresql://csce-315-db.engr.tamu.edu/csce315331_08b_db";
