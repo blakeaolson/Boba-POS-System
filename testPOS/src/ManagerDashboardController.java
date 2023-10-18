@@ -1006,15 +1006,12 @@ public class ManagerDashboardController {
     @FXML
     void loadOrders(Connection conn) {
         try {
-            // Execute a sample query (replace with your query)
             String sql = "SELECT * FROM orders;";
             Statement statement = conn.createStatement();
             ResultSet resultSet = statement.executeQuery(sql);
 
-
             // Create an ObservableList to store the query results
             ObservableList<Orders> data = FXCollections.observableArrayList();
-
 
             while (resultSet.next()) {
                 String id = resultSet.getString("id");
@@ -1026,7 +1023,6 @@ public class ManagerDashboardController {
                 data.add(new Orders(id,totalamount,orderdate,cashiername,paymentmethod,time));
             }
 
-
             // Bind the data to the TableView
             orderid.setCellValueFactory(new PropertyValueFactory<>("orderid"));
             totalamount.setCellValueFactory(new PropertyValueFactory<>("totalamount"));
@@ -1035,9 +1031,7 @@ public class ManagerDashboardController {
             paymentmethod.setCellValueFactory(new PropertyValueFactory<>("paymentmethod"));
             time.setCellValueFactory(new PropertyValueFactory<>("time"));
 
-
             OrderTable.setItems(data);
-
 
             // Close the database connection
             resultSet.close();
@@ -1047,6 +1041,7 @@ public class ManagerDashboardController {
         }
     }
 
+    //queries the database for paired items between a set time and displays in table
     @FXML
     private void loadPairs() {
         try {
@@ -1074,12 +1069,10 @@ public class ManagerDashboardController {
 
             ObservableList<PairData> pairData = FXCollections.observableArrayList();
 
-            // System.out.println("Item 1\tItem 2\tFrequency");
             while (resultSet.next()) {
                 String item1 = resultSet.getString("item1");
                 String item2 = resultSet.getString("item2");
                 Integer frequency = resultSet.getInt("frequency");
-                // System.out.println(item1 + "\t" + item2 + "\t" + frequency);
                 pairData.add(new PairData(item1, item2, frequency));
             }
 
@@ -1096,6 +1089,7 @@ public class ManagerDashboardController {
         }
     }
 
+    //allows manager to go back to dashboard
     @FXML
     private void loadDashboard() {
         try {
@@ -1106,6 +1100,7 @@ public class ManagerDashboardController {
         }
     }
 
+    //queries the database for sold items between a set time and displays in table
     @FXML
     void generateSalesReport() {
         try {
@@ -1146,6 +1141,7 @@ public class ManagerDashboardController {
         }
     }
 
+    //queries the database for a set number of sold items between a set time in descending order by top sold and displays in table
     @FXML
     void generateHonorsReport() {
         String startStamp = salesReportStart.getText();
